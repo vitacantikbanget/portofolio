@@ -786,7 +786,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- Contact ---------- */}
+  {/* ---------- Contact ---------- */}
       <section id="contact" className="relative z-10 mx-auto max-w-4xl px-6 py-28 text-center md:px-10">
         <Reveal>
           <p className="text-xs tracking-[0.3em] text-[var(--accent)]">04 — KONTAK</p>
@@ -805,46 +805,55 @@ export default function Home() {
 
         <Reveal delay={200}>
           <p className="mt-6 max-w-md mx-auto leading-relaxed text-[var(--text-soft)]">
-            Tertarik untuk berkolaborasi,bermain game atau punya pertanyaan? Silakan hubungi saya melalui saluran di bawah ini.
+            Tertarik untuk berkolaborasi, bermain game, atau punya pertanyaan? Silakan hubungi saya melalui saluran di bawah ini.
           </p>
         </Reveal>
 
         <Reveal delay={300} className="mt-10">
-          <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 rounded-3xl border border-[var(--border)] bg-[var(--card)]/60 p-8 backdrop-blur-sm shadow-sm md:p-10">
-            <div className="flex flex-col items-center gap-3">
+          <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 rounded-3xl border border-[var(--border)] bg-[var(--card)]/60 p-6 backdrop-blur-sm shadow-sm md:p-10">
+            <div className="flex w-full flex-col items-center gap-4">
               <span className="text-xs tracking-[0.2em] text-[var(--text-soft)] uppercase">Kirim Pesan Langsung</span>
-              <div className="flex items-center gap-2">
-                <a
-  href="https://www.roblox.com/id/users/10379311741/profile"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-violet-500 transition-all text-white group"
->
-  <Gamepad2 className="w-5 h-5 text-violet-400 group-hover:scale-110 transition-transform" />
-  <div>
-    <p className="text-xs text-zinc-400">Roblox Profile</p>
-    <p className="text-sm font-semibold">@xichin_08</p>
-  </div>
-</a>
-                <a
-                  href={`mailto:${emailAddress}`}
-                  className="flex items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--bg)] px-6 py-3 text-sm font-medium text-[var(--text)] transition-all hover:border-[var(--accent)]"
-                >
-                  {emailAddress}
-                </a>
-                <button
-                  onClick={handleCopyEmail}
-                  aria-label="Salin email"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--card)] text-[var(--text)] transition-all hover:border-[var(--accent)] hover:scale-105"
-                >
-                  {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
-                </button>
-              </div>
               
+              {/* Layout Flex Vertikal di Mobile, Horizontal di Desktop */}
+              <div className="flex w-full flex-col md:flex-row items-center justify-center gap-3">
+                
+                {/* Tombol Roblox */}
+                <a
+                  href="https://www.roblox.com/id/users/10379311741/profile"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full md:w-auto items-center justify-center gap-3 px-5 py-3 rounded-2xl border border-[var(--border)] bg-[var(--bg)] transition-all hover:border-[var(--accent)] group"
+                >
+                  <Gamepad2 className="w-5 h-5 text-[var(--accent-2)] group-hover:scale-110 transition-transform" />
+                  <div className="text-left">
+                    <p className="text-[10px] text-[var(--text-soft)] uppercase tracking-wider">Roblox Profile</p>
+                    <p className="text-sm font-semibold text-[var(--text)]">@xichin_08</p>
+                  </div>
+                </a>
+
+                {/* Container Email & Copy */}
+                <div className="flex w-full md:w-auto items-center gap-2">
+                  <a
+                    href={`mailto:${emailAddress}`}
+                    className="flex-1 md:flex-initial text-center rounded-2xl border border-[var(--border)] bg-[var(--bg)] px-5 py-3 text-sm font-medium text-[var(--text)] transition-all hover:border-[var(--accent)] truncate"
+                  >
+                    {emailAddress}
+                  </a>
+                  <button
+                    onClick={handleCopyEmail}
+                    aria-label="Salin email"
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--card)] text-[var(--text)] transition-all hover:border-[var(--accent)] hover:scale-105"
+                  >
+                    {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+                  </button>
+                </div>
+
+              </div>
             </div>
 
             <div className="w-full border-t border-[var(--border)]/60 my-2" />
 
+            {/* Link Sosmed */}
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <a
                 href="https://www.instagram.com/vitaaptri_wd?stkn=NTY3OTB3dWx1NHBj"
@@ -871,15 +880,11 @@ export default function Home() {
       </section>
 
       {/* ---------- Footer ---------- */}
-      <footer className="relative z-10 border-t border-[var(--border)] px-6 py-10 md:px-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
-          <div>
-            <p className="text-sm font-semibold tracking-wide">
-              DESVITA<span className="text-[var(--accent)]">.</span>
-            </p>
-          </div>
-          <p className="text-xs text-[var(--text-soft)]">
-            © {new Date().getFullYear()} Desvita Putri. All rights reserved.
+      <footer className="relative z-10 border-t border-[var(--border)] py-8 text-center text-xs text-[var(--text-soft)]">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
+          <p>© {new Date().getFullYear()} Desvita Putri Wulandari. All rights reserved.</p>
+          <p className="tracking-wide">
+            Dibuat dengan <span className="text-[var(--accent)]">Next.js</span> & <span className="text-[var(--accent-2)]">Tailwind CSS</span>
           </p>
         </div>
       </footer>
