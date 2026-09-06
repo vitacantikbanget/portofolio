@@ -805,7 +805,7 @@ export default function Home() {
 
         <Reveal delay={200}>
           <p className="mt-6 max-w-md mx-auto leading-relaxed text-[var(--text-soft)]">
-            Tertarik untuk berkolaborasi atau punya pertanyaan? Silakan hubungi saya melalui saluran di bawah ini.
+            Tertarik untuk berkolaborasi,bermain game atau punya pertanyaan? Silakan hubungi saya melalui saluran di bawah ini.
           </p>
         </Reveal>
 
@@ -815,7 +815,7 @@ export default function Home() {
               <span className="text-xs tracking-[0.2em] text-[var(--text-soft)] uppercase">Kirim Pesan Langsung</span>
               <div className="flex items-center gap-2">
                 <a
-  href="https://www.roblox.com/users/xichin_08/profile"
+  href="https://www.roblox.com/share?code=ca625944a7c25244b37a67af4861b1c3&type=Profile&source=ProfileShare&stamp=1788703739535"
   target="_blank"
   rel="noopener noreferrer"
   className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-violet-500 transition-all text-white group"
