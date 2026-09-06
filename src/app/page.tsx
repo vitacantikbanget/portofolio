@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { Moon, Sun, ArrowUpRight, Check, Copy } from "lucide-react";
+import { Gamepad2 } from 'lucide-react';
 
 /* ---------- Fonts ---------- */
 const serif = Cormorant_Garamond({
@@ -813,6 +814,18 @@ export default function Home() {
             <div className="flex flex-col items-center gap-3">
               <span className="text-xs tracking-[0.2em] text-[var(--text-soft)] uppercase">Kirim Pesan Langsung</span>
               <div className="flex items-center gap-2">
+                <a
+  href="https://www.roblox.com/users/xichin_08/profile"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-violet-500 transition-all text-white group"
+>
+  <Gamepad2 className="w-5 h-5 text-violet-400 group-hover:scale-110 transition-transform" />
+  <div>
+    <p className="text-xs text-zinc-400">Roblox Profile</p>
+    <p className="text-sm font-semibold">@xichin_08</p>
+  </div>
+</a>
                 <a
                   href={`mailto:${emailAddress}`}
                   className="flex items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--bg)] px-6 py-3 text-sm font-medium text-[var(--text)] transition-all hover:border-[var(--accent)]"
