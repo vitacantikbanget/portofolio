@@ -20,7 +20,7 @@ export const projects: Project[] = [
       "Manajemen Perpustakaan adalah aplikasi web yang dibuat untuk membantu proses pencatatan buku, peminjaman, dan pengembalian di perpustakaan. Dibangun menggunakan Next.js, Supabase sebagai database, dan Tailwind CSS untuk tampilan.",
     technologies: ["Next.js", "Supabase", "Tailwind CSS"],
     image: "/manajemen perpustakaan.png",
-    link: "#",
+    link: "https://manajemen-perpustakaan-sandy.vercel.app",
   },
   {
     slug: "belajar-perkalian",
@@ -32,19 +32,19 @@ export const projects: Project[] = [
       "Website Belajar Perkalian dibuat agar anak-anak bisa belajar perkalian dengan cara yang menyenangkan. Fokus utama project ini adalah tampilan yang ramah anak dan interaksi sederhana.",
     technologies: ["Tailwind CSS", "JavaScript"],
     image: "/mtk3sd.png",
-    link: "#",
+    link: "https://vitacantikbanget.github.io/belajar-perkalian-SD/mtk",
   },
   {
-    slug: "nextjs-v2",
-    title: "Next.js V2",
+    slug: "MyApp",
+    title: "MyApp",
     category: "web",
     description:
       "Eksperimen membuat aplikasi fullstack dengan Next.js dan Supabase.",
     longDescription:
-      "Next.js V2 adalah eksperimen saya untuk mempelajari cara membuat aplikasi fullstack menggunakan Next.js App Router dan Supabase sebagai backend.",
+      "MyApp adalah eksperimen saya untuk mempelajari cara membuat aplikasi fullstack menggunakan Next.js App Router dan Supabase sebagai backend.",
     technologies: ["Next.js", "Supabase"],
     image: "/nextjsv2.png",
-    link: "#",
+    link: "https://nextjs-v2-fbui.vercel.app/",
   },
   {
     slug: "safereport",
@@ -56,7 +56,7 @@ export const projects: Project[] = [
       "SafeReport adalah project desain UI/UX berupa aplikasi mobile untuk melaporkan kejadian tidak aman di lingkungan sekolah secara anonim. Dibuat menggunakan Figma, mulai dari riset, wireframe, hingga prototype.",
     technologies: ["Figma", "UI/UX Design"],
     image: "/safereport.png",
-    link: "#",
+    link: "https://www.figma.com/design/nunI3SykyQcv9ZMpVIrlUS/Tugas-Pak-Sholeh-SafeReport?node-id=0-1&t=N333JAyed4XXOfvA-1",
   },
 ];
 
