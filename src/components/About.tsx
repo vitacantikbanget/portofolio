@@ -1,0 +1,285 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Code2, Palette, Bug } from "lucide-react";
+
+const learning = [
+  {
+    icon: Code2,
+    title: "Frontend Development",
+    desc: "HTML, CSS, JavaScript, React, Next.js, dan Tailwind CSS.",
+  },
+  {
+    icon: Palette,
+    title: "UI/UX Design",
+    desc: "Belajar bikin tampilan yang enak dilihat dan gampang dipakai.",
+  },
+  {
+    icon: Bug,
+    title: "Software Testing",
+    desc: "Belajar ngecek bug, nulis test case, dan automation dasar.",
+  },
+];
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease: "easeOut" as const },
+  },
+};
+
+export default function About() {
+  return (
+    <section id="about" className="section-pad relative overflow-hidden">
+      <div className="container-custom relative">
+        {/* ================= HEADER ================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-3 mb-12"
+        >
+          <span
+            className="w-8 h-[1px]"
+            style={{ background: "var(--accent)" }}
+          />
+          <span
+            className="text-[11px] tracking-[0.3em] uppercase font-medium"
+            style={{ color: "var(--text-muted)" }}
+          >
+            About Me
+          </span>
+        </motion.div>
+
+        {/* ================= MAIN GRID ================= */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start"
+        >
+          {/* KIRI — Heading */}
+          <motion.div variants={itemVariants} className="lg:col-span-5">
+            <h2
+              className="text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-medium"
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                color: "var(--text)",
+              }}
+            >
+              Still learning,
+              <br />
+              <span className="italic" style={{ color: "var(--accent)" }}>
+                always building.
+              </span>
+            </h2>
+
+            <div className="mt-8 flex items-center gap-2">
+              <span
+                className="w-12 h-[2px]"
+                style={{ background: "var(--accent)" }}
+              />
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ background: "var(--accent)" }}
+              />
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ background: "var(--accent)", opacity: 0.5 }}
+              />
+            </div>
+          </motion.div>
+
+          {/* KANAN — Teks */}
+          <motion.div
+            variants={itemVariants}
+            className="lg:col-span-7 space-y-5 lg:pt-2"
+          >
+            <p
+              className="text-base sm:text-lg leading-relaxed"
+              style={{ color: "var(--text)" }}
+            >
+              Saya pelajar jurusan Rekayasa Perangkat Lunak. Sehari-hari saya
+              belajar bikin website — mulai dari desain tampilannya dulu, baru
+              ngoding.
+            </p>
+
+            <p
+              className="text-sm sm:text-base leading-relaxed"
+              style={{ color: "var(--text-muted)" }}
+            >
+              Saya suka bagian ketika sebuah ide berubah jadi halaman yang bisa
+              dipakai orang. Walaupun masih belajar, saya senang nyoba hal-hal
+              baru dan lama-lama makin paham.
+            </p>
+
+            <p
+              className="text-sm sm:text-base leading-relaxed"
+              style={{ color: "var(--text-muted)" }}
+            >
+              Selain ngoding, saya juga tertarik sama{" "}
+              <span className="font-medium" style={{ color: "var(--text)" }}>
+                software testing
+              </span>{" "}
+              — soalnya saya penasaran gimana caranya mastiin website beneran
+              jalan dengan baik, bukan cuma keliatan bagus.
+            </p>
+
+            <div
+              className="grid grid-cols-2 gap-x-6 gap-y-4 pt-6 mt-6 border-t"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <div>
+                <p
+                  className="text-[10px] tracking-[0.2em] uppercase mb-1"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Fokus
+                </p>
+                <p className="text-sm" style={{ color: "var(--text)" }}>
+                  Web Development
+                </p>
+              </div>
+              <div>
+                <p
+                  className="text-[10px] tracking-[0.2em] uppercase mb-1"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Sekarang
+                </p>
+                <p className="text-sm" style={{ color: "var(--text)" }}>
+                  Pelajar RPL
+                </p>
+              </div>
+              <div>
+                <p
+                  className="text-[10px] tracking-[0.2em] uppercase mb-1"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Tinggal di
+                </p>
+                <p className="text-sm" style={{ color: "var(--text)" }}>
+                  Pasuruan
+                </p>
+              </div>
+              <div>
+                <p
+                  className="text-[10px] tracking-[0.2em] uppercase mb-1"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Bahasa
+                </p>
+                <p className="text-sm" style={{ color: "var(--text)" }}>
+                  Indonesia & English
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* ================= SEDANG DIPELAJARI ================= */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="mt-20 lg:mt-28"
+        >
+          <motion.div variants={itemVariants} className="mb-10">
+            <p
+              className="text-[11px] tracking-[0.3em] uppercase mb-2"
+              style={{ color: "var(--text-muted)" }}
+            >
+              Sedang Dipelajari
+            </p>
+            <h3
+              className="text-3xl sm:text-4xl font-medium"
+              style={{
+                fontFamily: "var(--font-cormorant)",
+                color: "var(--text)",
+              }}
+            >
+              Hal-hal yang lagi saya tekuni
+            </h3>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {learning.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  variants={itemVariants}
+                  whileHover={{ y: -6 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  className="group relative p-6 rounded-2xl border overflow-hidden"
+                  style={{
+                    background: "var(--surface)",
+                    borderColor: "var(--border)",
+                  }}
+                >
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(circle at top right, var(--accent-soft), transparent 70%)",
+                    }}
+                  />
+
+                  <div className="relative">
+                    <div
+                      className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 group-hover:rotate-[-6deg] group-hover:scale-110"
+                      style={{
+                        background: "var(--accent-soft)",
+                        color: "var(--accent)",
+                      }}
+                    >
+                      <Icon size={20} />
+                    </div>
+
+                    <h4
+                      className="text-lg font-medium mb-2"
+                      style={{
+                        fontFamily: "var(--font-cormorant)",
+                        color: "var(--text)",
+                      }}
+                    >
+                      {item.title}
+                    </h4>
+
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--text-muted)" }}
+                    >
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  <span
+                    className="absolute bottom-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                    style={{ background: "var(--accent)" }}
+                  />
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
