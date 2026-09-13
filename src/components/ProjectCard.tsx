@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/projects";
@@ -23,8 +22,10 @@ export default function ProjectCard({ project, index }: Props) {
         ease: "easeOut",
       }}
     >
-      <Link
-        href={`/projects/${project.slug}`}
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
         className="group block rounded-2xl border overflow-hidden transition-all hover:-translate-y-1"
         style={{
           background: "var(--surface)",
@@ -99,7 +100,7 @@ export default function ProjectCard({ project, index }: Props) {
             ))}
           </div>
         </div>
-      </Link>
+      </a>
     </motion.div>
   );
 }

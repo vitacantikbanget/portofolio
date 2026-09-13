@@ -35,7 +35,7 @@ export const projects: Project[] = [
     link: "https://vitacantikbanget.github.io/belajar-perkalian-SD/mtk",
   },
   {
-    slug: "MyApp",
+    slug: "myapp",
     title: "MyApp",
     category: "web",
     description:
