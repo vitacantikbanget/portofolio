@@ -35,13 +35,227 @@ export default function Hero() {
     >
       <div className="container-custom w-full py-24 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* ================= FOTO ================= */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="flex justify-center lg:justify-end lg:order-2"
+          >
+            <div className="relative w-[240px] sm:w-[300px] lg:w-[360px]">
+              {/* Glow di belakang */}
+              <div
+                className="absolute inset-0 rounded-full pointer-events-none"
+                style={{
+                  background: "var(--accent)",
+                  opacity: 0.3,
+                  filter: "blur(80px)",
+                  transform: "scale(0.9)",
+                }}
+              />
+
+              {/* ====== DOT GRID (kiri atas, di belakang foto) ====== */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-20px",
+                  left: "-20px",
+                  width: "80px",
+                  height: "80px",
+                  backgroundImage:
+                    "radial-gradient(var(--accent) 1.2px, transparent 1.2px)",
+                  backgroundSize: "12px 12px",
+                  opacity: 0.5,
+                }}
+              />
+
+              {/* ====== GARIS AKSEN (kanan, vertikal) ====== */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  right: "-24px",
+                  top: "20%",
+                  width: "1px",
+                  height: "40%",
+                  background:
+                    "linear-gradient(to bottom, transparent, var(--accent), transparent)",
+                  opacity: 0.6,
+                }}
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              {/* ====== GARIS AKSEN (kiri, vertikal) ====== */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  left: "-24px",
+                  top: "40%",
+                  width: "1px",
+                  height: "40%",
+                  background:
+                    "linear-gradient(to bottom, transparent, var(--mauve), transparent)",
+                  opacity: 0.6,
+                }}
+                animate={{ y: [0, 10, 0] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
+              />
+
+              {/* ====== LINGKARAN PULSING (kanan atas) ====== */}
+              <motion.div
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  top: "-16px",
+                  right: "-16px",
+                  width: "60px",
+                  height: "60px",
+                  border: "1.5px solid var(--accent)",
+                  opacity: 0.5,
+                }}
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              {/* ====== TITIK GLOW (kiri bawah) ====== */}
+              <motion.div
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  bottom: "30%",
+                  left: "-12px",
+                  width: "10px",
+                  height: "10px",
+                  background: "var(--mauve)",
+                  boxShadow: "0 0 20px var(--mauve)",
+                }}
+                animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.8,
+                }}
+              />
+
+              {/* ====== FOTO ====== */}
+              <motion.div
+                style={{
+                  x: mouse.x * 10,
+                  y: mouse.y * 10,
+                }}
+                transition={{ type: "spring", stiffness: 60, damping: 20 }}
+                className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+              >
+                <Image
+                  src="/profile.jpeg"
+                  alt="Desvita Putri Wulandari"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 300px, 360px"
+                />
+              </motion.div>
+
+              {/* ====== SUDUT VIEWFINDER (4 sudut) ====== */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-8px",
+                  left: "-8px",
+                  width: "32px",
+                  height: "32px",
+                  borderTop: "2px solid var(--accent)",
+                  borderLeft: "2px solid var(--accent)",
+                  borderTopLeftRadius: "12px",
+                }}
+              />
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-8px",
+                  right: "-8px",
+                  width: "32px",
+                  height: "32px",
+                  borderTop: "2px solid var(--accent)",
+                  borderRight: "2px solid var(--accent)",
+                  borderTopRightRadius: "12px",
+                }}
+              />
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-8px",
+                  left: "-8px",
+                  width: "32px",
+                  height: "32px",
+                  borderBottom: "2px solid var(--accent)",
+                  borderLeft: "2px solid var(--accent)",
+                  borderBottomLeftRadius: "12px",
+                }}
+              />
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-8px",
+                  right: "-8px",
+                  width: "32px",
+                  height: "32px",
+                  borderBottom: "2px solid var(--accent)",
+                  borderRight: "2px solid var(--accent)",
+                  borderBottomRightRadius: "12px",
+                }}
+              />
+
+              {/* ====== LABEL FLOATING (kiri bawah) ====== */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 1 }}
+                className="absolute -bottom-5 -left-5 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
+                style={{
+                  background: "var(--surface)",
+                  borderColor: "var(--border)",
+                  color: "var(--text-muted)",
+                }}
+              >
+                Pasuruan, ID
+              </motion.div>
+
+              {/* ====== LABEL FLOATING (kanan atas) ====== */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+                className="absolute -top-5 -right-5 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
+                style={{
+                  background: "var(--surface)",
+                  borderColor: "var(--border)",
+                  color: "var(--text-muted)",
+                }}
+              >
+                Frontend Dev
+              </motion.div>
+            </div>
+          </motion.div>
+
           {/* ================= TEXT ================= */}
-          <div className="text-center lg:text-left">
-            {/* Label */}
+          <div className="text-center lg:text-left lg:order-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[10px] tracking-[0.18em] uppercase"
               style={{
                 borderColor: "var(--border)",
@@ -56,11 +270,10 @@ export default function Hero() {
               Available for work
             </motion.div>
 
-            {/* Nama */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
               className="mt-5 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] font-medium"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
@@ -72,22 +285,20 @@ export default function Hero() {
               </span>
             </motion.h1>
 
-            {/* Typing */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               className="mt-5 text-base sm:text-lg lg:text-xl font-light min-h-[1.8em]"
               style={{ color: "var(--text-muted)" }}
             >
               I'm a <TypingText />
             </motion.div>
 
-            {/* Deskripsi */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
               className="mt-5 max-w-lg mx-auto lg:mx-0 text-sm sm:text-[15px] leading-relaxed"
               style={{ color: "var(--text-muted)" }}
             >
@@ -97,7 +308,6 @@ export default function Hero() {
               menarik dan nyaman digunakan.
             </motion.p>
 
-            {/* Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -132,71 +342,6 @@ export default function Hero() {
               </a>
             </motion.div>
           </div>
-
-          {/* ================= FOTO ================= */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.4 }}
-            className="flex justify-center lg:justify-end"
-          >
-            <div className="relative w-[240px] sm:w-[300px] lg:w-[360px]">
-              {/* Glow */}
-              <div
-                className="absolute inset-0 rounded-full pointer-events-none"
-                style={{
-                  background: "var(--accent)",
-                  opacity: 0.25,
-                  filter: "blur(70px)",
-                  transform: "scale(0.85)",
-                }}
-              />
-
-              {/* Frame dekoratif */}
-              <motion.div
-                className="absolute rounded-[2rem] border pointer-events-none"
-                style={{
-                  top: "-12px",
-                  left: "-12px",
-                  right: "-12px",
-                  bottom: "-12px",
-                  borderColor: "var(--border)",
-                }}
-                animate={{ rotate: [0, 1.5, 0, -1.5, 0] }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-              {/* Foto */}
-              <motion.div
-                style={{
-                  x: mouse.x * 10,
-                  y: mouse.y * 10,
-                }}
-                transition={{ type: "spring", stiffness: 60, damping: 20 }}
-                className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl"
-              >
-                <Image
-                  src="/profile.jpeg"
-                  alt="Desvita Putri Wulandari"
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 300px, 360px"
-                />
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.22), transparent 45%)",
-                  }}
-                />
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>
