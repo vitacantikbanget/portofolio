@@ -9,9 +9,13 @@ import TypingText from "./hero/TypingText";
 export default function Hero() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [isDesktop, setIsDesktop] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    const check = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+      setIsMobile(window.innerWidth < 768);
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -43,25 +47,25 @@ export default function Hero() {
             className="flex justify-center lg:justify-end lg:order-2"
           >
             <div className="relative w-[240px] sm:w-[300px] lg:w-[360px]">
-              {/* Glow di belakang */}
+              {/* Glow — blur dikurangi di mobile */}
               <div
                 className="absolute inset-0 rounded-full pointer-events-none"
                 style={{
                   background: "var(--accent)",
-                  opacity: 0.3,
-                  filter: "blur(80px)",
+                  opacity: 0.25,
+                  filter: isMobile ? "blur(40px)" : "blur(70px)",
                   transform: "scale(0.9)",
                 }}
               />
 
-              {/* ====== DOT GRID (kiri atas, di belakang foto) ====== */}
+              {/* Dot grid — tetap ada, tapi lebih kecil di mobile */}
               <div
                 className="absolute pointer-events-none"
                 style={{
                   top: "-20px",
                   left: "-20px",
-                  width: "80px",
-                  height: "80px",
+                  width: isMobile ? "60px" : "80px",
+                  height: isMobile ? "60px" : "80px",
                   backgroundImage:
                     "radial-gradient(var(--accent) 1.2px, transparent 1.2px)",
                   backgroundSize: "12px 12px",
@@ -69,91 +73,11 @@ export default function Hero() {
                 }}
               />
 
-              {/* ====== GARIS AKSEN (kanan, vertikal) ====== */}
-              <motion.div
-                className="absolute pointer-events-none"
-                style={{
-                  right: "-24px",
-                  top: "20%",
-                  width: "1px",
-                  height: "40%",
-                  background:
-                    "linear-gradient(to bottom, transparent, var(--accent), transparent)",
-                  opacity: 0.6,
-                }}
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-              {/* ====== GARIS AKSEN (kiri, vertikal) ====== */}
-              <motion.div
-                className="absolute pointer-events-none"
-                style={{
-                  left: "-24px",
-                  top: "40%",
-                  width: "1px",
-                  height: "40%",
-                  background:
-                    "linear-gradient(to bottom, transparent, var(--mauve), transparent)",
-                  opacity: 0.6,
-                }}
-                animate={{ y: [0, 10, 0] }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-              />
-
-              {/* ====== LINGKARAN PULSING (kanan atas) ====== */}
-              <motion.div
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  top: "-16px",
-                  right: "-16px",
-                  width: "60px",
-                  height: "60px",
-                  border: "1.5px solid var(--accent)",
-                  opacity: 0.5,
-                }}
-                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-              {/* ====== TITIK GLOW (kiri bawah) ====== */}
-              <motion.div
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  bottom: "30%",
-                  left: "-12px",
-                  width: "10px",
-                  height: "10px",
-                  background: "var(--mauve)",
-                  boxShadow: "0 0 20px var(--mauve)",
-                }}
-                animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.8,
-                }}
-              />
-
-              {/* ====== FOTO ====== */}
+              {/* Foto — parallax hanya desktop */}
               <motion.div
                 style={{
-                  x: mouse.x * 10,
-                  y: mouse.y * 10,
+                  x: isDesktop ? mouse.x * 10 : 0,
+                  y: isDesktop ? mouse.y * 10 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 60, damping: 20 }}
                 className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
@@ -168,14 +92,14 @@ export default function Hero() {
                 />
               </motion.div>
 
-              {/* ====== SUDUT VIEWFINDER (4 sudut) ====== */}
+              {/* Sudut viewfinder — tetap ada */}
               <div
                 className="absolute pointer-events-none"
                 style={{
                   top: "-8px",
                   left: "-8px",
-                  width: "32px",
-                  height: "32px",
+                  width: isMobile ? "24px" : "32px",
+                  height: isMobile ? "24px" : "32px",
                   borderTop: "2px solid var(--accent)",
                   borderLeft: "2px solid var(--accent)",
                   borderTopLeftRadius: "12px",
@@ -186,8 +110,8 @@ export default function Hero() {
                 style={{
                   top: "-8px",
                   right: "-8px",
-                  width: "32px",
-                  height: "32px",
+                  width: isMobile ? "24px" : "32px",
+                  height: isMobile ? "24px" : "32px",
                   borderTop: "2px solid var(--accent)",
                   borderRight: "2px solid var(--accent)",
                   borderTopRightRadius: "12px",
@@ -198,8 +122,8 @@ export default function Hero() {
                 style={{
                   bottom: "-8px",
                   left: "-8px",
-                  width: "32px",
-                  height: "32px",
+                  width: isMobile ? "24px" : "32px",
+                  height: isMobile ? "24px" : "32px",
                   borderBottom: "2px solid var(--accent)",
                   borderLeft: "2px solid var(--accent)",
                   borderBottomLeftRadius: "12px",
@@ -210,15 +134,15 @@ export default function Hero() {
                 style={{
                   bottom: "-8px",
                   right: "-8px",
-                  width: "32px",
-                  height: "32px",
+                  width: isMobile ? "24px" : "32px",
+                  height: isMobile ? "24px" : "32px",
                   borderBottom: "2px solid var(--accent)",
                   borderRight: "2px solid var(--accent)",
                   borderBottomRightRadius: "12px",
                 }}
               />
 
-              {/* ====== LABEL FLOATING (kiri bawah) ====== */}
+              {/* Label floating — tetap ada */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -233,7 +157,6 @@ export default function Hero() {
                 Pasuruan, ID
               </motion.div>
 
-              {/* ====== LABEL FLOATING (kanan atas) ====== */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
