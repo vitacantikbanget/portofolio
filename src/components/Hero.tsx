@@ -34,77 +34,34 @@ export default function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden"
     >
       <div className="container-custom w-full pt-32 pb-20 lg:py-28">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* ================= FOTO ================= */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="flex justify-center lg:justify-end lg:order-2 order-1"
+            className="flex justify-center lg:justify-end order-1 lg:order-2"
           >
-            <div className="relative w-[240px] sm:w-[300px] lg:w-[360px]">
-              {/* Glow di belakang */}
+            <div className="relative w-[160px] sm:w-[220px] lg:w-[320px]">
+              {/* Glow */}
               <div
                 className="absolute inset-0 rounded-full pointer-events-none"
                 style={{
                   background: "var(--accent)",
-                  opacity: 0.3,
-                  filter: "blur(70px)",
+                  opacity: 0.2,
+                  filter: "blur(50px)",
                   transform: "scale(0.9)",
-                }}
-              />
-
-              {/* ====== DOT GRID — kiri atas ====== */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  top: "-30px",
-                  left: "-30px",
-                  width: "90px",
-                  height: "90px",
-                  backgroundImage:
-                    "radial-gradient(var(--accent) 1.5px, transparent 1.5px)",
-                  backgroundSize: "14px 14px",
-                  opacity: 0.6,
-                }}
-              />
-
-              {/* ====== GARIS DIAGONAL — kanan bawah ====== */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  bottom: "-25px",
-                  right: "-25px",
-                  width: "90px",
-                  height: "90px",
-                  backgroundImage:
-                    "repeating-linear-gradient(45deg, var(--accent) 0, var(--accent) 1.5px, transparent 1.5px, transparent 9px)",
-                  opacity: 0.5,
-                }}
-              />
-
-              {/* ====== GARIS DIAGONAL — kiri bawah ====== */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  bottom: "-25px",
-                  left: "-25px",
-                  width: "60px",
-                  height: "60px",
-                  backgroundImage:
-                    "repeating-linear-gradient(-45deg, var(--mauve) 0, var(--mauve) 1.5px, transparent 1.5px, transparent 9px)",
-                  opacity: 0.4,
                 }}
               />
 
               {/* ====== FOTO ====== */}
               <motion.div
                 style={{
-                  x: isDesktop ? mouse.x * 10 : 0,
-                  y: isDesktop ? mouse.y * 10 : 0,
+                  x: isDesktop ? mouse.x * 8 : 0,
+                  y: isDesktop ? mouse.y * 8 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 60, damping: 20 }}
-                className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl"
+                className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
               >
                 <Image
                   src="/profile.jpeg"
@@ -112,119 +69,513 @@ export default function Hero() {
                   fill
                   className="object-cover"
                   priority
-                  sizes="(max-width: 640px) 240px, (max-width: 1024px) 300px, 360px"
+                  sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 320px"
                 />
               </motion.div>
 
-              {/* ====== SUDUT VIEWFINDER — 4 sudut ====== */}
+              {/* ================= GARIS PENGHUBUNG (static) ================= */}
+              {/* Sisi atas */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  top: "-8px",
-                  left: "-8px",
-                  width: "32px",
-                  height: "32px",
-                  borderTop: "2px solid var(--accent)",
-                  borderLeft: "2px solid var(--accent)",
-                  borderTopLeftRadius: "10px",
+                  top: "-6px",
+                  left: "10%",
+                  right: "10%",
+                  height: "1px",
+                  background: "var(--border)",
+                  opacity: 0.4,
                 }}
               />
+              {/* Sisi bawah */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  top: "-8px",
-                  right: "-8px",
-                  width: "32px",
-                  height: "32px",
-                  borderTop: "2px solid var(--accent)",
-                  borderRight: "2px solid var(--accent)",
-                  borderTopRightRadius: "10px",
+                  bottom: "-6px",
+                  left: "10%",
+                  right: "10%",
+                  height: "1px",
+                  background: "var(--border)",
+                  opacity: 0.4,
                 }}
               />
+              {/* Sisi kiri */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  bottom: "-8px",
-                  left: "-8px",
-                  width: "32px",
-                  height: "32px",
-                  borderBottom: "2px solid var(--accent)",
-                  borderLeft: "2px solid var(--accent)",
-                  borderBottomLeftRadius: "10px",
+                  left: "-6px",
+                  top: "10%",
+                  bottom: "10%",
+                  width: "1px",
+                  background: "var(--border)",
+                  opacity: 0.4,
                 }}
               />
+              {/* Sisi kanan */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  bottom: "-8px",
-                  right: "-8px",
-                  width: "32px",
-                  height: "32px",
-                  borderBottom: "2px solid var(--accent)",
-                  borderRight: "2px solid var(--accent)",
-                  borderBottomRightRadius: "10px",
+                  right: "-6px",
+                  top: "10%",
+                  bottom: "10%",
+                  width: "1px",
+                  background: "var(--border)",
+                  opacity: 0.4,
                 }}
               />
 
-              {/* ====== TITIK GLOW — kiri atas (statis) ====== */}
-              <div
-                className="absolute rounded-full pointer-events-none"
+              {/* ================= RUNNING LIGHT (smooth) ================= */}
+              {/* Konsep: 4 sisi × 3 potongan = 12 potongan
+                  bergantian muncul dengan easing smooth */}
+
+              {/* === SISI ATAS === */}
+              <motion.div
+                className="absolute pointer-events-none"
                 style={{
-                  top: "-34px",
-                  left: "-34px",
+                  top: "-6px",
+                  left: "10%",
+                  width: "20%",
+                  height: "2px",
+                  background: "var(--accent)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--accent))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 1, 1, 0, 0, 0, 0, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-6px",
+                  left: "40%",
+                  width: "20%",
+                  height: "2px",
+                  background: "var(--accent)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--accent))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 1, 1, 0, 0, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-6px",
+                  right: "10%",
+                  width: "20%",
+                  height: "2px",
+                  background: "var(--accent)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--accent))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 0, 0, 1, 1, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+
+              {/* === SISI KANAN === */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  right: "-6px",
+                  top: "10%",
+                  width: "2px",
+                  height: "20%",
+                  background: "var(--accent)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--accent))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 1, 1, 0, 0, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  right: "-6px",
+                  top: "40%",
+                  width: "2px",
+                  height: "20%",
+                  background: "var(--accent)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--accent))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 0, 0, 1, 1, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  right: "-6px",
+                  bottom: "10%",
+                  width: "2px",
+                  height: "20%",
+                  background: "var(--accent)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--accent))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 0, 0, 0, 0, 1] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+
+              {/* === SISI BAWAH === */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-6px",
+                  right: "10%",
+                  width: "20%",
+                  height: "2px",
+                  background: "var(--mauve)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--mauve))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 0, 0, 1, 1, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-6px",
+                  left: "40%",
+                  width: "20%",
+                  height: "2px",
+                  background: "var(--mauve)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--mauve))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 0, 0, 0, 0, 1] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-6px",
+                  left: "10%",
+                  width: "20%",
+                  height: "2px",
+                  background: "var(--mauve)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--mauve))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 0, 0, 0, 1, 1] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+
+              {/* === SISI KIRI === */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  left: "-6px",
+                  bottom: "10%",
+                  width: "2px",
+                  height: "20%",
+                  background: "var(--mauve)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--mauve))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 1, 1, 0, 0, 0, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  left: "-6px",
+                  top: "40%",
+                  width: "2px",
+                  height: "20%",
+                  background: "var(--mauve)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--mauve))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [1, 1, 0, 0, 0, 0, 0, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  left: "-6px",
+                  top: "10%",
+                  width: "2px",
+                  height: "20%",
+                  background: "var(--mauve)",
+                  borderRadius: "2px",
+                  filter: "drop-shadow(0 0 4px var(--mauve))",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [0, 0, 0, 0, 1, 1, 0, 0] }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: [0.4, 0, 0.6, 1],
+                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
+                }}
+              />
+
+              {/* ================= GARIS DIAGONAL DALAM SUDUT ================= */}
+              {/* Kiri atas */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "2px",
+                  left: "2px",
+                  width: "12px",
+                  height: "12px",
+                  borderTop: "1px solid var(--accent)",
+                  borderLeft: "1px solid var(--accent)",
+                  opacity: 0.6,
+                }}
+              />
+              {/* Kanan atas */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "2px",
+                  right: "2px",
+                  width: "12px",
+                  height: "12px",
+                  borderTop: "1px solid var(--accent)",
+                  borderRight: "1px solid var(--accent)",
+                  opacity: 0.6,
+                }}
+              />
+              {/* Kiri bawah */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "2px",
+                  left: "2px",
+                  width: "12px",
+                  height: "12px",
+                  borderBottom: "1px solid var(--mauve)",
+                  borderLeft: "1px solid var(--mauve)",
+                  opacity: 0.6,
+                }}
+              />
+              {/* Kanan bawah */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "2px",
+                  right: "2px",
+                  width: "12px",
+                  height: "12px",
+                  borderBottom: "1px solid var(--mauve)",
+                  borderRight: "1px solid var(--mauve)",
+                  opacity: 0.6,
+                }}
+              />
+
+              {/* ================= DIAMOND DI 4 SUDUT ================= */}
+              {/* Kiri atas */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-6px",
+                  left: "-6px",
                   width: "8px",
                   height: "8px",
                   background: "var(--accent)",
-                  boxShadow: "0 0 15px var(--accent)",
+                  transform: "rotate(45deg)",
+                  boxShadow: "0 0 10px var(--accent)",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+              {/* Kanan atas */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-6px",
+                  right: "-6px",
+                  width: "8px",
+                  height: "8px",
+                  background: "var(--accent)",
+                  transform: "rotate(45deg)",
+                  boxShadow: "0 0 10px var(--accent)",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.6,
                 }}
               />
-
-              {/* ====== TITIK GLOW — kanan bawah (statis) ====== */}
-              <div
-                className="absolute rounded-full pointer-events-none"
+              {/* Kiri bawah */}
+              <motion.div
+                className="absolute pointer-events-none"
                 style={{
-                  bottom: "-34px",
-                  right: "-34px",
+                  bottom: "-6px",
+                  left: "-6px",
                   width: "8px",
                   height: "8px",
                   background: "var(--mauve)",
-                  boxShadow: "0 0 15px var(--mauve)",
+                  transform: "rotate(45deg)",
+                  boxShadow: "0 0 10px var(--mauve)",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1.2,
+                }}
+              />
+              {/* Kanan bawah */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-6px",
+                  right: "-6px",
+                  width: "8px",
+                  height: "8px",
+                  background: "var(--mauve)",
+                  transform: "rotate(45deg)",
+                  boxShadow: "0 0 10px var(--mauve)",
+                  willChange: "opacity",
+                }}
+                animate={{ opacity: [1, 0.4, 1] }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1.8,
                 }}
               />
 
-              {/* ====== LABEL FLOATING ====== */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1 }}
-                className="absolute -bottom-6 -left-6 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
+              {/* ================= TITIK KECIL DI SETIAP SUDUT ================= */}
+              <div
+                className="absolute pointer-events-none rounded-full"
                 style={{
-                  background: "var(--surface)",
-                  borderColor: "var(--border)",
-                  color: "var(--text-muted)",
+                  top: "10px",
+                  left: "10px",
+                  width: "3px",
+                  height: "3px",
+                  background: "var(--accent)",
+                  opacity: 0.7,
                 }}
-              >
-                Pasuruan, ID
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
-                className="absolute -top-6 -right-6 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
+              />
+              <div
+                className="absolute pointer-events-none rounded-full"
                 style={{
-                  background: "var(--surface)",
-                  borderColor: "var(--border)",
-                  color: "var(--text-muted)",
+                  top: "10px",
+                  right: "10px",
+                  width: "3px",
+                  height: "3px",
+                  background: "var(--accent)",
+                  opacity: 0.7,
                 }}
-              >
-                Frontend Dev
-              </motion.div>
+              />
+              <div
+                className="absolute pointer-events-none rounded-full"
+                style={{
+                  bottom: "10px",
+                  left: "10px",
+                  width: "3px",
+                  height: "3px",
+                  background: "var(--mauve)",
+                  opacity: 0.7,
+                }}
+              />
+              <div
+                className="absolute pointer-events-none rounded-full"
+                style={{
+                  bottom: "10px",
+                  right: "10px",
+                  width: "3px",
+                  height: "3px",
+                  background: "var(--mauve)",
+                  opacity: 0.7,
+                }}
+              />
             </div>
           </motion.div>
 
+          {/* ================= PEMISAH (mobile) ================= */}
+          <div className="lg:hidden flex items-center justify-center gap-3">
+            <span
+              className="w-16 h-[1px]"
+              style={{ background: "var(--border)" }}
+            />
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ background: "var(--accent)" }}
+            />
+            <span
+              className="w-16 h-[1px]"
+              style={{ background: "var(--border)" }}
+            />
+          </div>
+
           {/* ================= TEXT ================= */}
-          <div className="text-center lg:text-left lg:order-1 order-2">
+          <div className="text-center lg:text-left order-2 lg:order-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
