@@ -9,13 +9,9 @@ import TypingText from "./hero/TypingText";
 export default function Hero() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [isDesktop, setIsDesktop] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const check = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-      setIsMobile(window.innerWidth < 768);
-    };
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -37,50 +33,78 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
-      <div className="container-custom w-full py-24 lg:py-28">
+      <div className="container-custom w-full pt-32 pb-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* ================= FOTO ================= */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="flex justify-center lg:justify-end lg:order-2"
+            className="flex justify-center lg:justify-end lg:order-2 order-1"
           >
             <div className="relative w-[240px] sm:w-[300px] lg:w-[360px]">
-              {/* Glow — blur dikurangi di mobile */}
+              {/* Glow di belakang */}
               <div
                 className="absolute inset-0 rounded-full pointer-events-none"
                 style={{
                   background: "var(--accent)",
-                  opacity: 0.25,
-                  filter: isMobile ? "blur(40px)" : "blur(70px)",
+                  opacity: 0.3,
+                  filter: "blur(70px)",
                   transform: "scale(0.9)",
                 }}
               />
 
-              {/* Dot grid — tetap ada, tapi lebih kecil di mobile */}
+              {/* ====== DOT GRID — kiri atas ====== */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  top: "-20px",
-                  left: "-20px",
-                  width: isMobile ? "60px" : "80px",
-                  height: isMobile ? "60px" : "80px",
+                  top: "-30px",
+                  left: "-30px",
+                  width: "90px",
+                  height: "90px",
                   backgroundImage:
-                    "radial-gradient(var(--accent) 1.2px, transparent 1.2px)",
-                  backgroundSize: "12px 12px",
+                    "radial-gradient(var(--accent) 1.5px, transparent 1.5px)",
+                  backgroundSize: "14px 14px",
+                  opacity: 0.6,
+                }}
+              />
+
+              {/* ====== GARIS DIAGONAL — kanan bawah ====== */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-25px",
+                  right: "-25px",
+                  width: "90px",
+                  height: "90px",
+                  backgroundImage:
+                    "repeating-linear-gradient(45deg, var(--accent) 0, var(--accent) 1.5px, transparent 1.5px, transparent 9px)",
                   opacity: 0.5,
                 }}
               />
 
-              {/* Foto — parallax hanya desktop */}
+              {/* ====== GARIS DIAGONAL — kiri bawah ====== */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-25px",
+                  left: "-25px",
+                  width: "60px",
+                  height: "60px",
+                  backgroundImage:
+                    "repeating-linear-gradient(-45deg, var(--mauve) 0, var(--mauve) 1.5px, transparent 1.5px, transparent 9px)",
+                  opacity: 0.4,
+                }}
+              />
+
+              {/* ====== FOTO ====== */}
               <motion.div
                 style={{
                   x: isDesktop ? mouse.x * 10 : 0,
                   y: isDesktop ? mouse.y * 10 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 60, damping: 20 }}
-                className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
+                className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl"
               >
                 <Image
                   src="/profile.jpeg"
@@ -92,17 +116,17 @@ export default function Hero() {
                 />
               </motion.div>
 
-              {/* Sudut viewfinder — tetap ada */}
+              {/* ====== SUDUT VIEWFINDER — 4 sudut ====== */}
               <div
                 className="absolute pointer-events-none"
                 style={{
                   top: "-8px",
                   left: "-8px",
-                  width: isMobile ? "24px" : "32px",
-                  height: isMobile ? "24px" : "32px",
+                  width: "32px",
+                  height: "32px",
                   borderTop: "2px solid var(--accent)",
                   borderLeft: "2px solid var(--accent)",
-                  borderTopLeftRadius: "12px",
+                  borderTopLeftRadius: "10px",
                 }}
               />
               <div
@@ -110,11 +134,11 @@ export default function Hero() {
                 style={{
                   top: "-8px",
                   right: "-8px",
-                  width: isMobile ? "24px" : "32px",
-                  height: isMobile ? "24px" : "32px",
+                  width: "32px",
+                  height: "32px",
                   borderTop: "2px solid var(--accent)",
                   borderRight: "2px solid var(--accent)",
-                  borderTopRightRadius: "12px",
+                  borderTopRightRadius: "10px",
                 }}
               />
               <div
@@ -122,11 +146,11 @@ export default function Hero() {
                 style={{
                   bottom: "-8px",
                   left: "-8px",
-                  width: isMobile ? "24px" : "32px",
-                  height: isMobile ? "24px" : "32px",
+                  width: "32px",
+                  height: "32px",
                   borderBottom: "2px solid var(--accent)",
                   borderLeft: "2px solid var(--accent)",
-                  borderBottomLeftRadius: "12px",
+                  borderBottomLeftRadius: "10px",
                 }}
               />
               <div
@@ -134,20 +158,46 @@ export default function Hero() {
                 style={{
                   bottom: "-8px",
                   right: "-8px",
-                  width: isMobile ? "24px" : "32px",
-                  height: isMobile ? "24px" : "32px",
+                  width: "32px",
+                  height: "32px",
                   borderBottom: "2px solid var(--accent)",
                   borderRight: "2px solid var(--accent)",
-                  borderBottomRightRadius: "12px",
+                  borderBottomRightRadius: "10px",
                 }}
               />
 
-              {/* Label floating — tetap ada */}
+              {/* ====== TITIK GLOW — kiri atas (statis) ====== */}
+              <div
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  top: "-34px",
+                  left: "-34px",
+                  width: "8px",
+                  height: "8px",
+                  background: "var(--accent)",
+                  boxShadow: "0 0 15px var(--accent)",
+                }}
+              />
+
+              {/* ====== TITIK GLOW — kanan bawah (statis) ====== */}
+              <div
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  bottom: "-34px",
+                  right: "-34px",
+                  width: "8px",
+                  height: "8px",
+                  background: "var(--mauve)",
+                  boxShadow: "0 0 15px var(--mauve)",
+                }}
+              />
+
+              {/* ====== LABEL FLOATING ====== */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 1 }}
-                className="absolute -bottom-5 -left-5 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
+                className="absolute -bottom-6 -left-6 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
                 style={{
                   background: "var(--surface)",
                   borderColor: "var(--border)",
@@ -161,7 +211,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
-                className="absolute -top-5 -right-5 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
+                className="absolute -top-6 -right-6 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] tracking-wider uppercase whitespace-nowrap"
                 style={{
                   background: "var(--surface)",
                   borderColor: "var(--border)",
@@ -174,7 +224,7 @@ export default function Hero() {
           </motion.div>
 
           {/* ================= TEXT ================= */}
-          <div className="text-center lg:text-left lg:order-1">
+          <div className="text-center lg:text-left lg:order-1 order-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
