@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -61,7 +62,9 @@ export default function Navbar() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "backdrop-blur-xl border-b shadow-sm" : "border-b border-transparent"
+        scrolled
+          ? "backdrop-blur-xl border-b shadow-sm"
+          : "border-b border-transparent"
       )}
       style={{
         background: scrolled ? "var(--nav-bg)" : "transparent",
@@ -110,15 +113,18 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Hamburger Mobile */}
-        <button
-          onClick={() => setOpen(!open)}
-          aria-label="Buka menu"
-          className="md:hidden w-10 h-10 rounded-full border flex items-center justify-center"
-          style={{ borderColor: "var(--border)", color: "var(--text)" }}
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        {/* Kanan: Toggle + Hamburger */}
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label="Buka menu"
+            className="md:hidden w-10 h-10 rounded-full border flex items-center justify-center"
+            style={{ borderColor: "var(--border)", color: "var(--text)" }}
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </nav>
 
       {/* Menu Mobile */}

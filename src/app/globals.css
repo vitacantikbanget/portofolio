@@ -1,10 +1,36 @@
 @import "tailwindcss";
 
-/* ====== DARK THEME (HANYA INI) ====== */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ====== THEME VARIABLES ====== */
 :root {
+  --bg: #f5f0e8;
+  --bg-soft: #ebe4d8;
+  --surface: #fdfaf5;        /* cream, bukan putih */
+  --surface-2: #f0e9de;      /* card second layer */
+  --border: #d8cfc0;
+  --text: #1f1b16;            /* lebih gelap */
+  --text-muted: #5a4f42;      /* lebih gelap */
+  --accent: #a96f6b;
+  --accent-soft: #e8d5d2;
+  --mauve: #8a7590;
+  --lavender: #b8aec8;
+  --nav-bg: rgba(245, 240, 232, 0.8);
+
+  /* Grid */
+  --grid-color-1: #8a5a55;
+  --grid-color-2: #6b5a7a;
+  --grid-opacity-1: 0.18;
+  --grid-opacity-2: 0.14;
+  --grid-size-1: 60px;
+  --grid-size-2: 200px;
+}
+
+.dark {
   --bg: #1a1714;
   --bg-soft: #221e1a;
   --surface: #26211d;
+  --surface-2: #2e2823;
   --border: #3a322c;
   --text: #f3ece3;
   --text-muted: #b8ab9c;
@@ -12,8 +38,15 @@
   --accent-soft: #4a3a38;
   --mauve: #b8a6c2;
   --lavender: #a89bbd;
-  --glow: rgba(212, 165, 160, 0.3);
   --nav-bg: rgba(26, 23, 20, 0.75);
+
+  /* Grid */
+  --grid-color-1: #d4a5a0;
+  --grid-color-2: #b8a6c2;
+  --grid-opacity-1: 0.14;
+  --grid-opacity-2: 0.1;
+  --grid-size-1: 60px;
+  --grid-size-2: 200px;
 }
 
 /* ====== BASE ====== */
@@ -26,11 +59,94 @@ body {
   color: var(--text);
   font-family: var(--font-manrope), sans-serif;
   overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
+  position: relative;
+
+  background-image:
+    radial-gradient(
+      ellipse 60% 50% at 15% 10%,
+      var(--accent-soft) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 85% 90%,
+      var(--lavender) 0%,
+      transparent 55%
+    );
+  background-attachment: fixed;
+  background-color: var(--bg);
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-cormorant), serif;
   letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+p, span, a, button, li {
+  color: inherit;
+}
+
+/* ====== GRID 1 — rapat ====== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -100px;
+  z-index: -2;
+  background-image:
+    linear-gradient(var(--grid-color-1) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color-1) 1px, transparent 1px);
+  background-size: var(--grid-size-1) var(--grid-size-1);
+  opacity: var(--grid-opacity-1);
+  mask-image: radial-gradient(
+    ellipse 90% 80% at center,
+    black 20%,
+    transparent 85%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 80% at center,
+    black 20%,
+    transparent 85%
+  );
+  animation: gridShift 40s linear infinite;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* ====== GRID 2 — jarang ====== */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -100px;
+  z-index: -3;
+  background-image:
+    linear-gradient(var(--grid-color-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color-2) 1px, transparent 1px);
+  background-size: var(--grid-size-2) var(--grid-size-2);
+  opacity: var(--grid-opacity-2);
+  mask-image: radial-gradient(
+    ellipse 90% 80% at center,
+    black 15%,
+    transparent 90%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 80% at center,
+    black 15%,
+    transparent 90%
+  );
+  animation: gridShiftReverse 60s linear infinite;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes gridShift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+@keyframes gridShiftReverse {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-200px, -200px); }
 }
 
 /* ====== UTILITIES ====== */
