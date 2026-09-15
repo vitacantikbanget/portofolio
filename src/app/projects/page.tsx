@@ -8,7 +8,6 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import ProjectCard from "@/components/ProjectCard";
 import { projects, categories } from "@/data/projects";
 
-// ====== INNER COMPONENT (yang pakai useSearchParams) ======
 function ProjectsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -31,7 +30,6 @@ function ProjectsContent() {
 
   return (
     <>
-      {/* ===== Back button ===== */}
       <Link
         href="/"
         className="group inline-flex items-center gap-2 text-sm mb-10 transition-colors"
@@ -44,7 +42,6 @@ function ProjectsContent() {
         Kembali ke Beranda
       </Link>
 
-      {/* ===== Header ===== */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -72,7 +69,6 @@ function ProjectsContent() {
         </h1>
       </motion.div>
 
-      {/* ===== Filter ===== */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -98,7 +94,6 @@ function ProjectsContent() {
         })}
       </motion.div>
 
-      {/* ===== Grid ===== */}
       {filtered.length === 0 ? (
         <div
           className="text-center py-20 text-sm"
@@ -117,7 +112,6 @@ function ProjectsContent() {
   );
 }
 
-// ====== PAGE (bungkus dengan Suspense) ======
 export default function ProjectsPage() {
   return (
     <main className="min-h-screen pt-28 pb-20">

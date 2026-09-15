@@ -7,13 +7,11 @@ import ProjectCard from "./ProjectCard";
 import { projects } from "@/data/projects";
 
 export default function Projects() {
-  // Tampilkan 3 project pertama di home
   const featured = projects.slice(0, 3);
 
   return (
     <section id="projects" className="section-pad relative overflow-hidden">
       <div className="container-custom relative">
-        {/* ================= HEADER ================= */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,7 +31,6 @@ export default function Projects() {
           </span>
         </motion.div>
 
-        {/* ================= TITLE + CTA ================= */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +65,6 @@ export default function Projects() {
           </Link>
         </motion.div>
 
-        {/* ================= GRID ================= */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {featured.map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} />
