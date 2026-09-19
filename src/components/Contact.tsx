@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Copy, Check, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Send } from "lucide-react";
 import { FaInstagram, FaGithub } from "react-icons/fa";
-
-const EMAIL = "desvitaputri27@gmail.com";
+import { sendMessage } from "@/lib/contact";
 
 const socials = [
   {
@@ -21,15 +20,25 @@ const socials = [
 ];
 
 export default function Contact() {
-  const [copied, setCopied] = useState(false);
+  const [form, setForm] = useState({ nama: "", email: "", pesan: "" });
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // fallback kalau gagal
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    setStatus("idle");
+
+    const result = await sendMessage(form);
+
+    setSending(false);
+
+    if (result.success) {
+      setStatus("success");
+      setForm({ nama: "", email: "", pesan: "" });
+      setTimeout(() => setStatus("idle"), 3000);
+    } else {
+      setStatus("error");
     }
   };
 
@@ -46,7 +55,7 @@ export default function Contact() {
       />
 
       <div className="container-custom relative">
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,7 +75,7 @@ export default function Contact() {
           </span>
         </motion.div>
 
-        {/* ================= CARD ================= */}
+        {/* CARD */}
         <motion.div
           initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -78,7 +87,6 @@ export default function Contact() {
             borderColor: "var(--border)",
           }}
         >
-          {/* Dekorasi lingkaran */}
           <div
             className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none"
             style={{
@@ -88,125 +96,180 @@ export default function Contact() {
             }}
           />
 
-          <div className="relative max-w-2xl">
-            <h2
-              className="text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] font-medium mb-5"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                color: "var(--text)",
-              }}
-            >
-              Let's build
-              <br />
-              <span className="italic" style={{ color: "var(--accent)" }}>
-                something together.
-              </span>
-            </h2>
+          <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-20">
+            {/* ============ KIRI — INFO ============ */}
+            <div className="flex flex-col justify-center">
+              <h2
+                className="text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] font-medium mb-5"
+                style={{
+                  fontFamily: "var(--font-cormorant)",
+                  color: "var(--text)",
+                }}
+              >
+                Let's build
+                <br />
+                <span className="italic" style={{ color: "var(--accent)" }}>
+                  something together.
+                </span>
+              </h2>
 
-            <p
-              className="text-sm sm:text-base leading-relaxed mb-8 max-w-lg"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Kalau kamu punya ide, project, atau cuma mau ngobrol soal web
-              development & design — feel free to reach out.
-            </p>
+              <p
+                className="text-sm sm:text-base leading-relaxed mb-8 max-w-md"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Kalau kamu punya ide, project, atau cuma mau ngobrol soal web
+                development & design — feel free to reach out.
+              </p>
 
-            {/* ===== EMAIL + COPY ===== */}
-            <div
-              className="flex flex-col sm:flex-row gap-3 sm:items-center p-3 rounded-2xl border mb-8"
-              style={{
-                background: "var(--bg-soft)",
-                borderColor: "var(--border)",
-              }}
-            >
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                  style={{
-                    background: "var(--accent-soft)",
-                    color: "var(--accent)",
-                  }}
+              {/* Socials */}
+              <div>
+                <p
+                  className="text-[10px] tracking-[0.2em] uppercase mb-3"
+                  style={{ color: "var(--text-muted)" }}
                 >
-                  <Mail size={18} />
+                  Hubungi saya di
+                </p>
+
+                <div className="flex flex-wrap gap-2.5">
+                  {socials.map((s) => {
+                    const Icon = s.icon;
+                    return (
+                      <a
+                        key={s.label}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all hover:-translate-y-0.5"
+                        style={{
+                          background: "var(--bg-soft)",
+                          borderColor: "var(--border)",
+                          color: "var(--text)",
+                        }}
+                      >
+                        <Icon
+                          size={15}
+                          className="transition-transform duration-300 group-hover:scale-110"
+                          style={{ color: "var(--accent)" }}
+                        />
+                        <span className="text-sm font-medium">{s.label}</span>
+                        <ArrowUpRight
+                          size={13}
+                          className="opacity-50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                      </a>
+                    );
+                  })}
                 </div>
-                <div className="min-w-0">
-                  <p
-                    className="text-[10px] tracking-[0.2em] uppercase"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    Email
-                  </p>
-                  <p
-                    className="text-sm font-medium truncate"
-                    style={{ color: "var(--text)" }}
-                  >
-                    {EMAIL}
-                  </p>
-                </div>
+              </div>
+            </div>
+
+            {/* ============ KANAN — FORM ============ */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label
+                  className="text-[10px] tracking-[0.2em] uppercase block mb-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Nama
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={form.nama}
+                  onChange={(e) =>
+                    setForm({ ...form, nama: e.target.value })
+                  }
+                  placeholder="Nama kamu"
+                  className="w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all focus:border-[var(--accent)]"
+                  style={{
+                    background: "var(--bg-soft)",
+                    borderColor: "var(--border)",
+                    color: "var(--text)",
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  className="text-[10px] tracking-[0.2em] uppercase block mb-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm({ ...form, email: e.target.value })
+                  }
+                  placeholder="email@example.com"
+                  className="w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all focus:border-[var(--accent)]"
+                  style={{
+                    background: "var(--bg-soft)",
+                    borderColor: "var(--border)",
+                    color: "var(--text)",
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  className="text-[10px] tracking-[0.2em] uppercase block mb-2"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Pesan
+                </label>
+                <textarea
+                  required
+                  rows={5}
+                  value={form.pesan}
+                  onChange={(e) =>
+                    setForm({ ...form, pesan: e.target.value })
+                  }
+                  placeholder="Tulis pesan kamu..."
+                  className="w-full px-4 py-3 rounded-xl border text-sm outline-none transition-all resize-none focus:border-[var(--accent)]"
+                  style={{
+                    background: "var(--bg-soft)",
+                    borderColor: "var(--border)",
+                    color: "var(--text)",
+                  }}
+                />
               </div>
 
               <button
-                onClick={handleCopy}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:scale-[1.02] shrink-0"
+                type="submit"
+                disabled={sending}
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-medium transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
                   background: "var(--accent)",
                   color: "#fff",
                 }}
               >
-                {copied ? (
-                  <>
-                    <Check size={15} />
-                    Copied!
-                  </>
+                {sending ? (
+                  "Mengirim..."
                 ) : (
                   <>
-                    <Copy size={15} />
-                    Copy Email
+                    <Send size={15} />
+                    Kirim Pesan
                   </>
                 )}
               </button>
-            </div>
 
-            {/* ===== SOCIALS ===== */}
-            <div>
-              <p
-                className="text-[10px] tracking-[0.2em] uppercase mb-3"
-                style={{ color: "var(--text-muted)" }}
-              >
-                Atau cari saya di
-              </p>
-
-              <div className="flex flex-wrap gap-2.5">
-                {socials.map((s) => {
-                  const Icon = s.icon;
-                  return (
-                    <a
-                      key={s.label}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all hover:-translate-y-0.5"
-                      style={{
-                        background: "var(--bg-soft)",
-                        borderColor: "var(--border)",
-                        color: "var(--text)",
-                      }}
-                    >
-                      <Icon
-                        size={15}
-                        className="transition-transform duration-300 group-hover:scale-110"
-                        style={{ color: "var(--accent)" }}
-                      />
-                      <span className="text-sm font-medium">{s.label}</span>
-                      <ArrowUpRight
-                        size={13}
-                        className="opacity-50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
+              {status === "success" && (
+                <p
+                  className="text-sm text-center"
+                  style={{ color: "var(--accent)" }}
+                >
+                  ✅ Pesan berhasil dikirim!
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-sm text-center text-red-500">
+                  ❌ Gagal kirim pesan. Coba lagi.
+                </p>
+              )}
+            </form>
           </div>
         </motion.div>
       </div>
