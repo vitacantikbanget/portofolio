@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { projects } from "@/data/projects";
+import { getProjectBySlug } from "@/lib/projects";
 
 type Params = {
   params: Promise<{ slug: string }>;
@@ -10,11 +10,9 @@ type Params = {
 
 export async function generateMetadata({ params }: Params) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
 
-  if (!project) {
-    return { title: "Project tidak ditemukan" };
-  }
+  if (!project) return { title: "Project tidak ditemukan" };
 
   return {
     title: `${project.title} — Desvita Putri`,
@@ -22,17 +20,11 @@ export async function generateMetadata({ params }: Params) {
   };
 }
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
-}
-
 export default async function ProjectDetailPage({ params }: Params) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
 
-  if (!project) {
-    notFound();
-  }
+  if (!project) notFound();
 
   return (
     <main className="min-h-screen pt-28 pb-20">
@@ -110,7 +102,7 @@ export default async function ProjectDetailPage({ params }: Params) {
               className="text-base sm:text-lg leading-relaxed"
               style={{ color: "var(--text-muted)" }}
             >
-              {project.longDescription}
+              {project.long_description}
             </p>
           </div>
 

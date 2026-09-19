@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import type { Project } from "@/data/projects";
+import type { Project } from "@/lib/projects";
 
 type Props = {
   project: Project;

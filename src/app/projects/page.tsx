@@ -1,19 +1,37 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import ProjectCard from "@/components/ProjectCard";
-import { projects, categories } from "@/data/projects";
+import { getProjects, type Project } from "@/lib/projects";
+
+const categories = [
+  { value: "all", label: "All" },
+  { value: "web", label: "Web" },
+  { value: "uiux", label: "UI/UX" },
+];
 
 function ProjectsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const activeCategory = searchParams.get("category") || "all";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getProjects();
+      setProjects(data);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   const filtered =
     activeCategory === "all"
@@ -94,7 +112,14 @@ function ProjectsContent() {
         })}
       </motion.div>
 
-      {filtered.length === 0 ? (
+      {loading ? (
+        <div
+          className="text-center py-20 text-sm"
+          style={{ color: "var(--text-muted)" }}
+        >
+          Memuat data...
+        </div>
+      ) : filtered.length === 0 ? (
         <div
           className="text-center py-20 text-sm"
           style={{ color: "var(--text-muted)" }}

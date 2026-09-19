@@ -1,13 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "./ProjectCard";
-import { projects } from "@/data/projects";
+import { getProjects, type Project } from "@/lib/projects";
 
 export default function Projects() {
-  const featured = projects.slice(0, 3);
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getProjects();
+      setProjects(data.slice(0, 3));
+    };
+    fetchData();
+  }, []);
 
   return (
     <section id="projects" className="section-pad relative overflow-hidden">
@@ -66,7 +75,7 @@ export default function Projects() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {featured.map((project, i) => (
+          {projects.map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} />
           ))}
         </div>

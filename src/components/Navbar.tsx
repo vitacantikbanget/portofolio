@@ -44,7 +44,7 @@ export default function Navbar() {
         }
       },
       {
-        rootMargin: "-80px 0px -60% 0px",
+        rootMargin: "-40% 0px -50% 0px",
         threshold: [0, 0.25, 0.5, 0.75, 1],
       }
     );
@@ -72,7 +72,6 @@ export default function Navbar() {
       }}
     >
       <nav className="container-custom flex items-center justify-between h-16 md:h-20">
-        {/* Logo */}
         <a
           href="#home"
           onClick={() => handleClick("#home")}
@@ -83,7 +82,6 @@ export default function Navbar() {
           <span style={{ color: "var(--accent)" }}>.</span>
         </a>
 
-        {/* Menu Desktop */}
         <ul className="hidden md:flex items-center gap-8">
           {links.map((link) => (
             <li key={link.href}>
@@ -113,7 +111,6 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Kanan: Toggle + Hamburger */}
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <button
@@ -127,7 +124,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Menu Mobile */}
       <div
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300 border-t",
