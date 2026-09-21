@@ -4,8 +4,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Send } from "lucide-react";
 import { FaInstagram, FaGithub } from "react-icons/fa";
-import { sendMessage } from "@/lib/contact";
+import { sendMessage } from "@/lib/contact"; // fungsi kirim pesan ke Supabase
 
+// Data sosial media
 const socials = [
   {
     icon: FaInstagram,
@@ -20,23 +21,27 @@ const socials = [
 ];
 
 export default function Contact() {
+  // State buat isi form (nama, email, pesan)
   const [form, setForm] = useState({ nama: "", email: "", pesan: "" });
+  // State buat loading pas kirim
   const [sending, setSending] = useState(false);
+  // State buat status kirim (idle / sukses / error)
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // cegah reload halaman
     setSending(true);
     setStatus("idle");
 
+    // Kirim data ke Supabase
     const result = await sendMessage(form);
 
     setSending(false);
 
     if (result.success) {
       setStatus("success");
-      setForm({ nama: "", email: "", pesan: "" });
-      setTimeout(() => setStatus("idle"), 3000);
+      setForm({ nama: "", email: "", pesan: "" }); // kosongin form
+      setTimeout(() => setStatus("idle"), 3000);   // reset status 3 detik
     } else {
       setStatus("error");
     }
@@ -44,7 +49,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section-pad relative overflow-hidden">
-      {/* Blob dekoratif */}
+      {/* Blob dekoratif di kiri bawah */}
       <div
         className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
         style={{
@@ -55,7 +60,8 @@ export default function Contact() {
       />
 
       <div className="container-custom relative">
-        {/* HEADER */}
+        {/* ================= HEADER ================= */}
+        {/* Label kecil "Contact" dengan garis */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +81,7 @@ export default function Contact() {
           </span>
         </motion.div>
 
-        {/* CARD */}
+        {/* ================= CARD ================= */}
         <motion.div
           initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -87,6 +93,7 @@ export default function Contact() {
             borderColor: "var(--border)",
           }}
         >
+          {/* Dekorasi lingkaran di kanan atas */}
           <div
             className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none"
             style={{
@@ -96,6 +103,7 @@ export default function Contact() {
             }}
           />
 
+          {/* Layout 2 kolom: kiri info, kanan form */}
           <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-20">
             {/* ============ KIRI — INFO ============ */}
             <div className="flex flex-col justify-center">
@@ -121,7 +129,7 @@ export default function Contact() {
                 development & design — feel free to reach out.
               </p>
 
-              {/* Socials */}
+              {/* Sosial media */}
               <div>
                 <p
                   className="text-[10px] tracking-[0.2em] uppercase mb-3"
@@ -137,8 +145,8 @@ export default function Contact() {
                       <a
                         key={s.label}
                         href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target="_blank" // buka di tab baru
+                        rel="noopener noreferrer" // keamanan
                         className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all hover:-translate-y-0.5"
                         style={{
                           background: "var(--bg-soft)",
@@ -165,6 +173,7 @@ export default function Contact() {
 
             {/* ============ KANAN — FORM ============ */}
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Input Nama */}
               <div>
                 <label
                   className="text-[10px] tracking-[0.2em] uppercase block mb-2"
@@ -189,6 +198,7 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Input Email */}
               <div>
                 <label
                   className="text-[10px] tracking-[0.2em] uppercase block mb-2"
@@ -213,6 +223,7 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Input Pesan */}
               <div>
                 <label
                   className="text-[10px] tracking-[0.2em] uppercase block mb-2"
@@ -237,9 +248,10 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Tombol kirim */}
               <button
                 type="submit"
-                disabled={sending}
+                disabled={sending} // disable kalau lagi kirim
                 className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-medium transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
                   background: "var(--accent)",
@@ -256,6 +268,7 @@ export default function Contact() {
                 )}
               </button>
 
+              {/* Pesan sukses */}
               {status === "success" && (
                 <p
                   className="text-sm text-center"
@@ -264,6 +277,8 @@ export default function Contact() {
                   ✅ Pesan berhasil dikirim!
                 </p>
               )}
+
+              {/* Pesan error */}
               {status === "error" && (
                 <p className="text-sm text-center text-red-500">
                   ❌ Gagal kirim pesan. Coba lagi.

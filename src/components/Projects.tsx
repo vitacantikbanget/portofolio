@@ -8,26 +8,31 @@ import ProjectCard from "./ProjectCard";
 import { getProjects, type Project } from "@/lib/projects";
 
 export default function Projects() {
+  // State buat nyimpen data project dari Supabase
   const [projects, setProjects] = useState<Project[]>([]);
 
+  // Ambil data project pas halaman pertama kali dibuka
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getProjects();
-      setProjects(data.slice(0, 3));
+      const data = await getProjects(); // fetch dari Supabase
+      setProjects(data.slice(0, 3));    // ambil 3 project pertama aja
     };
     fetchData();
-  }, []);
+  }, []); // kurung siku kosong = jalan sekali doang
 
   return (
     <section id="projects" className="section-pad relative overflow-hidden">
       <div className="container-custom relative">
+        {/* ===== LABEL KECIL "SELECTED PROJECTS" ===== */}
+        {/* Muncul dengan animasi saat masuk layar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "-80px" }} // animasi sekali
           transition={{ duration: 0.6 }}
           className="flex items-center gap-3 mb-12"
         >
+          {/* Garis kecil di kiri */}
           <span
             className="w-8 h-[1px]"
             style={{ background: "var(--accent)" }}
@@ -40,6 +45,8 @@ export default function Projects() {
           </span>
         </motion.div>
 
+        {/* ===== JUDUL + TOMBOL "LIHAT SEMUA" ===== */}
+        {/* Judul di kiri, tombol di kanan */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,6 +68,8 @@ export default function Projects() {
             </span>
           </h2>
 
+          {/* Link ke halaman /projects */}
+          {/* Arrow geser ke kanan saat hover */}
           <Link
             href="/projects"
             className="group inline-flex items-center gap-2 text-sm font-medium transition-colors shrink-0"
@@ -74,9 +83,15 @@ export default function Projects() {
           </Link>
         </motion.div>
 
+        {/* ===== GRID PROJECT ===== */}
+        {/* 1 kolom (mobile) → 2 (tablet) → 3 (desktop) */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
+            <ProjectCard
+              key={project.slug} // key unik tiap card
+              project={project}  // data project
+              index={i}          // buat delay animasi
+            />
           ))}
         </div>
       </div>

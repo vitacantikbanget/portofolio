@@ -1,26 +1,29 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Code2, Palette, Wrench } from "lucide-react";
+import { getSkills, type Skill } from "@/lib/skills";
 
-const categories = [
+// Kategori dengan icon + subtitle (fixed)
+const categoryInfo = [
   {
+    key: "frontend",
     title: "Frontend Development",
     subtitle: "Bikin tampilan website",
     icon: Code2,
-    skills: ["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS"],
   },
   {
+    key: "design",
     title: "Design & UI/UX",
     subtitle: "Desain tampilan & pengalaman",
     icon: Palette,
-    skills: ["Figma", "Responsive Design", "Prototyping"],
   },
   {
+    key: "tools",
     title: "Tools & Backend",
     subtitle: "Tools pendukung & dasar backend",
     icon: Wrench,
-    skills: ["GitHub", "Supabase", "VS Code", "Vercel"],
   },
 ];
 
@@ -45,9 +48,18 @@ const itemVariants: Variants = {
 };
 
 export default function Skills() {
+  const [skills, setSkills] = useState<Skill[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSkills();
+      setSkills(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <section id="skills" className="section-pad relative overflow-hidden">
-      {/* Blob dekoratif */}
       <div
         className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
         style={{
@@ -58,7 +70,7 @@ export default function Skills() {
       />
 
       <div className="container-custom relative">
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +90,7 @@ export default function Skills() {
           </span>
         </motion.div>
 
-        {/* ================= TITLE ================= */}
+        {/* TITLE */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +113,7 @@ export default function Skills() {
           </h2>
         </motion.div>
 
-        {/* ================= CARDS ================= */}
+        {/* CARDS */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -109,11 +121,14 @@ export default function Skills() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {categories.map((cat, i) => {
+          {categoryInfo.map((cat, i) => {
             const CatIcon = cat.icon;
+            // Filter skills by category
+            const catSkills = skills.filter((s) => s.category === cat.key);
+
             return (
               <motion.div
-                key={cat.title}
+                key={cat.key}
                 variants={itemVariants}
                 whileHover={{ y: -6 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
@@ -123,7 +138,6 @@ export default function Skills() {
                   borderColor: "var(--border)",
                 }}
               >
-                {/* Glow saat hover */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
@@ -133,7 +147,6 @@ export default function Skills() {
                 />
 
                 <div className="relative flex flex-col h-full">
-                  {/* Icon */}
                   <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 group-hover:rotate-[-6deg] group-hover:scale-110"
                     style={{
@@ -144,7 +157,6 @@ export default function Skills() {
                     <CatIcon size={20} />
                   </div>
 
-                  {/* Title */}
                   <h4
                     className="text-lg font-medium mb-1"
                     style={{
@@ -155,7 +167,6 @@ export default function Skills() {
                     {cat.title}
                   </h4>
 
-                  {/* Subtitle */}
                   <p
                     className="text-xs mb-5"
                     style={{ color: "var(--text-muted)" }}
@@ -163,24 +174,24 @@ export default function Skills() {
                     {cat.subtitle}
                   </p>
 
-                  {/* Skill list */}
                   <div className="flex flex-wrap gap-x-3 gap-y-1.5 mt-auto">
-                    {cat.skills.map((skill) => (
+                    {catSkills.map((skill) => (
                       <span
-                        key={skill}
+                        key={skill.id}
                         className="inline-flex items-center gap-1.5 text-[13px]"
                       >
                         <span
                           className="w-1 h-1 rounded-full shrink-0"
                           style={{ background: "var(--accent)" }}
                         />
-                        <span style={{ color: "var(--text)" }}>{skill}</span>
+                        <span style={{ color: "var(--text)" }}>
+                          {skill.name}
+                        </span>
                       </span>
                     ))}
                   </div>
                 </div>
 
-                {/* Nomor di pojok */}
                 <span
                   className="absolute top-5 right-5 text-[10px] tracking-widest"
                   style={{ color: "var(--text-muted)", opacity: 0.6 }}
@@ -188,7 +199,6 @@ export default function Skills() {
                   0{i + 1}
                 </span>
 
-                {/* Garis bawah hover */}
                 <span
                   className="absolute bottom-0 left-6 right-6 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
                   style={{ background: "var(--accent)" }}

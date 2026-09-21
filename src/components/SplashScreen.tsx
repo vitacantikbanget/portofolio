@@ -4,14 +4,20 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function SplashScreen() {
+  // show = splash muncul atau nggak
   const [show, setShow] = useState(true);
+  // phase = tahap animasi: "line" → "text" → "reveal"
   const [phase, setPhase] = useState<"line" | "text" | "reveal">("line");
 
   useEffect(() => {
+    // Fase 1: garis (0.5 detik)
     const t1 = setTimeout(() => setPhase("text"), 500);
+    // Fase 2: teks (1.8 detik)
     const t2 = setTimeout(() => setPhase("reveal"), 1800);
+    // Fase 3: splash hilang (2.6 detik)
     const t3 = setTimeout(() => setShow(false), 2600);
 
+    // Bersihin timer kalau komponen di-unmount
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -20,6 +26,7 @@ export default function SplashScreen() {
   }, []);
 
   return (
+    // AnimatePresence = handle animasi exit
     <AnimatePresence>
       {show && (
         <motion.div
@@ -29,6 +36,7 @@ export default function SplashScreen() {
           transition={{ duration: 0.4 }}
         >
           {/* ====== GLOW TENGAH ====== */}
+          {/* Cahaya accent lembut di tengah layar */}
           <div
             className="absolute rounded-full pointer-events-none"
             style={{
@@ -46,6 +54,8 @@ export default function SplashScreen() {
           />
 
           {/* ====== GARIS ATAS ====== */}
+          {/* Garis dari tengah, melebar (scaleX 0→1) */}
+          {/* Pas reveal: naik ke atas (-50vh) */}
           <motion.div
             className="absolute left-0 right-0"
             style={{
@@ -70,6 +80,7 @@ export default function SplashScreen() {
           />
 
           {/* ====== GARIS BAWAH ====== */}
+          {/* Sama kayak atas, tapi turun ke bawah (50vh) */}
           <motion.div
             className="absolute left-0 right-0"
             style={{
@@ -94,9 +105,10 @@ export default function SplashScreen() {
           />
 
           {/* ====== TITIK-TITIK DI SEPANJANG GARIS ====== */}
+          {/* Cuma muncul kalau belum fase reveal */}
           {phase !== "reveal" && (
             <>
-              {/* Titik di garis atas */}
+              {/* Titik di garis atas — 5 titik */}
               {[10, 25, 50, 75, 90].map((left, i) => (
                 <motion.div
                   key={`dot-top-${i}`}
@@ -112,19 +124,20 @@ export default function SplashScreen() {
                   }}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
+                    // kedip bergantian
                     opacity: phase === "text" ? [0.3, 1, 0.3] : 0,
                     scale: phase === "text" ? [1, 1.4, 1] : 0,
                   }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    delay: i * 0.15,
+                    delay: i * 0.15, // tiap titik delay beda
                     ease: "easeInOut",
                   }}
                 />
               ))}
 
-              {/* Titik di garis bawah */}
+              {/* Titik di garis bawah — 4 titik, warna mauve */}
               {[15, 40, 60, 85].map((left, i) => (
                 <motion.div
                   key={`dot-bottom-${i}`}
@@ -155,6 +168,7 @@ export default function SplashScreen() {
           )}
 
           {/* ====== LABEL "LOADING" ATAS ====== */}
+          {/* 2 titik berkedip + teks "Loading" */}
           <motion.div
             className="absolute top-10 left-1/2 -translate-x-1/2 flex items-center gap-2"
             initial={{ opacity: 0, y: -10 }}
@@ -167,7 +181,7 @@ export default function SplashScreen() {
             <motion.span
               className="w-1.5 h-1.5 rounded-full"
               style={{ background: "var(--accent)" }}
-              animate={{ opacity: [0.3, 1, 0.3] }}
+              animate={{ opacity: [0.3, 1, 0.3] }} // berkedip
               transition={{ duration: 1.2, repeat: Infinity, delay: 0 }}
             />
             <span
@@ -184,7 +198,8 @@ export default function SplashScreen() {
             />
           </motion.div>
 
-          {/* ====== NOMOR 01 — POJOK KIRI BAWAH ====== */}
+          {/* ====== NOMOR 01 — KIRI BAWAH ====== */}
+          {/* Nomor editorial + label "Splash" */}
           <motion.div
             className="absolute bottom-10 left-10 lg:bottom-12 lg:left-16"
             initial={{ opacity: 0, x: -20 }}
@@ -211,7 +226,7 @@ export default function SplashScreen() {
             </div>
           </motion.div>
 
-          {/* ====== NOMOR 02 — POJOK KANAN BAWAH ====== */}
+          {/* ====== NOMOR 02 — KANAN BAWAH ====== */}
           <motion.div
             className="absolute bottom-10 right-10 lg:bottom-12 lg:right-16 text-right"
             initial={{ opacity: 0, x: 20 }}
@@ -238,7 +253,8 @@ export default function SplashScreen() {
             </div>
           </motion.div>
 
-          {/* ====== TEKS DI TENGAH ====== */}
+          {/* ====== TEKS TENGAH ====== */}
+          {/* Pas reveal: fade out + scale naik */}
           <motion.div
             className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
             animate={{
@@ -247,7 +263,7 @@ export default function SplashScreen() {
             }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            {/* Label kecil atas */}
+            {/* Label kecil "PORTFOLIO" */}
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{
@@ -261,15 +277,15 @@ export default function SplashScreen() {
               Portfolio
             </motion.p>
 
-            {/* Nama */}
+            {/* Nama — efek blur reveal */}
             <motion.h1
               initial={{ opacity: 0, filter: "blur(8px)" }}
               animate={{
                 opacity: phase === "text" || phase === "reveal" ? 1 : 0,
                 filter:
                   phase === "text" || phase === "reveal"
-                    ? "blur(0px)"
-                    : "blur(8px)",
+                    ? "blur(0px)" // jelas
+                    : "blur(8px)", // blur
               }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-3xl sm:text-4xl lg:text-5xl font-medium text-center leading-tight"
@@ -317,6 +333,7 @@ export default function SplashScreen() {
           </motion.div>
 
           {/* ====== SUDUT VIEWFINDER (4 sudut) ====== */}
+          {/* Kiri atas */}
           <motion.div
             className="absolute pointer-events-none"
             style={{
@@ -331,6 +348,7 @@ export default function SplashScreen() {
             animate={{ opacity: phase === "text" ? 0.6 : 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           />
+          {/* Kanan atas */}
           <motion.div
             className="absolute pointer-events-none"
             style={{
@@ -345,6 +363,7 @@ export default function SplashScreen() {
             animate={{ opacity: phase === "text" ? 0.6 : 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           />
+          {/* Kiri bawah */}
           <motion.div
             className="absolute pointer-events-none"
             style={{
@@ -359,6 +378,7 @@ export default function SplashScreen() {
             animate={{ opacity: phase === "text" ? 0.6 : 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           />
+          {/* Kanan bawah */}
           <motion.div
             className="absolute pointer-events-none"
             style={{

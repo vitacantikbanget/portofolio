@@ -3,6 +3,7 @@
 import { FaInstagram, FaGithub } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
+// Data sosial media + email
 const socials = [
   { icon: FaInstagram, href: "https://instagram.com/", label: "Instagram" },
   { icon: FaGithub, href: "https://github.com/", label: "GitHub" },
@@ -11,19 +12,22 @@ const socials = [
 
 export default function Footer() {
   return (
+    // Footer dengan garis atas
     <footer
       className="border-t py-12"
       style={{ borderColor: "var(--border)" }}
     >
       <div className="container-custom">
+        {/* Layout: mobile vertikal, desktop horizontal */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Kiri: Logo + tagline */}
+          {/* ===== KIRI: Logo + Tagline ===== */}
           <div className="text-center md:text-left">
             <p
               className="text-2xl font-semibold mb-1"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
               Desvita
+              {/* Titik accent di akhir */}
               <span style={{ color: "var(--accent)" }}>.</span>
             </p>
             <p
@@ -34,7 +38,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Kanan: Socials */}
+          {/* ===== KANAN: Sosial Media ===== */}
           <div className="flex items-center gap-2">
             {socials.map((s) => {
               const Icon = s.icon;
@@ -42,9 +46,9 @@ export default function Footer() {
                 <a
                   key={s.label}
                   href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
+                  target="_blank" // buka di tab baru
+                  rel="noopener noreferrer" // keamanan
+                  aria-label={s.label} // buat screen reader
                   className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:-translate-y-0.5"
                   style={{
                     background: "var(--surface)",
@@ -59,7 +63,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom line */}
+        {/* ===== Bottom line — dipisah garis atas ===== */}
         <div
           className="mt-8 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
           style={{

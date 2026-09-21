@@ -1,14 +1,16 @@
+// Tipe data project — aturan bentuk data project
 export type Project = {
-  slug: string;
-  title: string;
-  category: "web" | "uiux";
-  description: string;
-  longDescription: string;
-  technologies: string[];
-  image: string;
-  link: string;
+  slug: string;           // URL unik (contoh: "manajemen-perpustakaan")
+  title: string;          // Judul project
+  category: "web" | "uiux"; // Cuma boleh "web" atau "uiux"
+  description: string;    // Deskripsi singkat
+  longDescription: string; // Deskripsi panjang
+  technologies: string[]; // Array teknologi (bisa banyak)
+  image: string;          // Path gambar
+  link: string;           // Link ke project
 };
 
+// Data semua project — array of object
 export const projects: Project[] = [
   {
     slug: "manajemen-perpustakaan",
@@ -19,7 +21,7 @@ export const projects: Project[] = [
     longDescription:
       "Manajemen Perpustakaan adalah aplikasi web yang dibuat untuk membantu proses pencatatan buku, peminjaman, dan pengembalian di perpustakaan. Dibangun menggunakan Next.js, Supabase sebagai database, dan Tailwind CSS untuk tampilan. Fitur utama: kelola buku, kelola anggota, peminjaman, pengembalian, dan laporan bulanan.",
     technologies: ["Next.js", "Supabase", "Tailwind CSS"],
-    image: "/manajemen perpustakaan.png",
+    image: "/manajemen perpustakaan.png", // ⚠️ Ada spasi — sebaiknya pakai strip (-)
     link: "https://manajemen-perpustakaan-sandy.vercel.app",
   },
   {
@@ -60,8 +62,9 @@ export const projects: Project[] = [
   },
 ];
 
+// Daftar kategori buat filter di halaman /projects
 export const categories = [
-  { value: "all", label: "All" },
-  { value: "web", label: "Web" },
-  { value: "uiux", label: "UI/UX" },
+  { value: "all", label: "All" },   // semua project
+  { value: "web", label: "Web" },   // cuma web
+  { value: "uiux", label: "UI/UX" }, // cuma ui/ux
 ];

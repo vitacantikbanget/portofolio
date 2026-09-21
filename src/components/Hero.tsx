@@ -7,9 +7,12 @@ import { ArrowRight, Mail } from "lucide-react";
 import TypingText from "./hero/TypingText";
 
 export default function Hero() {
+  // State buat posisi mouse (buat parallax foto)
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  // State buat cek apakah layar desktop
   const [isDesktop, setIsDesktop] = useState(false);
 
+  // Cek ukuran layar — jalan saat pertama kali + saat resize
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
     check();
@@ -17,9 +20,11 @@ export default function Hero() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  // Deteksi gerakan mouse — cuma aktif di desktop
   useEffect(() => {
-    if (!isDesktop) return;
+    if (!isDesktop) return; // skip kalau bukan desktop
     const onMove = (e: MouseEvent) => {
+      // Ubah posisi mouse jadi range -1 sampai 1
       const x = (e.clientX / window.innerWidth - 0.5) * 2;
       const y = (e.clientY / window.innerHeight - 0.5) * 2;
       setMouse({ x, y });
@@ -40,10 +45,10 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="flex justify-center lg:justify-end order-1 lg:order-2"
+            className="flex justify-center lg:justify-end order-1 lg:order-2" // mobile: atas, desktop: kanan
           >
             <div className="relative w-[160px] sm:w-[220px] lg:w-[320px]">
-              {/* Glow */}
+              {/* Glow di belakang foto */}
               <div
                 className="absolute inset-0 rounded-full pointer-events-none"
                 style={{
@@ -57,6 +62,7 @@ export default function Hero() {
               {/* ====== FOTO ====== */}
               <motion.div
                 style={{
+                  // Foto geser dikit ngikutin mouse (desktop only)
                   x: isDesktop ? mouse.x * 8 : 0,
                   y: isDesktop ? mouse.y * 8 : 0,
                 }}
@@ -68,13 +74,13 @@ export default function Hero() {
                   alt="Desvita Putri Wulandari"
                   fill
                   className="object-cover"
-                  priority
+                  priority // load duluan (biar cepet)
                   sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 320px"
                 />
               </motion.div>
 
-              {/* ================= GARIS PENGHUBUNG (static) ================= */}
-              {/* Sisi atas */}
+              {/* ================= GARIS STATIS ================= */}
+              {/* 4 garis tipis di sekeliling foto — diam */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -86,7 +92,6 @@ export default function Hero() {
                   opacity: 0.4,
                 }}
               />
-              {/* Sisi bawah */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -98,7 +103,6 @@ export default function Hero() {
                   opacity: 0.4,
                 }}
               />
-              {/* Sisi kiri */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -110,7 +114,6 @@ export default function Hero() {
                   opacity: 0.4,
                 }}
               />
-              {/* Sisi kanan */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -123,11 +126,11 @@ export default function Hero() {
                 }}
               />
 
-              {/* ================= RUNNING LIGHT (smooth) ================= */}
-              {/* Konsep: 4 sisi × 3 potongan = 12 potongan
-                  bergantian muncul dengan easing smooth */}
+              {/* ================= RUNNING LIGHT ================= */}
+              {/* 12 potongan garis (4 sisi × 3 potongan)
+                  bergantian muncul — kayak lampu berjalan */}
 
-              {/* === SISI ATAS === */}
+              {/* === SISI ATAS (3 potongan) === */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -137,9 +140,10 @@ export default function Hero() {
                   height: "2px",
                   background: "var(--accent)",
                   borderRadius: "2px",
-                  filter: "drop-shadow(0 0 4px var(--accent))",
+                  filter: "drop-shadow(0 0 4px var(--accent))", // glow
                   willChange: "opacity",
                 }}
+                // urutan opacity: muncul → hilang → muncul lagi (loop 8 detik)
                 animate={{ opacity: [0, 1, 1, 0, 0, 0, 0, 0] }}
                 transition={{
                   duration: 8,
@@ -189,7 +193,7 @@ export default function Hero() {
                 }}
               />
 
-              {/* === SISI KANAN === */}
+              {/* === SISI KANAN (3 potongan) === */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -251,7 +255,7 @@ export default function Hero() {
                 }}
               />
 
-              {/* === SISI BAWAH === */}
+              {/* === SISI BAWAH (3 potongan — pakai warna mauve) === */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -313,7 +317,7 @@ export default function Hero() {
                 }}
               />
 
-              {/* === SISI KIRI === */}
+              {/* === SISI KIRI (3 potongan — pakai warna mauve) === */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -375,8 +379,8 @@ export default function Hero() {
                 }}
               />
 
-              {/* ================= GARIS DIAGONAL DALAM SUDUT ================= */}
-              {/* Kiri atas */}
+              {/* ================= GARIS SUDUT DALAM ================= */}
+              {/* 4 sudut foto — kayak viewfinder kamera */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -389,7 +393,6 @@ export default function Hero() {
                   opacity: 0.6,
                 }}
               />
-              {/* Kanan atas */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -402,7 +405,6 @@ export default function Hero() {
                   opacity: 0.6,
                 }}
               />
-              {/* Kiri bawah */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -415,7 +417,6 @@ export default function Hero() {
                   opacity: 0.6,
                 }}
               />
-              {/* Kanan bawah */}
               <div
                 className="absolute pointer-events-none"
                 style={{
@@ -430,7 +431,7 @@ export default function Hero() {
               />
 
               {/* ================= DIAMOND DI 4 SUDUT ================= */}
-              {/* Kiri atas */}
+              {/* 4 belah ketupat yang berkedip bergantian */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -439,14 +440,13 @@ export default function Hero() {
                   width: "8px",
                   height: "8px",
                   background: "var(--accent)",
-                  transform: "rotate(45deg)",
+                  transform: "rotate(45deg)", // jadi belah ketupat
                   boxShadow: "0 0 10px var(--accent)",
                   willChange: "opacity",
                 }}
                 animate={{ opacity: [1, 0.4, 1] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               />
-              {/* Kanan atas */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -464,10 +464,9 @@ export default function Hero() {
                   duration: 2.5,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 0.6,
+                  delay: 0.6, // delay biar gak barengan
                 }}
               />
-              {/* Kiri bawah */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -488,7 +487,6 @@ export default function Hero() {
                   delay: 1.2,
                 }}
               />
-              {/* Kanan bawah */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{
@@ -510,7 +508,8 @@ export default function Hero() {
                 }}
               />
 
-              {/* ================= TITIK KECIL DI SETIAP SUDUT ================= */}
+              {/* ================= TITIK KECIL DI 4 SUDUT ================= */}
+              {/* Titik kecil diam di dalam sudut foto */}
               <div
                 className="absolute pointer-events-none rounded-full"
                 style={{
@@ -558,7 +557,8 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* ================= PEMISAH (mobile) ================= */}
+          {/* ================= PEMISAH (mobile only) ================= */}
+          {/* Garis + titik — cuma muncul di mobile */}
           <div className="lg:hidden flex items-center justify-center gap-3">
             <span
               className="w-16 h-[1px]"
@@ -576,6 +576,7 @@ export default function Hero() {
 
           {/* ================= TEXT ================= */}
           <div className="text-center lg:text-left order-2 lg:order-1">
+            {/* Label "Available for work" */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -594,6 +595,7 @@ export default function Hero() {
               Available for work
             </motion.div>
 
+            {/* Nama — besar */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -609,6 +611,7 @@ export default function Hero() {
               </span>
             </motion.h1>
 
+            {/* Typing text "I'm a ..." */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -619,6 +622,7 @@ export default function Hero() {
               I'm a <TypingText />
             </motion.div>
 
+            {/* Deskripsi */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -632,6 +636,7 @@ export default function Hero() {
               menarik dan nyaman digunakan.
             </motion.p>
 
+            {/* Tombol */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
