@@ -5,8 +5,8 @@ import { MdEmail } from "react-icons/md";
 
 // Data sosial media + email
 const socials = [
-  { icon: FaInstagram, href: "https://instagram.com/", label: "Instagram" },
-  { icon: FaGithub, href: "https://github.com/", label: "GitHub" },
+  { icon: FaInstagram, href: "https://www.instagram.com/vitaaptri_wd?stkn=NTY3OTB3dWx1NHBj", label: "Instagram" },
+  { icon: FaGithub, href: "https://github.com/vitacantikbanget", label: "GitHub" },
   { icon: MdEmail, href: "mailto:desvitaputri27@gmail.com", label: "Email" },
 ];
 
