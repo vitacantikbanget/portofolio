@@ -1,3 +1,4 @@
+import ParticlesBackground from "@/components/ParticlesBackground";
 import LoginCard from "./LoginCard";
 
 export const metadata = {
@@ -8,7 +9,10 @@ export const metadata = {
 export default function LoginPage() {
   return (
     <main className="min-h-screen w-full relative flex items-center justify-center overflow-hidden px-4 py-16">
-      {/* ====== BACKGROUND DECOR (statis, tanpa animasi) ====== */}
+      {/* Partikel + blob hanya di halaman login */}
+      <ParticlesBackground />
+
+      {/* Background decor statis */}
       <div
         className="absolute rounded-full pointer-events-none"
         style={{

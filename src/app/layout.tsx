@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import SiteAccent from "@/components/SiteAccent";
-import ParticlesBackground from "@/components/ParticlesBackground";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -33,7 +32,6 @@ export default function RootLayout({
         <SiteAccent />
       </head>
       <body className={`${cormorant.variable} ${manrope.variable}`}>
-        <ParticlesBackground />
         {children}
       </body>
     </html>
