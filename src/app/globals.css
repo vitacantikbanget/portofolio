@@ -6,22 +6,22 @@
 :root {
   --bg: #f5f0e8;
   --bg-soft: #ebe4d8;
-  --surface: #fdfaf5;        /* cream, bukan putih */
-  --surface-2: #f0e9de;      /* card second layer */
-  --border: #d8cfc0;
-  --text: #1f1b16;            /* lebih gelap */
-  --text-muted: #5a4f42;      /* lebih gelap */
-  --accent: #a96f6b;
+  --surface: #fdfaf5;
+  --surface-2: #f0e9de;
+  --border: #c4b8a5;
+  --text: #1a1612;
+  --text-muted: #4a3f34;
+  --accent: #8f5a56;
   --accent-soft: #e8d5d2;
-  --mauve: #8a7590;
+  --mauve: #6f5c78;
   --lavender: #b8aec8;
-  --nav-bg: rgba(245, 240, 232, 0.8);
+  --nav-bg: rgba(245, 240, 232, 0.85);
 
-  /* Grid */
+  /* Grid lebih halus di mode terang */
   --grid-color-1: #8a5a55;
   --grid-color-2: #6b5a7a;
-  --grid-opacity-1: 0.18;
-  --grid-opacity-2: 0.14;
+  --grid-opacity-1: 0.08;
+  --grid-opacity-2: 0.06;
   --grid-size-1: 60px;
   --grid-size-2: 200px;
 }
