@@ -3,7 +3,24 @@
 import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Code2, Palette, Wrench } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { getSkills, type Skill } from "@/lib/skills";
+
+function DynamicSkillIcon({
+  name,
+  size = 13,
+  className,
+}: {
+  name?: string | null;
+  size?: number;
+  className?: string;
+}) {
+  if (!name) return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const IconComponent = (LucideIcons as Record<string, any>)[name];
+  if (!IconComponent) return null;
+  return <IconComponent size={size} className={className} />;
+}
 
 // Kategori dengan icon + subtitle (fixed)
 const categoryInfo = [
@@ -174,21 +191,50 @@ export default function Skills() {
                     {cat.subtitle}
                   </p>
 
-                  <div className="flex flex-wrap gap-x-3 gap-y-1.5 mt-auto">
-                    {catSkills.map((skill) => (
-                      <span
-                        key={skill.id}
-                        className="inline-flex items-center gap-1.5 text-[13px]"
-                      >
-                        <span
-                          className="w-1 h-1 rounded-full shrink-0"
-                          style={{ background: "var(--accent)" }}
-                        />
-                        <span style={{ color: "var(--text)" }}>
-                          {skill.name}
-                        </span>
-                      </span>
-                    ))}
+                  <div className="space-y-3 mt-auto pt-2">
+                    {catSkills.map((skill) => {
+                      const level = skill.level ?? 80;
+                      return (
+                        <div key={skill.id} className="space-y-1">
+                          <div className="flex items-center justify-between text-xs">
+                            <span
+                              className="inline-flex items-center gap-2 font-medium"
+                              style={{ color: "var(--text)" }}
+                            >
+                              {skill.icon ? (
+                                <span style={{ color: "var(--accent)" }}>
+                                  <DynamicSkillIcon name={skill.icon} size={14} />
+                                </span>
+                              ) : (
+                                <span
+                                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                                  style={{ background: "var(--accent)" }}
+                                />
+                              )}
+                              <span>{skill.name}</span>
+                            </span>
+                            <span
+                              className="font-mono text-[11px] opacity-75"
+                              style={{ color: "var(--text-muted)" }}
+                            >
+                              {level}%
+                            </span>
+                          </div>
+                          <div
+                            className="w-full h-1.5 rounded-full overflow-hidden"
+                            style={{ background: "var(--bg-soft)" }}
+                          >
+                            <div
+                              className="h-full rounded-full transition-all duration-700"
+                              style={{
+                                width: `${level}%`,
+                                background: "var(--accent)",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
 

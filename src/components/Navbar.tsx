@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { cn } from "@/lib/utils"; // buat gabungin class
@@ -22,6 +23,17 @@ export default function Navbar() {
   // Menu mana yang lagi aktif
   const [active, setActive] = useState("#home");
 
+  // Anchor kayak "#projects" cuma jalan di beranda, karena di halaman lain
+  // elemen dengan id itu tidak ada. Kalau dipakai mentah di /admin atau
+  // /projects, klik menu cuma nambah "#projects" di URL tanpa pindah
+  // halaman. Jadi di luar beranda link-nya diubah jadi "/#projects".
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const hrefFor = (hash: string) => (isHome ? hash : `/${hash}`);
+
+  // Di luar beranda tidak ada section yang bisa di-highlight.
+  const activeHash = isHome ? active : "";
+
   // Deteksi scroll — ubah tampilan navbar
   useEffect(() => {
     const onScroll = () => {
@@ -35,6 +47,11 @@ export default function Navbar() {
 
   // Deteksi section yang lagi kelihatan — biar menu aktif ngikutin
   useEffect(() => {
+    // Di luar beranda tidak ada section #home/#about/... jadi tidak ada
+    // yang bisa diobservasi. Lewati, kalau tidak "Beranda" akan nempel
+    // aktif selamanya karena state default-nya "#home".
+    if (!isHome) return;
+
     // Ambil semua section dari daftar link
     const sections = links
       .map((l) => document.querySelector(l.href))
@@ -60,7 +77,7 @@ export default function Navbar() {
 
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
 
   // Fungsi klik menu
   const handleClick = (href: string) => {
@@ -85,7 +102,7 @@ export default function Navbar() {
       <nav className="container-custom flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <a
-          href="#home"
+          href={hrefFor("#home")}
           onClick={() => handleClick("#home")}
           className="text-xl md:text-2xl font-semibold tracking-tight"
           style={{ fontFamily: "var(--font-cormorant)" }}
@@ -99,23 +116,23 @@ export default function Navbar() {
           {links.map((link) => (
             <li key={link.href}>
               <a
-                href={link.href}
+                href={hrefFor(link.href)}
                 onClick={() => handleClick(link.href)}
                 className={cn(
                   "text-sm transition-colors relative py-2",
                   // Aktif: tebal. Gak aktif: pudar, kalau hover jadi jelas
-                  active === link.href
+                  activeHash === link.href
                     ? "font-medium"
                     : "opacity-70 hover:opacity-100"
                 )}
                 style={{
                   color:
-                    active === link.href ? "var(--accent)" : "var(--text)",
+                    activeHash === link.href ? "var(--accent)" : "var(--text)",
                 }}
               >
                 {link.label}
                 {/* Garis bawah — cuma muncul kalau aktif */}
-                {active === link.href && (
+                {activeHash === link.href && (
                   <span
                     className="absolute -bottom-0.5 left-0 right-0 h-px"
                     style={{ background: "var(--accent)" }}
@@ -158,12 +175,12 @@ export default function Navbar() {
           {links.map((link) => (
             <li key={link.href}>
               <a
-                href={link.href}
+                href={hrefFor(link.href)}
                 onClick={() => handleClick(link.href)}
                 className="block py-3 text-sm"
                 style={{
                   color:
-                    active === link.href ? "var(--accent)" : "var(--text)",
+                    activeHash === link.href ? "var(--accent)" : "var(--text)",
                 }}
               >
                 {link.label}

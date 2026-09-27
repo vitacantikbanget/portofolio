@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
+import SiteAccent from "@/components/SiteAccent";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -28,23 +29,7 @@ export default function RootLayout({
   return (
     <html lang="id" suppressHydrationWarning>
       <head>
-        {/* Script untuk set tema sebelum halaman render — biar gak flicker */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('theme');
-                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const isDark = theme === 'dark' || (!theme && systemDark);
-                if (isDark) {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
+        <SiteAccent />
       </head>
       <body className={`${cormorant.variable} ${manrope.variable}`}>
         {children}

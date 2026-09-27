@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import GlobalBackground from "@/components/GlobalBackground";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import { getProjects, type Project } from "@/lib/projects";
 
@@ -162,21 +165,28 @@ function ProjectsContent() {
 // (wajib karena useSearchParams butuh Suspense di Next.js 15+)
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen pt-28 pb-20">
-      <div className="container-custom">
-        <Suspense
-          fallback={
-            <div
-              className="text-center py-20 text-sm"
-              style={{ color: "var(--text-muted)" }}
-            >
-              Memuat...
-            </div>
-          }
-        >
-          <ProjectsContent />
-        </Suspense>
-      </div>
-    </main>
+    <>
+      <GlobalBackground />
+      <Navbar />
+
+      <main className="min-h-screen pt-28 pb-20">
+        <div className="container-custom">
+          <Suspense
+            fallback={
+              <div
+                className="text-center py-20 text-sm"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Memuat...
+              </div>
+            }
+          >
+            <ProjectsContent />
+          </Suspense>
+        </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }

@@ -18,6 +18,12 @@ Website portfolio pribadi dengan Next.js + Supabase.
 | link | text | Link project |
 | created_at | timestamptz | Waktu dibuat |
 
+`slug` punya unique index `projects_slug_unik` pada `lower(slug)`, jadi
+`my-project` dan `My-Project` dianggap sama. Ini bukan pilihan: halaman
+publik `/projects/[slug]` mencari dengan `.eq("slug", slug).single()`. Kalau
+dua baris punya slug sama, `.single()` error, `getProjectBySlug()` mengembalikan
+`null`, dan **halaman publiknya jadi 404**. Index ini yang mencegahnya.
+
 ### 2. `skills`
 | Kolom | Tipe | Keterangan |
 |---|---|---|
@@ -142,6 +148,17 @@ bisa dilakukan langsung ke endpoint Supabase `/auth/v1/token` tanpa menyentuh
 
 ## Halaman Admin
 
+Semua route di bawah `/admin` dibungkus `src/app/admin/layout.tsx`, yang
+menyertakan `GlobalBackground`, `Navbar`, `Footer`, dan `robots: noindex`.
+Halaman-halaman di dalamnya tidak perlu mengulang chrome itu. Layout ini juga
+punya `pt-28` untuk mengompensasi `Navbar` yang `fixed`.
+
+`Navbar` sendiri dibuat route-aware (`src/components/Navbar.tsx`): pakai
+`usePathname()`, dan di luar beranda anchor `#about` dst. ditulis jadi
+`/#about`. Tanpa itu, klik menu di `/admin/proyek` cuma menambah hash di URL
+tanpa pindah halaman, dan "Beranda" akan terlihat aktif terus-menerus karena
+`IntersectionObserver`-nya tidak menemukan section.
+
 ### `/login`
 Form login (email + password) yang memanggil Server Action `signIn`. Route ini
 hanya bisa dibuka kalau cookie `admin_doorpass` sudah ada, jadi formnya tidak
@@ -156,16 +173,75 @@ tidak terdaftar" dan "password salah", supaya email terdaftar tidak bisa
 dipetakan orang.
 
 ### `/admin`
-Shell dashboard. Gerbangnya dua lapis:
+Shell dashboard. Gerbangnya dua lapis, sekarang dipusatkan di
+`requireAdmin()` (`src/lib/admin-guard.ts`) supaya tidak di-copy-paste ke
+setiap halaman:
 
 1. `getClaims()` - kalau tidak ada session, `redirect("/login")`.
 2. `rpc("is_admin")` - kalau false, `notFound()`.
 
 Langkah kedua yang menentukan. `is_admin()` membaca tabel `profile`, jadi
-keputusan role diambil dari database, bukan dari isi cookie.
+keputusan role diambil dari database, bukan dari isi cookie. Client Supabase-nya
+dikembalikan oleh `requireAdmin()` supaya halaman tidak perlu membuat client
+kedua.
 
-Halaman ini juga menampilkan 10 aktivitas terakhir dari `admin_activity`, dan
-tombol keluar yang memanggil `signOut` (`src/app/admin/actions.ts`).
+Halaman ini menampilkan jumlah isi tiap tabel, 10 aktivitas terakhir dari
+`admin_activity`, dan tombol keluar yang memanggil `signOut`
+(`src/app/admin/actions.ts`).
+
+### `/admin/proyek` - CRUD
+
+```
+/admin/proyek              daftar project + tombol tambah
+/admin/proyek/baru         form tambah
+/admin/proyek/[id]         form ubah
+/admin/proyek/[id]/hapus   konfirmasi hapus
+```
+
+Route `[id]` memakai `id` numerik, bukan slug. Halaman-halamannya memvalidasi
+`params` sebagai integer dulu sebelum dipakai di query.
+
+Server Action-nya di `src/app/admin/proyek/actions.ts`:
+`createProject`, `updateProject`, `deleteProject`.
+
+Tiga hal yang mudah salah di file itu, dan sebaiknya tidak dihapus:
+
+- **Setiap action memanggil `requireAdmin()` sendiri.** Server Action adalah
+  endpoint HTTP publik - request bisa dikirim langsung ke action tanpa lewat
+  halaman. Gate di layout tidak otomatis berlaku.
+- **Baris dicek dengan `.maybeSingle()` sebelum update/delete.** Tanpa itu,
+  `update` dan `delete` tanpa `.select()` mengembalikan `error = null` walau 0
+  baris kena, jadi ID palsu terlihat seperti sukses.
+- **Error `23505` ditangkap dan dikembalikan ke form.** Itu kode unique
+  violation dari `projects_slug_unik`; kalau dibiarkan mentah, user cuma
+  melihat pesan Postgres.
+
+`create`/`update`/`delete` menulis ke `admin_activity` dengan `project_title` dan
+`user_id` dari JWT. Kegagalan menulis log hanya dicatat ke console, tidak
+pernah menggagalkan aksi user.
+
+Setelah setiap mutasi dipanggil `revalidatePath` untuk `/admin`,
+`/admin/proyek`, `/projects`, dan `/projects/<slug>` - slug **lama** juga
+direvalidasi saat slug berubah, supaya URL lama tidak masih menyajikan data
+kuno. Catatan jujurnya: `/projects` adalah Client Component yang fetch di
+`useEffect`, jadi datanya sudah segar tanpa bantuan revalidasi. Yang benar-benar
+diuntungkan adalah `/admin/proyek` dan `/projects/[slug]` yang Server Component.
+
+### Validasi form
+
+Skema ada di `src/lib/project-form.ts`, dipakai create dan edit lewat
+`ProjectForm.tsx` yang sama. Dua aturan yang berasal dari isi tabel, bukan
+sekadar selera:
+
+- **`technologies` jadi `[]`, bukan `null`.** Kolomnya `text[]` dan form
+  mengirim string "Next.js, TypeScript", jadi dipecah koma. Kalau kosong
+  hasilnya `[]` - halaman publik memanggil `project.technologies.map(...)`
+  tanpa penjaga `null`, jadi `null` akan membuat `/projects/<slug>` error.
+- **`image` wajib dan harus diawali `/`.** `next.config.ts` tidak punya
+  `images.remotePatterns`, jadi path eksternal ditolak `next/image`. Path yang
+  salah Format ditolak form, tapi path yang formatnya benar tapi filenya tidak
+  ada akan membuat halaman publik gagal dimuat - form tidak bisa memeriksa isi
+  folder `public/`.
 
 ### Alur lengkap
 
@@ -189,6 +265,11 @@ Kalau browser ditutup tapi session Supabase masih ada, cookie doorpass hilang
 (session cookie) sementara session bertahan. Membuka `/admin` langsung tetap 404;
 harus lewat `/admin?doorpass=<nilai>` sekali lagi, lalu proxy meloloskan ke
 `/admin` karena session-nya masih hidup.
+
+Route `/admin/proyek` dan turunannya ikut terlindungi matcher
+`/admin/:path*`, jadi tidak perlu perubahan di `src/proxy.ts`. Tapi gate
+`requireAdmin()` tetap wajib dipanggil di setiap halaman, karena proxy cuma
+menyembunyikan route.
 
 Setiap login yang berhasil menulis satu baris `admin_activity` dengan
 `action = 'login'`. Kegagalan menulis log tidak pernah menggagalkan login.

@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getProjectBySlug } from "@/lib/projects";
+import GlobalBackground from "@/components/GlobalBackground";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // Tipe params — Next.js 15+ pakai Promise
 type Params = {
@@ -32,8 +35,12 @@ export default async function ProjectDetailPage({ params }: Params) {
   if (!project) notFound();
 
   return (
-    <main className="min-h-screen pt-28 pb-20">
-      <div className="container-custom">
+    <>
+      <GlobalBackground />
+      <Navbar />
+
+      <main className="min-h-screen pt-28 pb-20">
+        <div className="container-custom">
         {/* ===== TOMBOL KEMBALI ===== */}
         {/* Arrow geser ke kiri saat hover */}
         <Link
@@ -175,7 +182,10 @@ export default async function ProjectDetailPage({ params }: Params) {
             </div>
           </div>
         </div>
-      </div>
-    </main>
+        </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }
