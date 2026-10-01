@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Trash2, AlertTriangle } from "lucide-react";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../../../_lib/admin-guard";
 import { deleteSkill } from "../../actions";
 
 export const metadata = {
-  title: "Konfirmasi Hapus Skill — Admin Portfolio",
+  title: "Konfirmasi Hapus Skill Ã¢â‚¬â€ Admin Portfolio",
 };
 
 type Params = {

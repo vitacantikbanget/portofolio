@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft, Plus } from "lucide-react";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../../_lib/admin-guard";
 import ProjectForm from "../ProjectForm";
 import { createProject } from "../actions";
 
 export const metadata = {
-  title: "Tambah Project — Admin Portfolio",
+  title: "Tambah Project Ã¢â‚¬â€ Admin Portfolio",
 };
 
 export default async function TambahProjectPage() {

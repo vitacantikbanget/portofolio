@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../_lib/admin-guard";
+import { type SettingsState } from "./state";
 
 const settingsSchema = z.object({
   accent_color: z
@@ -20,17 +21,6 @@ const settingsSchema = z.object({
     .max(300, "Deskripsi website maksimal 300 karakter.")
     .optional(),
 });
-
-export type SettingsState = {
-  success?: boolean;
-  error: string | null;
-  fieldErrors: Record<string, string>;
-};
-
-export const initialSettingsState: SettingsState = {
-  error: null,
-  fieldErrors: {},
-};
 
 export async function updateSettings(
   _prev: SettingsState,
@@ -81,9 +71,9 @@ export async function updateSettings(
     user_id: userId,
   });
 
-  revalidatePath("/admin/settings");
-  revalidatePath("/", "layout");
   revalidatePath("/");
+  revalidatePath("/admin");
+  revalidatePath("/admin/settings");
 
   return { success: true, error: null, fieldErrors: {} };
 }

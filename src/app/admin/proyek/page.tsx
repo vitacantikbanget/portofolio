@@ -1,8 +1,8 @@
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../_lib/admin-guard";
 import ProjectTable, { type ProjectItem } from "./ProjectTable";
 
 export const metadata = {
-  title: "Kelola Project — Admin Portfolio",
+  title: "Kelola Project Ã¢â‚¬â€ Admin Portfolio",
 };
 
 export default async function KelolaProyekPage() {

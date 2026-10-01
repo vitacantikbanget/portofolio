@@ -140,7 +140,7 @@ export default function AdminSidebar({ user, isOpen, onClose }: Props) {
                 color: "var(--text)",
               }}
             >
-              ADMIN PORTFOLIO
+              ADMIN PORTOFOLIO
             </h1>
           </div>
           <p

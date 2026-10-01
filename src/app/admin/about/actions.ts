@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../_lib/admin-guard";
+import { type AboutState } from "./state";
 
 const aboutSchema = z.object({
   username: z
@@ -31,17 +32,6 @@ const aboutSchema = z.object({
     .max(300, "Path avatar maksimal 300 karakter.")
     .optional(),
 });
-
-export type AboutState = {
-  success?: boolean;
-  error: string | null;
-  fieldErrors: Record<string, string>;
-};
-
-export const initialAboutState: AboutState = {
-  error: null,
-  fieldErrors: {},
-};
 
 export async function updateAbout(
   _prev: AboutState,

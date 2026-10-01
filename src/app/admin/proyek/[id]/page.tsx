@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Pencil, ExternalLink } from "lucide-react";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../../_lib/admin-guard";
 import ProjectForm from "../ProjectForm";
 import { updateProject } from "../actions";
 
 export const metadata = {
-  title: "Ubah Project — Admin Portfolio",
+  title: "Ubah Project Ã¢â‚¬â€ Admin Portfolio",
 };
 
 type Params = {

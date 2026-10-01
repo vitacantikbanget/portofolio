@@ -1,8 +1,8 @@
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../_lib/admin-guard";
 import AboutForm from "./AboutForm";
 
 export const metadata = {
-  title: "Kelola About — Admin Portfolio",
+  title: "Kelola About Ã¢â‚¬â€ Admin Portfolio",
 };
 
 export default async function AboutPage() {

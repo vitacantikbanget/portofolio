@@ -1,5 +1,5 @@
-import { requireAdmin } from "@/lib/admin-guard";
-import AdminShell from "@/components/admin/AdminShell";
+import { requireAdmin } from "./_lib/admin-guard";
+import AdminShell from "./_components/AdminShell";
 
 export const metadata = {
   title: "Admin — Desvita Putri",

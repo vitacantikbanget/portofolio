@@ -1,9 +1,9 @@
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../_lib/admin-guard";
 import SkillTable from "./SkillTable";
 import type { Skill } from "@/lib/skills";
 
 export const metadata = {
-  title: "Kelola Skills — Admin Portfolio",
+  title: "Kelola Skills Ã¢â‚¬â€ Admin Portfolio",
 };
 
 export default async function SkillsPage() {

@@ -12,10 +12,10 @@ import {
   Clock,
   Eye,
 } from "lucide-react";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "./_lib/admin-guard";
 
 export const metadata = {
-  title: "Dashboard — Admin Portfolio",
+  title: "Dashboard â€” Admin Portfolio",
 };
 
 export default async function AdminDashboardPage() {

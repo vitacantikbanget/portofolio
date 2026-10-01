@@ -1,6 +1,6 @@
 import "server-only";
 import { notFound, redirect } from "next/navigation";
-import { createClient } from "./supabase-server";
+import { createClient } from "@/lib/supabase-server";
 
 // Gate admin 2 lapis, dipakai semua halaman di bawah /admin.
 //

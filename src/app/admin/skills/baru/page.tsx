@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft, Plus } from "lucide-react";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../../_lib/admin-guard";
 import SkillForm from "../SkillForm";
 import { createSkill } from "../actions";
 
 export const metadata = {
-  title: "Tambah Skill — Admin Portfolio",
+  title: "Tambah Skill Ã¢â‚¬â€ Admin Portfolio",
 };
 
 export default async function TambahSkillPage() {

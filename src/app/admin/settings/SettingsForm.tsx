@@ -2,7 +2,8 @@
 
 import { useActionState, useState } from "react";
 import { AlertCircle, CheckCircle2, Loader2, Palette, Sparkles } from "lucide-react";
-import { updateSettings, initialSettingsState } from "./actions";
+import { updateSettings } from "./actions";
+import { initialSettingsState } from "./state";
 
 type InitialSettings = {
   accent_color?: string | null;

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { requireAdmin } from "@/lib/admin-guard";
+import { requireAdmin } from "../_lib/admin-guard";
 import { parseSkill, type SkillState } from "@/lib/skill-form";
 
 function parseId(nilai: FormDataEntryValue | null): number | null {

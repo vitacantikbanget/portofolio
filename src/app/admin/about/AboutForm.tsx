@@ -3,7 +3,8 @@
 import { useActionState, useState } from "react";
 import Image from "next/image";
 import { AlertCircle, CheckCircle2, Loader2, Sparkles, User } from "lucide-react";
-import { updateAbout, initialAboutState } from "./actions";
+import { updateAbout } from "./actions";
+import { initialAboutState } from "./state";
 
 type InitialProfile = {
   username?: string | null;
