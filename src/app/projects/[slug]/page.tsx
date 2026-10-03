@@ -20,9 +20,32 @@ export async function generateMetadata({ params }: Params) {
   // Kalau project gak ada, tampilkan judul generic
   if (!project) return { title: "Project tidak ditemukan" };
 
+  const ogImages = project.image
+    ? [
+        {
+          url: project.image,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ]
+    : undefined;
+
   return {
     title: `${project.title} — Desvita Putri`,
     description: project.description,
+    openGraph: {
+      title: `${project.title} — Desvita Putri`,
+      description: project.description,
+      type: "article",
+      images: ogImages,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Desvita Putri`,
+      description: project.description,
+      images: project.image ? [project.image] : undefined,
+    },
   };
 }
 
