@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState } from "react";
 import { AlertCircle, Loader2 } from "lucide-react";
 import {
   SKILL_CATEGORIES,
@@ -12,27 +12,21 @@ type Values = {
   id?: number;
   name: string;
   category: string;
-  level: number;
-  icon?: string | null;
 };
 
 const KOSONG: Values = {
   name: "",
   category: "frontend",
-  level: 80,
-  icon: "",
 };
 
 function Field({
   label,
   name,
-  hint,
   error,
   children,
 }: {
   label: string;
   name: string;
-  hint?: string;
   error?: string;
   children: React.ReactNode;
 }) {
@@ -46,11 +40,6 @@ function Field({
         {label}
       </label>
       {children}
-      {hint && !error && (
-        <p className="text-[11px] mt-1.5" style={{ color: "var(--text-muted)" }}>
-          {hint}
-        </p>
-      )}
       {error && (
         <p
           className="text-[11px] mt-1.5 flex items-center gap-1.5"
@@ -82,7 +71,6 @@ export default function SkillForm({
   submitLabel: string;
 }) {
   const v = values ?? KOSONG;
-  const [levelVal, setLevelVal] = useState<number>(v.level ?? 80);
 
   const [state, formAction, isPending] = useActionState(
     action,
@@ -142,54 +130,6 @@ export default function SkillForm({
             </option>
           ))}
         </select>
-      </Field>
-
-      {/* Level Penguasaan Slider + Number */}
-      <Field
-        label={`Tingkat Penguasaan (${levelVal}%)`}
-        name="level"
-        hint="Tentukan persentase keahlian yang akan ditampilkan pada progress bar (1-100%)."
-        error={e("level")}
-      >
-        <div className="flex items-center gap-4">
-          <input
-            type="range"
-            min={1}
-            max={100}
-            value={levelVal}
-            onChange={(e) => setLevelVal(Number(e.target.value))}
-            className="flex-1 accent-[var(--accent)] cursor-pointer"
-          />
-          <input
-            id="level"
-            name="level"
-            type="number"
-            min={1}
-            max={100}
-            value={levelVal}
-            onChange={(e) => setLevelVal(Number(e.target.value))}
-            className="w-20 px-3 py-2 text-center rounded-xl border text-sm font-mono outline-none"
-            style={inputStyle}
-          />
-        </div>
-      </Field>
-
-      {/* Icon Lucide */}
-      <Field
-        label="Nama Ikon Lucide (Opsional)"
-        name="icon"
-        hint="Nama komponen ikon di lucide-react, contoh: Code2, Palette, Wrench, Terminal, Database, Cpu."
-        error={e("icon")}
-      >
-        <input
-          id="icon"
-          name="icon"
-          defaultValue={v.icon ?? ""}
-          maxLength={40}
-          placeholder="Code2"
-          className={inputClass}
-          style={inputStyle}
-        />
       </Field>
 
       {/* Action Buttons */}

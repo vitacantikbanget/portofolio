@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import type { Skill } from "@/lib/skills";
+import { SKILL_CATEGORIES } from "@/lib/skill-form";
 
 type Props = {
   skills: Skill[];
@@ -48,8 +49,7 @@ export default function SkillTable({ skills }: Props) {
 
       const matchText =
         s.name.toLowerCase().includes(q) ||
-        s.category.toLowerCase().includes(q) ||
-        (s.icon && s.icon.toLowerCase().includes(q));
+        s.category.toLowerCase().includes(q);
 
       return matchCategory && matchText;
     });
@@ -62,12 +62,8 @@ export default function SkillTable({ skills }: Props) {
     setCategoryFilter("all");
   };
 
-  const getCategoryLabel = (cat: string) => {
-    if (cat === "frontend") return "Frontend";
-    if (cat === "design") return "UI/UX Design";
-    if (cat === "tools") return "Tools & Backend";
-    return cat;
-  };
+  const getCategoryLabel = (cat: string) =>
+    SKILL_CATEGORIES.find((c) => c.value === cat)?.label ?? cat;
 
   return (
     <div className="space-y-6">
@@ -237,7 +233,7 @@ export default function SkillTable({ skills }: Props) {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari skill, kategori, icon..."
+              placeholder="Cari skill atau kategori..."
               className="w-full pl-9 pr-3 py-2 rounded-xl border text-xs outline-none transition-all focus:border-[var(--accent)]"
               style={{
                 background: "var(--bg-soft)",
@@ -258,9 +254,11 @@ export default function SkillTable({ skills }: Props) {
             }}
           >
             <option value="all">Semua Kategori</option>
-            <option value="frontend">Frontend Development</option>
-            <option value="design">Design &amp; UI/UX</option>
-            <option value="tools">Tools &amp; Backend</option>
+            {SKILL_CATEGORIES.map((k) => (
+              <option key={k.value} value={k.value}>
+                {k.label}
+              </option>
+            ))}
           </select>
 
           {isFiltered && (
@@ -344,12 +342,6 @@ export default function SkillTable({ skills }: Props) {
                     Kategori
                   </th>
                   <th
-                    className="text-[10px] tracking-[0.2em] uppercase font-normal px-5 py-4 min-w-[160px]"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    Level
-                  </th>
-                  <th
                     className="text-[10px] tracking-[0.2em] uppercase font-normal px-5 py-4 text-right"
                     style={{ color: "var(--text-muted)" }}
                   >
@@ -359,7 +351,6 @@ export default function SkillTable({ skills }: Props) {
               </thead>
               <tbody className="divide-y" style={{ borderColor: "var(--border)" }}>
                 {filteredSkills.map((s, index) => {
-                  const level = s.level ?? 80;
                   return (
                     <tr
                       key={s.id}
@@ -373,60 +364,25 @@ export default function SkillTable({ skills }: Props) {
                       </td>
 
                       <td className="px-5 py-3.5 align-middle">
-                        <div className="flex items-center gap-2.5">
-                          {s.icon && (
-                            <span
-                              className="text-[10px] font-mono px-2 py-0.5 rounded-md border"
-                              style={{
-                                borderColor: "var(--border)",
-                                background: "var(--bg-soft)",
-                                color: "var(--accent)",
-                              }}
-                            >
-                              {s.icon}
-                            </span>
-                          )}
-                          <p
-                            className="font-medium text-sm"
-                            style={{ color: "var(--text)" }}
-                          >
-                            {s.name}
-                          </p>
-                        </div>
+                        <p
+                          className="font-medium text-sm"
+                          style={{ color: "var(--text)" }}
+                        >
+                          {s.name}
+                        </p>
                       </td>
 
                       <td className="px-5 py-3.5 align-middle whitespace-nowrap">
                         <span
-                          className="inline-block text-[11px] font-medium px-2.5 py-0.5 rounded-full border capitalize"
+                          className="inline-block text-[11px] font-medium px-2.5 py-0.5 rounded-full border whitespace-nowrap"
                           style={{
                             borderColor: "var(--border)",
                             background: "var(--bg-soft)",
-                            color: "var(--text)",
+                            color: "var(--text-muted)",
                           }}
                         >
                           {getCategoryLabel(s.category)}
                         </span>
-                      </td>
-
-                      <td className="px-5 py-3.5 align-middle">
-                        <div className="w-full max-w-[140px]">
-                          <div className="flex items-center justify-between text-[11px] mb-1 font-mono">
-                            <span style={{ color: "var(--text-muted)" }}>Tingkat</span>
-                            <span style={{ color: "var(--text)" }}>{level}%</span>
-                          </div>
-                          <div
-                            className="w-full h-1.5 rounded-full overflow-hidden"
-                            style={{ background: "var(--border)" }}
-                          >
-                            <div
-                              className="h-full rounded-full transition-all duration-300"
-                              style={{
-                                width: `${level}%`,
-                                background: "var(--accent)",
-                              }}
-                            />
-                          </div>
-                        </div>
                       </td>
 
                       <td className="px-5 py-3.5 align-middle text-right whitespace-nowrap">

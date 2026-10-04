@@ -11,7 +11,7 @@ export default async function SkillsPage() {
 
   const { data: skills, error } = await supabase
     .from("skills")
-    .select("id, name, category, level, icon")
+    .select("id, name, category")
     .order("id", { ascending: true });
 
   if (error) {

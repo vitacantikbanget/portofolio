@@ -22,7 +22,7 @@ export default async function UbahSkillPage({ params }: Params) {
 
   const { data: skill, error } = await supabase
     .from("skills")
-    .select("id, name, category, level, icon")
+    .select("id, name, category")
     .eq("id", skillId)
     .maybeSingle();
 
@@ -69,7 +69,7 @@ export default async function UbahSkillPage({ params }: Params) {
           </div>
         </div>
         <p className="text-xs mb-6 pl-9.5" style={{ color: "var(--text-muted)" }}>
-          Perbarui informasi nama, kategori, tingkat penguasaan, atau ikon skill ini.
+          Perbarui nama atau kategori skill ini.
         </p>
 
         <SkillForm
@@ -79,8 +79,6 @@ export default async function UbahSkillPage({ params }: Params) {
             id: skill.id,
             name: skill.name,
             category: skill.category,
-            level: skill.level ?? 80,
-            icon: skill.icon ?? "",
           }}
         />
       </div>

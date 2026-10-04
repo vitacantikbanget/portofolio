@@ -11,8 +11,6 @@ export type SkillCategory = (typeof SKILL_CATEGORIES)[number]["value"];
 export type SkillInput = {
   name: string;
   category: string;
-  level: number;
-  icon: string | null;
 };
 
 export type SkillState = {
@@ -35,17 +33,6 @@ const skillSchema = z.object({
     .string()
     .trim()
     .min(1, "Kategori wajib dipilih."),
-  level: z
-    .coerce
-    .number()
-    .int("Level harus bilangan bulat.")
-    .min(1, "Level minimal 1%.")
-    .max(100, "Level maksimal 100%."),
-  icon: z
-    .string()
-    .trim()
-    .max(40, "Nama icon maksimal 40 karakter.")
-    .optional(),
 });
 
 function getString(formData: FormData, key: string): string {
@@ -59,8 +46,6 @@ export function parseSkill(formData: FormData):
   const parsed = skillSchema.safeParse({
     name: getString(formData, "name"),
     category: getString(formData, "category"),
-    level: formData.get("level") || 80,
-    icon: getString(formData, "icon"),
   });
 
   if (!parsed.success) {
@@ -76,8 +61,6 @@ export function parseSkill(formData: FormData):
     data: {
       name: parsed.data.name,
       category: parsed.data.category,
-      level: parsed.data.level,
-      icon: parsed.data.icon ? parsed.data.icon : null,
     },
     fieldErrors: {},
   };

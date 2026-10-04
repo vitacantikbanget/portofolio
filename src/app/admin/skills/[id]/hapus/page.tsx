@@ -34,7 +34,7 @@ export default async function HapusSkillPage({ params }: Params) {
 
   const { data: skill, error } = await supabase
     .from("skills")
-    .select("id, name, category, level, icon")
+    .select("id, name, category")
     .eq("id", skillId)
     .maybeSingle();
 
@@ -109,24 +109,6 @@ export default async function HapusSkillPage({ params }: Params) {
             </span>
           </div>
 
-          <div className="pt-2">
-            <div className="flex justify-between text-[11px] mb-1 font-mono">
-              <span style={{ color: "var(--text-muted)" }}>Tingkat Penguasaan</span>
-              <span style={{ color: "var(--text)" }}>{skill.level ?? 80}%</span>
-            </div>
-            <div
-              className="w-full h-1.5 rounded-full overflow-hidden"
-              style={{ background: "var(--border)" }}
-            >
-              <div
-                className="h-full rounded-full"
-                style={{
-                  width: `${skill.level ?? 80}%`,
-                  background: "var(--accent)",
-                }}
-              />
-            </div>
-          </div>
         </div>
 
         {/* Tombol Aksi */}

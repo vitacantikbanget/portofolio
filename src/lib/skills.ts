@@ -5,8 +5,6 @@ export type Skill = {
   id: number;           // ID unik (auto)
   name: string;         // Nama skill (HTML, CSS, Next.js, dll)
   category: "frontend" | "design" | "tools" | string; // Kategori
-  level?: number | null; // Tingkat penguasaan (1-100)
-  icon?: string | null;  // Nama ikon Lucide (opsional)
 };
 
 // Ambil SEMUA skill dari Supabase

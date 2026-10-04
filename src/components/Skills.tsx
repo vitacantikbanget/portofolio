@@ -2,45 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { Code2, Palette, Wrench } from "lucide-react";
-import * as LucideIcons from "lucide-react";
 import { getSkills, type Skill } from "@/lib/skills";
 
-function DynamicSkillIcon({
-  name,
-  size = 13,
-  className,
-}: {
-  name?: string | null;
-  size?: number;
-  className?: string;
-}) {
-  if (!name) return null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const IconComponent = (LucideIcons as Record<string, any>)[name];
-  if (!IconComponent) return null;
-  return <IconComponent size={size} className={className} />;
-}
-
-// Kategori dengan icon + subtitle (fixed)
+// Kategori + judul + deskripsi singkat (fixed, tampil sebagai kartu)
 const categoryInfo = [
   {
     key: "frontend",
     title: "Frontend Development",
-    subtitle: "Bikin tampilan website",
-    icon: Code2,
+    subtitle: "Bikin tampilan website yang rapi & responsif.",
   },
   {
     key: "design",
     title: "Design & UI/UX",
-    subtitle: "Desain tampilan & pengalaman",
-    icon: Palette,
+    subtitle: "Desain antarmuka yang enak dilihat & dipakai.",
   },
   {
     key: "tools",
     title: "Tools & Backend",
-    subtitle: "Tools pendukung & dasar backend",
-    icon: Wrench,
+    subtitle: "Tools pendukung dan dasar kerja backend.",
   },
 ];
 
@@ -48,19 +27,18 @@ const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.12,
       delayChildren: 0.1,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, ease: "easeOut" },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
@@ -130,7 +108,7 @@ export default function Skills() {
           </h2>
         </motion.div>
 
-        {/* CARDS */}
+        {/* KARTU KATEGORI */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -139,117 +117,75 @@ export default function Skills() {
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {categoryInfo.map((cat, i) => {
-            const CatIcon = cat.icon;
-            // Filter skills by category
             const catSkills = skills.filter((s) => s.category === cat.key);
 
             return (
-              <motion.div
+              <motion.article
                 key={cat.key}
                 variants={itemVariants}
-                whileHover={{ y: -6 }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="group relative p-6 rounded-2xl border overflow-hidden flex flex-col"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                className="group relative rounded-2xl border p-6 flex flex-col transition-colors duration-300 hover:!border-[var(--accent)]"
                 style={{
                   background: "var(--surface)",
                   borderColor: "var(--border)",
                 }}
               >
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    background:
-                      "radial-gradient(circle at top right, var(--accent-soft), transparent 70%)",
-                  }}
-                />
-
-                <div className="relative flex flex-col h-full">
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-500 group-hover:rotate-[-6deg] group-hover:scale-110"
-                    style={{
-                      background: "var(--accent-soft)",
-                      color: "var(--accent)",
-                    }}
-                  >
-                    <CatIcon size={20} />
-                  </div>
-
-                  <h4
-                    className="text-lg font-medium mb-1"
-                    style={{
-                      fontFamily: "var(--font-cormorant)",
-                      color: "var(--text)",
-                    }}
-                  >
-                    {cat.title}
-                  </h4>
-
-                  <p
-                    className="text-xs mb-5"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    {cat.subtitle}
-                  </p>
-
-                  <div className="space-y-3 mt-auto pt-2">
-                    {catSkills.map((skill) => {
-                      const level = skill.level ?? 80;
-                      return (
-                        <div key={skill.id} className="space-y-1">
-                          <div className="flex items-center justify-between text-xs">
-                            <span
-                              className="inline-flex items-center gap-2 font-medium"
-                              style={{ color: "var(--text)" }}
-                            >
-                              {skill.icon ? (
-                                <span style={{ color: "var(--accent)" }}>
-                                  <DynamicSkillIcon name={skill.icon} size={14} />
-                                </span>
-                              ) : (
-                                <span
-                                  className="w-1.5 h-1.5 rounded-full shrink-0"
-                                  style={{ background: "var(--accent)" }}
-                                />
-                              )}
-                              <span>{skill.name}</span>
-                            </span>
-                            <span
-                              className="font-mono text-[11px] opacity-75"
-                              style={{ color: "var(--text-muted)" }}
-                            >
-                              {level}%
-                            </span>
-                          </div>
-                          <div
-                            className="w-full h-1.5 rounded-full overflow-hidden"
-                            style={{ background: "var(--bg-soft)" }}
-                          >
-                            <div
-                              className="h-full rounded-full transition-all duration-700"
-                              style={{
-                                width: `${level}%`,
-                                background: "var(--accent)",
-                              }}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
+                {/* Nomor */}
                 <span
-                  className="absolute top-5 right-5 text-[10px] tracking-widest"
-                  style={{ color: "var(--text-muted)", opacity: 0.6 }}
+                  className="text-[11px] tracking-[0.2em] font-medium"
+                  style={{ color: "var(--text-muted)" }}
                 >
-                  0{i + 1}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
 
-                <span
-                  className="absolute bottom-0 left-6 right-6 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-                  style={{ background: "var(--accent)" }}
-                />
-              </motion.div>
+                {/* Judul + deskripsi */}
+                <h3
+                  className="text-2xl leading-tight font-semibold mt-3"
+                  style={{
+                    fontFamily: "var(--font-cormorant)",
+                    color: "var(--text)",
+                  }}
+                >
+                  {cat.title}
+                </h3>
+
+                <p
+                  className="text-xs mt-2 leading-relaxed"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {cat.subtitle}
+                </p>
+
+                {/* Daftar skill */}
+                {catSkills.length > 0 ? (
+                  <ul
+                    className="mt-6 pt-5 space-y-2.5 border-t"
+                    style={{ borderColor: "var(--border)" }}
+                  >
+                    {catSkills.map((skill) => (
+                      <li
+                        key={skill.id}
+                        className="flex items-center gap-2.5 text-sm"
+                        style={{ color: "var(--text)" }}
+                      >
+                        <span
+                          className="h-1 w-1 rounded-full shrink-0"
+                          style={{ background: "var(--accent)" }}
+                        />
+                        <span className="truncate">{skill.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p
+                    className="mt-6 pt-5 border-t text-sm"
+                    style={{ color: "var(--text-muted)" }}
+                  >
+                    Belum ada skill di kategori ini.
+                  </p>
+                )}
+              </motion.article>
             );
           })}
         </motion.div>
