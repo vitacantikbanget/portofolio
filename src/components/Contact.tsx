@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Send } from "lucide-react";
 import { FaInstagram, FaGithub } from "react-icons/fa";
-import { sendMessage } from "@/lib/contact"; // fungsi kirim pesan ke Supabase
 
 // Data sosial media
 const socials = [
@@ -34,6 +33,7 @@ export default function Contact() {
     setStatus("idle");
 
     // Kirim data ke Supabase
+    const { sendMessage } = await import("@/lib/contact");
     const result = await sendMessage(form);
 
     setSending(false);

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { Code2, Palette, Wrench } from "lucide-react";
-import { getSkills, type Skill } from "@/lib/skills";
+import type { Skill } from "@/lib/skills";
 
 // Kategori + judul + deskripsi singkat (fixed, tampil sebagai kartu)
 const categoryInfo = [
@@ -46,16 +46,12 @@ const itemVariants: Variants = {
   },
 };
 
-export default function Skills() {
-  const [skills, setSkills] = useState<Skill[]>([]);
+interface SkillsProps {
+  initialSkills?: Skill[];
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getSkills();
-      setSkills(data);
-    };
-    fetchData();
-  }, []);
+export default function Skills({ initialSkills }: SkillsProps) {
+  const [skills] = useState<Skill[]>(initialSkills ?? []);
 
   return (
     <section id="skills" className="section-pad relative overflow-hidden">

@@ -1,24 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "./ProjectCard";
-import { getProjects, type Project } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 
-export default function Projects() {
-  // State buat nyimpen data project dari Supabase
-  const [projects, setProjects] = useState<Project[]>([]);
+interface ProjectsProps {
+  initialProjects?: Project[];
+}
 
-  // Ambil data project pas halaman pertama kali dibuka
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getProjects(); // fetch dari Supabase
-      setProjects(data.slice(0, 3));    // ambil 3 project pertama aja
-    };
-    fetchData();
-  }, []); // kurung siku kosong = jalan sekali doang
+export default function Projects({ initialProjects }: ProjectsProps) {
+  const [projects] = useState<Project[]>(initialProjects?.slice(0, 3) ?? []);
 
   return (
     <section id="projects" className="section-pad relative overflow-hidden">

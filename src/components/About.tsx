@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Code2, Palette, Bug } from "lucide-react";
-import { supabase } from "@/lib/supabase";
-
-type ProfileAbout = {
+export type ProfileAbout = {
   username: string | null;
   tagline: string | null;
   bio: string | null;
@@ -54,16 +52,12 @@ const itemVariants = {
   },
 };
 
-export default function About() {
-  const [profile, setProfile] = useState<ProfileAbout | null>(null);
+interface AboutProps {
+  initialProfile?: ProfileAbout | null;
+}
 
-  useEffect(() => {
-    void supabase
-      .from("profile")
-      .select("username, tagline, bio, avatar_url")
-      .maybeSingle()
-      .then(({ data }) => setProfile(data));
-  }, []);
+export default function About({ initialProfile }: AboutProps) {
+  const [profile] = useState<ProfileAbout | null>(initialProfile ?? null);
 
   return (
     <section id="about" className="section-pad relative overflow-hidden">

@@ -5,22 +5,16 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import TypingText from "./hero/TypingText";
-import { supabase } from "@/lib/supabase";
 
-export default function Hero() {
+interface HeroProps {
+  avatarUrl?: string | null;
+}
+
+export default function Hero({ avatarUrl }: HeroProps) {
   // State buat posisi mouse (buat parallax foto)
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   // State buat cek apakah layar desktop
   const [isDesktop, setIsDesktop] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    void supabase
-      .from("profile")
-      .select("avatar_url")
-      .maybeSingle()
-      .then(({ data }) => setAvatarUrl(data?.avatar_url ?? null));
-  }, []);
 
   // Cek ukuran layar — jalan saat pertama kali + saat resize
   useEffect(() => {
