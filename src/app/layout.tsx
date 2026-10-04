@@ -26,7 +26,7 @@ export const metadata: Metadata = {
       "Portofolio resmi siswi SMKN 1 PASURUAN Rekayasa Perangkat Lunak & Junior Web Developer, membangun dan mendesain website dan aplikasi modern",
     url: "https://www.desvita-putri.my.id",
     siteName: "Desvita Putri",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/og-image1.jpg", width: 1200, height: 630 }],
     locale: "id_ID",
     type: "website",
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "Desvita Putri | Portfolio & Junior Web Developer",
     description:
       "Portofolio resmi Junior Web Developer dan siswi SMKN 1 PASURUAN (RPL)",
-    images: ["/og-image.jpg"],
+    images: ["/og-image1.jpg"],
   },
 };
 
