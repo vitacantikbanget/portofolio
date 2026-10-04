@@ -16,13 +16,15 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://val-krn.vercel.app"),
-  title: "Desvita Putri — Junior Web Developer",
-  description: "Portfolio pribadi Desvita Putri Wulandari.",
+  metadataBase: new URL("https://www.desvita-putri.my.id"),
+  title: "Desvita Putri | Portfolio & Junior Web Developer",
+  description:
+    "Portofolio resmi siswi SMK Rekayasa Perangkat Lunak (RPL) & Junior Web Developer. Dibangun dengan Next.js, TypeScript, dan Supabase.",
   openGraph: {
-    title: "Desvita Putri — Junior Web Developer",
-    description: "Portfolio pribadi Desvita Putri Wulandari.",
-    url: "https://val-krn.vercel.app",
+    title: "Desvita Putri | Portfolio & Junior Web Developer",
+    description:
+      "Portofolio resmi siswi SMKN 1 PASURUAN Rekayasa Perangkat Lunak & Junior Web Developer, membangun dan mendesain website dan aplikasi modern",
+    url: "https://www.desvita-putri.my.id",
     siteName: "Desvita Putri",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     locale: "id_ID",
@@ -30,8 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Desvita Putri — Junior Web Developer",
-    description: "Portfolio pribadi Desvita Putri Wulandari.",
+    title: "Desvita Putri | Portfolio & Junior Web Developer",
+    description:
+      "Portofolio resmi siswi SMK Rekayasa Perangkat Lunak (RPL) & Junior Web Developer. Dibangun dengan Next.js, TypeScript, dan Supabase.",
     images: ["/og-image.jpg"],
   },
 };
