@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Desvita Putri | Portfolio & Junior Web Developer",
     description:
-      "Portofolio resmi siswi SMK Rekayasa Perangkat Lunak (RPL) & Junior Web Developer. Dibangun dengan Next.js, TypeScript, dan Supabase.",
+      "Portofolio resmi Junior Web Developer dan siswi SMKN 1 PASURUAN (RPL)",
     images: ["/og-image.jpg"],
   },
 };
