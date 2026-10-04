@@ -411,14 +411,13 @@ export default function ProjectTable({ projects }: Props) {
                             color: "var(--accent)",
                           }}
                         >
-                          {p.image?.startsWith("/") ? (
+                          {p.image ? (
                             <Image
                               src={p.image}
                               alt={p.title}
                               fill
                               sizes="48px"
                               className="object-cover"
-                              unoptimized
                             />
                           ) : (
                             p.category.toUpperCase()
@@ -461,11 +460,11 @@ export default function ProjectTable({ projects }: Props) {
                           background:
                             p.category === "web"
                               ? "var(--accent-soft)"
-                              : "var(--lavender)",
+                              : "var(--mauve)",
                           color:
                             p.category === "web"
                               ? "var(--accent)"
-                              : "var(--mauve)",
+                              : "#ffffff",
                         }}
                       >
                         {p.category === "web" ? "Web Dev" : "UI/UX Design"}
@@ -556,7 +555,7 @@ export default function ProjectTable({ projects }: Props) {
       </div>
 
       <p className="text-[11px]" style={{ color: "var(--text-muted)" }}>
-        Catatan: File gambar disimpan di dalam folder <code>public/</code>. Pastikan path gambar diawali dengan garis miring (contoh: <code>/project-1.png</code>).
+        Catatan: File gambar disimpan di Supabase Storage dan otomatis ditampilkan sebagai thumbnail.
       </p>
     </div>
   );

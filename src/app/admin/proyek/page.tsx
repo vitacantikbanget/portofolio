@@ -11,7 +11,7 @@ export default async function KelolaProyekPage() {
   const { data: proyek, error } = await supabase
     .from("projects")
     .select("id, title, slug, category, description, image, technologies")
-    .order("id", { ascending: true });
+    .order("id", { ascending: false });
 
   if (error) {
     console.error("Gagal memuat projects:", error.message);
