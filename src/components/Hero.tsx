@@ -5,12 +5,22 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import TypingText from "./hero/TypingText";
+import { supabase } from "@/lib/supabase";
 
 export default function Hero() {
   // State buat posisi mouse (buat parallax foto)
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   // State buat cek apakah layar desktop
   const [isDesktop, setIsDesktop] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    void supabase
+      .from("profile")
+      .select("avatar_url")
+      .maybeSingle()
+      .then(({ data }) => setAvatarUrl(data?.avatar_url ?? null));
+  }, []);
 
   // Cek ukuran layar — jalan saat pertama kali + saat resize
   useEffect(() => {
@@ -69,14 +79,16 @@ export default function Hero() {
                 transition={{ type: "spring", stiffness: 60, damping: 20 }}
                 className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
               >
-                <Image
-                  src="/profile.jpeg"
-                  alt="Desvita Putri Wulandari"
-                  fill
-                  className="object-cover"
-                  priority // load duluan (biar cepet)
-                  sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 320px"
-                />
+                {avatarUrl && (
+                  <Image
+                    src={avatarUrl}
+                    alt="Desvita Putri"
+                    fill
+                    className="object-cover"
+                    priority // load duluan (biar cepet)
+                    sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 320px"
+                  />
+                )}
               </motion.div>
 
               {/* ================= GARIS STATIS ================= */}

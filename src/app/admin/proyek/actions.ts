@@ -15,10 +15,65 @@ import {
 // Error 23505 = unique violation. Itu yang keluar dari index
 // projects_slug_unik kalau slug bentrok.
 const SLOM_BENTROK = "23505";
+const BUCKET_GAMBAR = "images";
+const MAX_UKURAN_GAMBAR = 5 * 1024 * 1024;
+const TIPE_GAMBAR = new Map([
+  ["image/jpeg", "jpg"],
+  ["image/png", "png"],
+  ["image/webp", "webp"],
+]);
 
 function parseId(nilai: FormDataEntryValue | null): number | null {
   const angka = Number(typeof nilai === "string" ? nilai : Number.NaN);
   return Number.isInteger(angka) && angka > 0 ? angka : null;
+}
+
+function ambilFile(formData: FormData) {
+  const nilai = formData.get("imageFile");
+  return nilai instanceof File && nilai.size > 0 ? nilai : null;
+}
+
+function validasiGambar(file: File | null, wajib: boolean): string | null {
+  if (!file) return wajib ? "Gambar proyek wajib diunggah." : null;
+  if (!TIPE_GAMBAR.has(file.type)) return "Gambar harus berformat JPG, PNG, atau WebP.";
+  if (file.size > MAX_UKURAN_GAMBAR) return "Ukuran gambar maksimal 5 MB.";
+  return null;
+}
+
+async function unggahGambar(
+  supabase: Awaited<ReturnType<typeof requireAdmin>>,
+  file: File,
+) {
+  const extension = TIPE_GAMBAR.get(file.type)!;
+  const path = `projects/${crypto.randomUUID()}.${extension}`;
+  const { error } = await supabase.storage.from(BUCKET_GAMBAR).upload(path, file, {
+    contentType: file.type,
+    cacheControl: "31536000",
+    upsert: false,
+  });
+  if (error) throw new Error(error.message);
+  return { path, publicUrl: supabase.storage.from(BUCKET_GAMBAR).getPublicUrl(path).data.publicUrl };
+}
+
+function pathStorageDariUrl(url: string | null | undefined) {
+  if (!url) return null;
+  const marker = `/storage/v1/object/public/${BUCKET_GAMBAR}/`;
+  const index = url.indexOf(marker);
+  return index === -1 ? null : decodeURIComponent(url.slice(index + marker.length).split("?")[0]);
+}
+
+async function hapusGambar(supabase: Awaited<ReturnType<typeof requireAdmin>>, url: string | null | undefined) {
+  const path = pathStorageDariUrl(url);
+  if (path) await supabase.storage.from(BUCKET_GAMBAR).remove([path]);
+}
+
+function parseDataProject(formData: FormData, image: string) {
+  const data = new FormData();
+  formData.forEach((value, key) => {
+    if (typeof value === "string") data.set(key, value);
+  });
+  data.set("image", image);
+  return parseProyek(data);
 }
 
 // Kegagalan menulis log tidak boleh menggagalkan aksi user, jadi error-nya
@@ -43,16 +98,29 @@ export async function createProject(
 ): Promise<ProyekState> {
   const supabase = await requireAdmin();
 
-  const hasil = parseProyek(formData);
+  const file = ambilFile(formData);
+  const errorGambar = validasiGambar(file, true);
+  if (errorGambar) return { error: "Periksa lagi kolom yang ditandai.", fieldErrors: { image: errorGambar } };
+
+  const hasil = parseDataProject(formData, "/upload-pending.jpg");
   if ("error" in hasil) {
     return { error: hasil.error, fieldErrors: hasil.fieldErrors };
   }
 
+  let gambarBaru: { path: string; publicUrl: string };
+  try {
+    gambarBaru = await unggahGambar(supabase, file!);
+  } catch (error) {
+    return { error: `Gagal mengunggah gambar: ${error instanceof Error ? error.message : "kesalahan tidak dikenal"}`, fieldErrors: {} };
+  }
+
+  hasil.data.image = gambarBaru.publicUrl;
   // Sengaja tanpa .select()/RETURNING: kita tidak butuh id hasilnya, dan
   // RETURNING butuh policy SELECT juga.
   const { error } = await supabase.from("projects").insert(hasil.data);
 
   if (error) {
+    await hapusGambar(supabase, gambarBaru.publicUrl);
     if (error.code === SLOM_BENTROK) {
       return {
         error: `Slug "${hasil.data.slug}" sudah dipakai project lain.`,
@@ -69,6 +137,7 @@ export async function createProject(
 
   revalidatePath("/admin");
   revalidatePath("/admin/proyek");
+  revalidatePath("/admin/proyek", "page");
   revalidatePath("/projects");
   revalidatePath(`/projects/${hasil.data.slug}`);
 
@@ -86,22 +155,33 @@ export async function updateProject(
     return { error: "ID project tidak valid.", fieldErrors: {} };
   }
 
-  const hasil = parseProyek(formData);
-  if ("error" in hasil) {
-    return { error: hasil.error, fieldErrors: hasil.fieldErrors };
-  }
-
-  // Dicek dulu supaya (a) ID palsu tidak mengembalikan sukses palsu -
-  // update tanpa .select() dianggap sukses walau 0 baris kena, dan
-  // (b) judul untuk log_activity diambil dari baris yang benar.
   const { data: lama } = await supabase
     .from("projects")
-    .select("id, title, slug")
+    .select("id, title, slug, image")
     .eq("id", id)
     .maybeSingle();
 
   if (!lama) {
     return { error: "Project tidak ditemukan.", fieldErrors: {} };
+  }
+
+  const file = ambilFile(formData);
+  const errorGambar = validasiGambar(file, false);
+  if (errorGambar) return { error: "Periksa lagi kolom yang ditandai.", fieldErrors: { image: errorGambar } };
+
+  const hasil = parseDataProject(formData, lama.image);
+  if ("error" in hasil) {
+    return { error: hasil.error, fieldErrors: hasil.fieldErrors };
+  }
+
+  let gambarBaru: { path: string; publicUrl: string } | null = null;
+  if (file) {
+    try {
+      gambarBaru = await unggahGambar(supabase, file);
+      hasil.data.image = gambarBaru.publicUrl;
+    } catch (error) {
+      return { error: `Gagal mengunggah gambar: ${error instanceof Error ? error.message : "kesalahan tidak dikenal"}`, fieldErrors: {} };
+    }
   }
 
   const { error } = await supabase
@@ -110,6 +190,7 @@ export async function updateProject(
     .eq("id", id);
 
   if (error) {
+    if (gambarBaru) await hapusGambar(supabase, gambarBaru.publicUrl);
     if (error.code === SLOM_BENTROK) {
       return {
         error: `Slug "${hasil.data.slug}" sudah dipakai project lain.`,
@@ -122,10 +203,13 @@ export async function updateProject(
     };
   }
 
+  if (gambarBaru) await hapusGambar(supabase, lama.image);
+
   await catatAktivitas(supabase, "update", hasil.data.title);
 
   revalidatePath("/admin");
   revalidatePath("/admin/proyek");
+  revalidatePath("/admin/proyek", "page");
   revalidatePath("/projects");
   revalidatePath(`/projects/${hasil.data.slug}`);
 
@@ -165,6 +249,7 @@ export async function deleteProject(formData: FormData) {
 
   revalidatePath("/admin");
   revalidatePath("/admin/proyek");
+  revalidatePath("/admin/proyek", "page");
   revalidatePath("/projects");
   revalidatePath(`/projects/${baris.slug}`);
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { useActionState, useRef, useState } from "react";
+import { AlertCircle, ImagePlus, Loader2 } from "lucide-react";
 import { KATEGORI, initialProyekState, type ProyekState } from "@/lib/project-form";
 
 type Values = {
@@ -90,6 +90,8 @@ export default function ProjectForm({
     action,
     initialProyekState,
   );
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFileName, setSelectedFileName] = useState("");
 
   const e = (field: keyof ProyekState["fieldErrors"]) =>
     state.fieldErrors[field];
@@ -97,6 +99,7 @@ export default function ProjectForm({
   return (
     <form action={formAction} className="space-y-5">
       {v.id !== undefined && <input type="hidden" name="id" value={v.id} />}
+      <input type="hidden" name="currentImage" value={v.image} />
 
       {state.error && (
         <div
@@ -222,23 +225,57 @@ export default function ProjectForm({
       </Field>
 
       <Field
-        label="Path gambar"
-        name="image"
-        hint="Harus diawali / dan menunjuk file di folder public/, contoh: /myapp.png"
+        label="Gambar proyek"
+        name="imageFile"
+        hint={v.image ? "Pilih gambar baru hanya jika ingin menggantinya." : "Wajib diisi untuk proyek baru."}
         error={e("image")}
       >
-        <input
-          id="image"
-          name="image"
-          defaultValue={v.image}
-          required
-          placeholder="/myapp.png"
-          className={gayaInput}
+        <div
+          onDragOver={(event) => event.preventDefault()}
+          onDrop={(event) => {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            if (!file || !fileInputRef.current) return;
+            const transfer = new DataTransfer();
+            transfer.items.add(file);
+            fileInputRef.current.files = transfer.files;
+            setSelectedFileName(file.name);
+          }}
+          className="rounded-xl border border-dashed p-5 text-center transition-colors"
           style={{
-            ...gayaInputBerisik,
+            background: "var(--bg-soft)",
             borderColor: e("image") ? "#e05c5c" : "var(--border)",
           }}
-        />
+        >
+          <ImagePlus className="mx-auto mb-2" size={20} style={{ color: "var(--accent)" }} />
+          <p className="text-sm" style={{ color: "var(--text)" }}>
+            Tarik gambar ke sini atau pilih file
+          </p>
+          <p className="mt-1 text-[11px]" style={{ color: "var(--text-muted)" }}>
+            JPG, PNG, atau WebP · maksimum 5 MB
+          </p>
+          <input
+            ref={fileInputRef}
+            id="imageFile"
+            name="imageFile"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={(event) => setSelectedFileName(event.target.files?.[0]?.name ?? "")}
+            className="sr-only"
+          />
+          <label
+            htmlFor="imageFile"
+            className="mt-3 inline-flex cursor-pointer rounded-lg px-3 py-2 text-xs font-medium"
+            style={{ background: "var(--surface-2)", color: "var(--text)" }}
+          >
+            Pilih gambar
+          </label>
+          {selectedFileName && (
+            <p className="mt-3 text-xs" style={{ color: "var(--accent)" }}>
+              {selectedFileName}
+            </p>
+          )}
+        </div>
       </Field>
 
       <Field

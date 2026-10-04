@@ -1,7 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Code2, Palette, Bug } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+
+type ProfileAbout = {
+  username: string | null;
+  tagline: string | null;
+  bio: string | null;
+  avatar_url: string | null;
+};
 
 // Data 3 hal yang lagi dipelajari
 const learning = [
@@ -45,6 +55,16 @@ const itemVariants = {
 };
 
 export default function About() {
+  const [profile, setProfile] = useState<ProfileAbout | null>(null);
+
+  useEffect(() => {
+    void supabase
+      .from("profile")
+      .select("username, tagline, bio, avatar_url")
+      .maybeSingle()
+      .then(({ data }) => setProfile(data));
+  }, []);
+
   return (
     <section id="about" className="section-pad relative overflow-hidden">
       <div className="container-custom relative">
@@ -80,6 +100,20 @@ export default function About() {
         >
           {/* KIRI — Heading besar */}
           <motion.div variants={itemVariants} className="lg:col-span-5">
+            {profile?.avatar_url && (
+              <div
+                className="relative mb-6 h-20 w-20 overflow-hidden rounded-full border"
+                style={{ borderColor: "var(--accent)" }}
+              >
+                <Image
+                  src={profile.avatar_url}
+                  alt={profile.username || "Desvita Putri"}
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
+              </div>
+            )}
             <h2
               className="text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-medium"
               style={{

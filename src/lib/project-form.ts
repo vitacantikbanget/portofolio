@@ -78,8 +78,7 @@ const skema = z.object({
   image: z
     .string()
     .trim()
-    .min(1, "Path gambar wajib diisi.")
-    .regex(/^\/[^\s]*$/, "Path gambar harus diawali /, contoh: /nama-file.png"),
+    .min(1, "Gambar proyek wajib diunggah."),
   // link tidak dirender di halaman publik mana pun, jadi boleh kosong.
   link: z
     .string()

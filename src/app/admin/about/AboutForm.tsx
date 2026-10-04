@@ -1,8 +1,8 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import Image from "next/image";
-import { AlertCircle, CheckCircle2, Loader2, Sparkles, User } from "lucide-react";
+import { AlertCircle, CheckCircle2, ImagePlus, Loader2, Sparkles, User } from "lucide-react";
 import { updateAbout } from "./actions";
 import { initialAboutState } from "./state";
 
@@ -20,7 +20,9 @@ export default function AboutForm(props: { initialData?: InitialProfile }) {
   const [headline, setHeadline] = useState(initialData.headline ?? "");
   const [tagline, setTagline] = useState(initialData.tagline ?? "");
   const [bio, setBio] = useState(initialData.bio ?? "");
-  const [avatarUrl, setAvatarUrl] = useState(initialData.avatar_url ?? "/profile.jpeg");
+  const [avatarUrl] = useState(initialData.avatar_url ?? "");
+  const [selectedFileName, setSelectedFileName] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [state, formAction, isPending] = useActionState(
     updateAbout,
@@ -134,22 +136,41 @@ export default function AboutForm(props: { initialData?: InitialProfile }) {
           </div>
 
           <div>
-            <label htmlFor="avatar_url" className="text-[10px] tracking-[0.2em] uppercase block mb-1.5 font-medium" style={{ color: "var(--text-muted)" }}>
-              Path Foto Avatar (Folder public/)
+            <label className="text-[10px] tracking-[0.2em] uppercase block mb-1.5 font-medium" style={{ color: "var(--text-muted)" }}>
+              Foto Avatar
             </label>
-            <input
-              id="avatar_url"
-              name="avatar_url"
-              value={avatarUrl}
-              onChange={(ev) => setAvatarUrl(ev.target.value)}
-              maxLength={300}
-              placeholder="/profile.jpeg"
-              className={inputClass}
-              style={{ ...inputStyle, borderColor: e("avatar_url") ? "#e05c5c" : "var(--border)" }}
-            />
-            <p className="text-[11px] mt-1" style={{ color: "var(--text-muted)" }}>
-              Gunakan path yang ada di folder <code>public/</code>.
-            </p>
+            <div
+              onDragOver={(event) => event.preventDefault()}
+              onDrop={(event) => {
+                event.preventDefault();
+                const file = event.dataTransfer.files[0];
+                if (!file || !fileInputRef.current) return;
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                fileInputRef.current.files = transfer.files;
+                setSelectedFileName(file.name);
+              }}
+              className="rounded-xl border border-dashed p-5 text-center"
+              style={{ background: "var(--bg-soft)", borderColor: e("avatar_url") ? "#e05c5c" : "var(--border)" }}
+            >
+              <ImagePlus className="mx-auto mb-2" size={20} style={{ color: "var(--accent)" }} />
+              <p className="text-sm" style={{ color: "var(--text)" }}>Tarik foto ke sini atau pilih file</p>
+              <p className="mt-1 text-[11px]" style={{ color: "var(--text-muted)" }}>JPG, PNG, atau WebP · maksimum 5 MB</p>
+              <input
+                ref={fileInputRef}
+                id="avatarFile"
+                name="avatarFile"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={(event) => setSelectedFileName(event.target.files?.[0]?.name ?? "")}
+                className="sr-only"
+              />
+              <label htmlFor="avatarFile" className="mt-3 inline-flex cursor-pointer rounded-lg px-3 py-2 text-xs font-medium" style={{ background: "var(--surface-2)", color: "var(--text)" }}>
+                Pilih foto
+              </label>
+              {selectedFileName && <p className="mt-3 text-xs" style={{ color: "var(--accent)" }}>{selectedFileName}</p>}
+            </div>
+            {e("avatar_url") && <p className="text-[11px] mt-1 text-[#e05c5c]">{e("avatar_url")}</p>}
           </div>
 
           <div>
@@ -194,7 +215,7 @@ export default function AboutForm(props: { initialData?: InitialProfile }) {
         <div className="rounded-3xl border p-6 sm:p-7 relative overflow-hidden" style={{ background: "var(--surface)", borderColor: "var(--border)" }}>
           <div className="flex items-center gap-4 mb-5">
             <div className="w-16 h-16 rounded-full border overflow-hidden relative shrink-0 flex items-center justify-center" style={{ background: "var(--accent-soft)", borderColor: "var(--accent)" }}>
-              {avatarUrl && avatarUrl.startsWith("/") ? (
+              {avatarUrl ? (
                 <Image src={avatarUrl} alt={username || "Avatar"} fill className="object-cover" unoptimized />
               ) : (
                 <User size={24} style={{ color: "var(--accent)" }} />
