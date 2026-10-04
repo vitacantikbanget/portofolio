@@ -186,9 +186,321 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     transition-duration: 0.01ms !important;
   }
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   LOOP ANIMATIONS — dipindah dari framer-motion (JS rAF)
+   ke CSS keyframes (dijalankan compositor/GPU).
+   Timing identik dengan versi framer-motion sebelumnya.
+   ============================================================ */
+
+/* ====== GLOBAL BACKGROUND — 4 blob/grid loop ====== */
+@keyframes gb-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(60px, 40px, 0); }
+}
+@keyframes gb-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-50px, -40px, 0); }
+}
+@keyframes gb-drift-grid-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(60px, 60px, 0); }
+}
+@keyframes gb-drift-grid-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-100px, -100px, 0); }
+}
+.gb-blob-1 { animation: gb-drift-a 20s ease-in-out infinite; }
+.gb-blob-2 { animation: gb-drift-b 24s ease-in-out infinite; }
+.gb-grid-1 { animation: gb-drift-grid-a 30s linear infinite; }
+.gb-grid-2 { animation: gb-drift-grid-b 40s linear infinite; }
+
+/* ====== HERO — running light (12 segmen, loop 8 detik) ====== */
+/* keyframes a..g = pola opacity yang sama dengan kurva
+   framer-motion cubic-bezier(0.4, 0, 0.6, 1) */
+@keyframes run-a {
+  0% { opacity: 0; }
+  12.5%, 25% { opacity: 1; }
+  37.5%, 100% { opacity: 0; }
+}
+@keyframes run-b {
+  0%, 25% { opacity: 0; }
+  37.5%, 50% { opacity: 1; }
+  62.5%, 100% { opacity: 0; }
+}
+@keyframes run-c {
+  0%, 50% { opacity: 0; }
+  62.5%, 75% { opacity: 1; }
+  87.5%, 100% { opacity: 0; }
+}
+@keyframes run-d {
+  0%, 75% { opacity: 0; }
+  87.5%, 100% { opacity: 1; }
+}
+@keyframes run-e {
+  0%, 62.5% { opacity: 0; }
+  75%, 100% { opacity: 1; }
+}
+@keyframes run-f {
+  0%, 12.5% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+@keyframes run-g {
+  0%, 37.5% { opacity: 0; }
+  50%, 62.5% { opacity: 1; }
+  75%, 100% { opacity: 0; }
+}
+.hl-1 { animation: run-a 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-2 { animation: run-b 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-3 { animation: run-c 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-4 { animation: run-b 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-5 { animation: run-c 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-6 { animation: run-d 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-7 { animation: run-c 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-8 { animation: run-d 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-9 { animation: run-e 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-10 { animation: run-a 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-11 { animation: run-f 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.hl-12 { animation: run-g 8s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* ====== HERO — diamond berkedip (loop 2.5 detik) ====== */
+@keyframes diamond-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.hero-diamond {
+  animation: diamond-blink 2.5s ease-in-out infinite;
+}
+.hero-diamond-1 { animation-delay: 0s; }
+.hero-diamond-2 { animation-delay: 0.6s; }
+.hero-diamond-3 { animation-delay: 1.2s; }
+.hero-diamond-4 { animation-delay: 1.8s; }
+
+/* ====== HERO — entrance sekali (pengganti initial/animate framer) ====== */
+@keyframes fade-up-20 {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-up-30 {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-scale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Durasi + delay identik dengan transition framer-motion sebelumnya:
+   photo 0.9s/.2s, badge .6s/.3s, judul .7s/.4s, typing .6s/.5s,
+   deskripsi .6s/.6s (LCP), CTA .6s/.7s — easing default framer
+   (easeInOut). Karena CSS ikut render-blocking, animasi mulai
+   dari paint pertama tanpa menunggu hydration. */
+.hero-in-photo { animation: fade-in-scale 0.9s ease-in-out 0.2s both; }
+.hero-in-badge { animation: fade-up-20 0.6s ease-in-out 0.3s both; }
+.hero-in-title { animation: fade-up-30 0.7s ease-in-out 0.4s both; }
+.hero-in-typing { animation: fade-up-20 0.6s ease-in-out 0.5s both; }
+.hero-in-desc { animation: fade-up-20 0.6s ease-in-out 0.6s both; }
+.hero-in-cta { animation: fade-up-20 0.6s ease-in-out 0.7s both; }
+
+/* ============================================================
+   PAUSE — animasi berhenti saat tab inactive (document.hidden)
+   atau saat elemen keluar layar (IntersectionObserver).
+   Dikendalikan oleh script inline kecil di src/app/layout.tsx.
+   ============================================================ */
+html.anim-paused [data-anim],
+html.anim-paused [data-anim] *,
+[data-anim].anim-off,
+[data-anim].anim-off * {
+  animation-play-state: paused;
+}
+
+html.anim-paused body::before,
+html.anim-paused body::after {
+  animation-play-state: paused;
+}
+
+/* ============================================================
+   SPLASH SCREEN — timeline 0 → 3 detik sejak paint pertama
+   (pengganti state "phase" + AnimatePresence di SplashScreen.tsx).
+   Urutan & durasi sama persis dengan versi framer-motion:
+   garis melebar 0.6s → teks muncul 0.5s → reveal 1.8s → fade 2.6s.
+   Timing diatur lewat variabel supaya di mobile bisa dipadatkan
+   (Plan B) tanpa mengubah urutan animasinya.
+   ============================================================ */
+:root {
+  --sp-text: 0.5s; /* fase teks mulai */
+  --sp-reveal: 1.8s; /* garis terbuka + teks tengah fade */
+  --sp-exit: 2.6s; /* splash mulai fade out */
+  --sp-fade: 0.4s; /* durasi fade out */
+}
+
+@media (max-width: 768px) {
+  :root {
+    /* Mobile: urutan tetap, hanya lebih singkat supaya konten
+       (dan LCP) tidak tertahan di balik splash. */
+    --sp-text: 0.35s;
+    --sp-reveal: 1.1s;
+    --sp-exit: 1.5s;
+    --sp-fade: 0.35s;
+  }
+}
+.splash {
+  pointer-events: none; /* overlay dekoratif, tak pernah menangkap klik */
+  animation: splash-exit var(--sp-fade) ease-out var(--sp-exit) forwards;
+}
+@keyframes splash-exit {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* --- garis: wrapper geser Y (reveal), anak scaleX (melebar) --- */
+@keyframes splash-line-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes splash-line-up {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50vh); }
+}
+@keyframes splash-line-down {
+  from { transform: translateY(0); }
+  to { transform: translateY(50vh); }
+}
+.splash-line-grow { animation: splash-line-grow 0.6s ease-out both; }
+.splash-line-y-top {
+  animation: splash-line-up 0.8s cubic-bezier(0.76, 0, 0.24, 1) var(--sp-reveal) forwards;
+}
+.splash-line-y-bottom {
+  animation: splash-line-down 0.8s cubic-bezier(0.76, 0, 0.24, 1) var(--sp-reveal) forwards;
+}
+
+/* --- titik di sepanjang garis: kedip lalu hilang saat reveal --- */
+@keyframes splash-dot {
+  0% { opacity: 0; transform: translateX(-50%) scale(0); }
+  20% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.4); }
+  80% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) scale(0); }
+}
+.splash-dot {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: splash-dot 1.3s ease-in-out both;
+}
+
+/* --- label "Loading" + 2 titik berkedip --- */
+@keyframes splash-badge-in {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes splash-fade-out {
+  to { opacity: 0; }
+}
+.splash-badge {
+  animation:
+    splash-badge-in 0.5s ease-out calc(var(--sp-text) + 0.3s) both,
+    splash-fade-out 0.5s ease-out var(--sp-reveal) forwards;
+}
+@keyframes splash-blink {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.splash-blink { animation: splash-blink 1.2s ease-in-out var(--sp-text) infinite; }
+
+/* --- nomor 01 / 02 --- */
+@keyframes splash-num-in {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 0.6; transform: translateX(0); }
+}
+@keyframes splash-num-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 0.6; transform: translateX(0); }
+}
+@keyframes splash-num-out {
+  from { opacity: 0.6; }
+  to { opacity: 0; }
+}
+.splash-num {
+  animation:
+    splash-num-in 0.6s ease-out calc(var(--sp-text) + 0.4s) both,
+    splash-num-out 0.4s ease-out var(--sp-reveal) forwards;
+}
+.splash-num-right {
+  animation:
+    splash-num-in-right 0.6s ease-out calc(var(--sp-text) + 0.4s) both,
+    splash-num-out 0.4s ease-out var(--sp-reveal) forwards;
+}
+
+/* --- blok teks tengah: fade out + scale saat reveal --- */
+@keyframes splash-center-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.1); }
+}
+.splash-center { animation: splash-center-out 0.5s ease-in-out var(--sp-reveal) forwards; }
+
+@keyframes splash-fade-up-10 {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.splash-portfolio {
+  animation: splash-fade-up-10 0.5s ease-out calc(var(--sp-text) + 0.1s) both;
+}
+
+@keyframes splash-title-in {
+  from { opacity: 0; filter: blur(8px); }
+  to { opacity: 1; filter: blur(0px); }
+}
+.splash-title {
+  animation: splash-title-in 0.8s ease-out calc(var(--sp-text) + 0.2s) both;
+}
+
+@keyframes splash-deco-in {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 0.6; transform: scaleX(1); }
+}
+.splash-deco {
+  animation: splash-deco-in 0.6s ease-out calc(var(--sp-text) + 0.4s) both;
+}
+
+/* --- sudut viewfinder --- */
+@keyframes splash-corner-in {
+  from { opacity: 0; }
+  to { opacity: 0.6; }
+}
+@keyframes splash-corner-out {
+  from { opacity: 0.6; }
+  to { opacity: 0; }
+}
+.splash-corner {
+  animation:
+    splash-corner-in 0.5s ease-out calc(var(--sp-text) + 0.5s) both,
+    splash-corner-out 0.4s ease-out var(--sp-reveal) forwards;
+}
+
+/* ============================================================
+   PLAN C — KHUSUS MOBILE (max-width 768px)
+   Radius blur dekoratif dikurangi supaya raster lebih murah saat
+   CPU di-throttle. Opasitas blob 0.06–0.14 sehingga perbedaannya
+   tak terlihat mata. Desktop tetap penuh.
+   ============================================================ */
+@media (max-width: 768px) {
+  .gb-blob-1,
+  .gb-blob-2,
+  .deco-blob,
+  .splash-glow {
+    filter: blur(40px) !important;
+  }
+  .hero-glow {
+    filter: blur(30px) !important;
   }
 }

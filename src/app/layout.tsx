@@ -48,6 +48,14 @@ export default function RootLayout({
     <html lang="id" className="dark" suppressHydrationWarning>
       <head>
         <SiteAccent />
+        {/* Pause animasi loop saat tab inactive (document.hidden) atau
+            saat elemen keluar layar (IntersectionObserver).
+            Script inline kecil — tidak menambah request JS baru. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var d=document.documentElement;function s(){d.classList.toggle('anim-paused',document.hidden)}document.addEventListener('visibilitychange',s);s();function go(){if(!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('anim-off',!e.isIntersecting)})},{rootMargin:'80px'});document.querySelectorAll('[data-anim]').forEach(function(el){io.observe(el)})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go()})();`,
+          }}
+        />
       </head>
       <body className={`${cormorant.variable} ${manrope.variable}`}>
         {children}

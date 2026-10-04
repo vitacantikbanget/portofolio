@@ -51,7 +51,7 @@ export default function Contact() {
     <section id="contact" className="section-pad relative overflow-hidden">
       {/* Blob dekoratif di kiri bawah */}
       <div
-        className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
+        className="deco-blob absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
         style={{
           background: "var(--mauve)",
           opacity: 0.08,
@@ -95,7 +95,7 @@ export default function Contact() {
         >
           {/* Dekorasi lingkaran di kanan atas */}
           <div
-            className="absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none"
+            className="deco-blob absolute -top-20 -right-20 w-64 h-64 rounded-full pointer-events-none"
             style={{
               background: "var(--accent)",
               opacity: 0.08,

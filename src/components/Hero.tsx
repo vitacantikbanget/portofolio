@@ -45,16 +45,16 @@ export default function Hero({ avatarUrl }: HeroProps) {
       <div className="container-custom w-full pt-32 pb-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* ================= FOTO ================= */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="flex justify-center lg:justify-end order-1 lg:order-2" // mobile: atas, desktop: kanan
+          <div
+            className="flex justify-center lg:justify-end order-1 lg:order-2 hero-in-photo" // mobile: atas, desktop: kanan
           >
-            <div className="relative w-[160px] sm:w-[220px] lg:w-[320px]">
+            <div
+              data-anim
+              className="relative w-[160px] sm:w-[220px] lg:w-[320px]"
+            >
               {/* Glow di belakang foto */}
               <div
-                className="absolute inset-0 rounded-full pointer-events-none"
+                className="hero-glow absolute inset-0 rounded-full pointer-events-none"
                 style={{
                   background: "var(--accent)",
                   opacity: 0.2,
@@ -137,8 +137,8 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   bergantian muncul — kayak lampu berjalan */}
 
               {/* === SISI ATAS (3 potongan) === */}
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-1"
                 style={{
                   top: "-6px",
                   left: "10%",
@@ -149,17 +149,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--accent))", // glow
                   willChange: "opacity",
                 }}
-                // urutan opacity: muncul → hilang → muncul lagi (loop 8 detik)
-                animate={{ opacity: [0, 1, 1, 0, 0, 0, 0, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-2"
                 style={{
                   top: "-6px",
                   left: "40%",
@@ -170,16 +162,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--accent))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 1, 1, 0, 0, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-3"
                 style={{
                   top: "-6px",
                   right: "10%",
@@ -190,18 +175,11 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--accent))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 0, 0, 1, 1, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
 
               {/* === SISI KANAN (3 potongan) === */}
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-4"
                 style={{
                   right: "-6px",
                   top: "10%",
@@ -212,16 +190,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--accent))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 1, 1, 0, 0, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-5"
                 style={{
                   right: "-6px",
                   top: "40%",
@@ -232,16 +203,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--accent))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 0, 0, 1, 1, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-6"
                 style={{
                   right: "-6px",
                   bottom: "10%",
@@ -252,18 +216,11 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--accent))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 0, 0, 0, 0, 1] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
 
               {/* === SISI BAWAH (3 potongan — pakai warna mauve) === */}
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-7"
                 style={{
                   bottom: "-6px",
                   right: "10%",
@@ -274,16 +231,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--mauve))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 0, 0, 1, 1, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-8"
                 style={{
                   bottom: "-6px",
                   left: "40%",
@@ -294,16 +244,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--mauve))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 0, 0, 0, 0, 1] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-9"
                 style={{
                   bottom: "-6px",
                   left: "10%",
@@ -314,18 +257,11 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--mauve))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 0, 0, 0, 0, 1, 1] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
 
               {/* === SISI KIRI (3 potongan — pakai warna mauve) === */}
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-10"
                 style={{
                   left: "-6px",
                   bottom: "10%",
@@ -336,16 +272,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--mauve))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [0, 0, 1, 1, 0, 0, 0, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-11"
                 style={{
                   left: "-6px",
                   top: "40%",
@@ -356,16 +285,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   filter: "drop-shadow(0 0 4px var(--mauve))",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [1, 1, 0, 0, 0, 0, 0, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hl-12"
                 style={{
                   left: "-6px",
                   top: "10%",
@@ -375,13 +297,6 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   borderRadius: "2px",
                   filter: "drop-shadow(0 0 4px var(--mauve))",
                   willChange: "opacity",
-                }}
-                animate={{ opacity: [0, 0, 0, 0, 1, 1, 0, 0] }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: [0.4, 0, 0.6, 1],
-                  times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875],
                 }}
               />
 
@@ -438,8 +353,8 @@ export default function Hero({ avatarUrl }: HeroProps) {
 
               {/* ================= DIAMOND DI 4 SUDUT ================= */}
               {/* 4 belah ketupat yang berkedip bergantian */}
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hero-diamond hero-diamond-1"
                 style={{
                   top: "-6px",
                   left: "-6px",
@@ -450,11 +365,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   boxShadow: "0 0 10px var(--accent)",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hero-diamond hero-diamond-2"
                 style={{
                   top: "-6px",
                   right: "-6px",
@@ -465,16 +378,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   boxShadow: "0 0 10px var(--accent)",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.6, // delay biar gak barengan
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hero-diamond hero-diamond-3"
                 style={{
                   bottom: "-6px",
                   left: "-6px",
@@ -485,16 +391,9 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   boxShadow: "0 0 10px var(--mauve)",
                   willChange: "opacity",
                 }}
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1.2,
-                }}
               />
-              <motion.div
-                className="absolute pointer-events-none"
+              <div
+                className="absolute pointer-events-none hero-diamond hero-diamond-4"
                 style={{
                   bottom: "-6px",
                   right: "-6px",
@@ -504,13 +403,6 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   transform: "rotate(45deg)",
                   boxShadow: "0 0 10px var(--mauve)",
                   willChange: "opacity",
-                }}
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1.8,
                 }}
               />
 
@@ -560,8 +452,8 @@ export default function Hero({ avatarUrl }: HeroProps) {
                   opacity: 0.7,
                 }}
               />
+          </div>
             </div>
-          </motion.div>
 
           {/* ================= PEMISAH (mobile only) ================= */}
           {/* Garis + titik — cuma muncul di mobile */}
@@ -583,11 +475,8 @@ export default function Hero({ avatarUrl }: HeroProps) {
           {/* ================= TEXT ================= */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             {/* Label "Available for work" */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[10px] tracking-[0.18em] uppercase"
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[10px] tracking-[0.18em] uppercase hero-in-badge"
               style={{
                 borderColor: "var(--border)",
                 background: "var(--surface)",
@@ -599,14 +488,11 @@ export default function Hero({ avatarUrl }: HeroProps) {
                 style={{ background: "var(--accent)" }}
               />
               Available for work
-            </motion.div>
+            </div>
 
             {/* Nama — besar */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-5 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] font-medium"
+            <h1
+              className="mt-5 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] font-medium hero-in-title"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
               Desvita
@@ -615,39 +501,30 @@ export default function Hero({ avatarUrl }: HeroProps) {
               <span className="italic" style={{ color: "var(--text-muted)" }}>
                 Wulandari
               </span>
-            </motion.h1>
+            </h1>
 
             {/* Typing text "I'm a ..." */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-5 text-base sm:text-lg lg:text-xl font-light min-h-[1.8em]"
+            <div
+              className="mt-5 text-base sm:text-lg lg:text-xl font-light min-h-[1.8em] hero-in-typing"
               style={{ color: "var(--text-muted)" }}
             >
               I'm a <TypingText />
-            </motion.div>
+            </div>
 
             {/* Deskripsi */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="mt-5 max-w-lg mx-auto lg:mx-0 text-sm sm:text-[15px] leading-relaxed"
+            <p
+              className="mt-5 max-w-lg mx-auto lg:mx-0 text-sm sm:text-[15px] leading-relaxed hero-in-desc"
               style={{ color: "var(--text-muted)" }}
             >
               Saya adalah pelajar yang tertarik pada web development, UI/UX
               design, dan teknologi. Saya senang membuat website yang tidak
               hanya berfungsi dengan baik, tetapi juga memiliki tampilan yang
               menarik dan nyaman digunakan.
-            </motion.p>
+            </p>
 
             {/* Tombol */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="mt-7 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
+            <div
+              className="mt-7 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start hero-in-cta"
             >
               <a
                 href="#projects"
@@ -675,7 +552,7 @@ export default function Hero({ avatarUrl }: HeroProps) {
                 <Mail size={16} />
                 Kontak Saya
               </a>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

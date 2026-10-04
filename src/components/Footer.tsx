@@ -1,5 +1,4 @@
-"use client";
-
+// Server component — murni render (tanpa state/efek), tidak perlu JS client.
 import { FaInstagram, FaGithub } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 

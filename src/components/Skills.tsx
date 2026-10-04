@@ -56,7 +56,7 @@ export default function Skills({ initialSkills }: SkillsProps) {
   return (
     <section id="skills" className="section-pad relative overflow-hidden">
       <div
-        className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
+        className="deco-blob absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none"
         style={{
           background: "var(--mauve)",
           opacity: 0.06,

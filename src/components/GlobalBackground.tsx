@@ -1,10 +1,13 @@
-"use client";
-
-import { motion } from "framer-motion";
+// Server component — semua animasi loop dijalankan CSS keyframes
+// (globals.css: .gb-blob-*, .gb-grid-*), bukan JS. Beban digeser ke
+// compositor/GPU, dan bisa dipause saat tab inactive / offscreen.
 
 export default function GlobalBackground() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div
+      data-anim
+      className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
+    >
       {/* ====== BASE GRADIENT ====== */}
       <div
         className="absolute inset-0"
@@ -16,8 +19,8 @@ export default function GlobalBackground() {
       />
 
       {/* ====== BLOB 1 — kiri atas ====== */}
-      <motion.div
-        className="absolute rounded-full"
+      <div
+        className="absolute rounded-full gb-blob-1"
         style={{
           width: "35vw",
           height: "35vw",
@@ -30,16 +33,11 @@ export default function GlobalBackground() {
           filter: "blur(70px)",
           willChange: "transform",
         }}
-        animate={{
-          x: [0, 60, 0],
-          y: [0, 40, 0],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* ====== BLOB 2 — kanan bawah ====== */}
-      <motion.div
-        className="absolute rounded-full"
+      <div
+        className="absolute rounded-full gb-blob-2"
         style={{
           width: "32vw",
           height: "32vw",
@@ -52,16 +50,11 @@ export default function GlobalBackground() {
           filter: "blur(70px)",
           willChange: "transform",
         }}
-        animate={{
-          x: [0, -50, 0],
-          y: [0, -40, 0],
-        }}
-        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* ====== GRID KECIL — bergeser diagonal ====== */}
-      <motion.div
-        className="absolute"
+      <div
+        className="absolute gb-grid-1"
         style={{
           inset: "-100px",
           backgroundImage:
@@ -74,16 +67,11 @@ export default function GlobalBackground() {
           opacity: 0.18,
           willChange: "transform",
         }}
-        animate={{
-          x: [0, 60, 0],
-          y: [0, 60, 0],
-        }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       />
 
       {/* ====== GRID BESAR — bergeser kebalikan ====== */}
-      <motion.div
-        className="absolute"
+      <div
+        className="absolute gb-grid-2"
         style={{
           inset: "-100px",
           backgroundImage:
@@ -96,11 +84,6 @@ export default function GlobalBackground() {
           opacity: 0.12,
           willChange: "transform",
         }}
-        animate={{
-          x: [0, -100, 0],
-          y: [0, -100, 0],
-        }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       />
     </div>
   );
