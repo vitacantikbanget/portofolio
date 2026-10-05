@@ -10,7 +10,7 @@ export default function GlobalBackground() {
     >
       {/* ====== BASE GRADIENT ====== */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 gb-base-gradient"
         style={{
           background:
             "radial-gradient(ellipse 60% 50% at 15% 10%, var(--accent-soft) 0%, transparent 55%), radial-gradient(ellipse 50% 50% at 85% 90%, var(--lavender) 0%, transparent 55%)",

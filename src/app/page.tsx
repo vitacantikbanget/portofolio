@@ -11,6 +11,8 @@ import { supabase } from "@/lib/supabase";
 import { getSkills } from "@/lib/skills";
 import { getProjects } from "@/lib/projects";
 
+export const revalidate = 3600; // Cache halaman selama 1 jam (ISR) untuk TTFB instan
+
 export default async function Home() {
   const [profileRes, skills, projects] = await Promise.all([
     supabase

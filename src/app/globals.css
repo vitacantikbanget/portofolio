@@ -494,23 +494,40 @@ html.anim-paused body::after {
    tak terlihat mata. Desktop tetap penuh.
    ============================================================ */
 @media (max-width: 768px) {
+  body {
+    background-image: none !important;
+    background-attachment: scroll !important;
+  }
+  .gb-base-gradient {
+    display: none !important;
+  }
+  .splash {
+    display: none !important;
+  }
+  .hl-1, .hl-2, .hl-3, .hl-4, .hl-5, .hl-6, .hl-7, .hl-8, .hl-9, .hl-10, .hl-11, .hl-12, .hero-diamond {
+    display: none !important;
+  }
+  .hero-in-photo, .hero-in-badge, .hero-in-title, .hero-in-typing, .hero-in-desc, .hero-in-cta {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .gb-blob-1,
   .gb-blob-2,
   .deco-blob,
   .splash-glow {
-    filter: blur(40px) !important;
+    display: none !important;
   }
   .hero-glow {
-    filter: blur(30px) !important;
+    display: none !important;
   }
 
-  /* Mask + grid besar memicu paint di perangkat low-end. Visualnya tetap
-     ada sebagai dekorasi statis; loop lain yang hanya opacity tetap jalan. */
+  /* Mask + grid besar memicu paint di perangkat low-end. Hapus sepenuhnya di mobile untuk performa Lighthouse. */
   body::before,
   body::after,
   .gb-grid-1,
   .gb-grid-2 {
-    animation: none;
+    display: none !important;
   }
 
   :root {

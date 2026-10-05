@@ -13,7 +13,18 @@ export default function TypingText() {
   const [text, setText] = useState(""); // teks yang tampil
   const [deleting, setDeleting] = useState(false); // hapus / ketik
 
+  const [isStarted, setIsStarted] = useState(false);
+
   useEffect(() => {
+    // Delay dimulainya typing selama 2 detik agar tidak memberatkan CPU
+    // saat proses awal rendering (membantu skor TBT di Lighthouse).
+    const startTimeout = setTimeout(() => setIsStarted(true), 2000);
+    return () => clearTimeout(startTimeout);
+  }, []);
+
+  useEffect(() => {
+    if (!isStarted) return;
+
     const current = words[index];
     let timeout: NodeJS.Timeout;
 
