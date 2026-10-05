@@ -1,8 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
 import { Code2, Palette, Bug } from "lucide-react";
 export type ProfileAbout = {
   username: string | null;
@@ -56,21 +51,13 @@ interface AboutProps {
   initialProfile?: ProfileAbout | null;
 }
 
-export default function About({ initialProfile }: AboutProps) {
-  const [profile] = useState<ProfileAbout | null>(initialProfile ?? null);
-
+export default function About({ initialProfile: _initialProfile }: AboutProps) {
   return (
     <section id="about" className="section-pad relative overflow-hidden">
       <div className="container-custom relative">
         {/* ================= HEADER ================= */}
         {/* Label kecil "About Me" dengan garis di kiri */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }} // animasi cuma sekali
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-12"
-        >
+        <div className="flex items-center gap-3 mb-12">
           <span
             className="w-8 h-[1px]"
             style={{ background: "var(--accent)" }}
@@ -81,33 +68,25 @@ export default function About({ initialProfile }: AboutProps) {
           >
             About Me
           </span>
-        </motion.div>
+        </div>
 
         {/* ================= MAIN GRID ================= */}
         {/* Layout 12 kolom: kiri 5, kanan 7 */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start"
-        >
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* KIRI — Heading besar */}
-          <motion.div variants={itemVariants} className="lg:col-span-5">
-            {profile?.avatar_url && (
-              <div
-                className="relative mb-6 h-20 w-20 overflow-hidden rounded-full border"
-                style={{ borderColor: "var(--accent)" }}
-              >
-                <Image
-                  src={profile.avatar_url}
-                  alt={profile.username || "Desvita Putri"}
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                />
-              </div>
-            )}
+          <div className="lg:col-span-5">
+            <div
+              aria-hidden
+              className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-2xl font-medium"
+              style={{
+                borderColor: "var(--accent)",
+                color: "var(--accent)",
+                background: "radial-gradient(circle at 30% 25%, var(--accent-soft), var(--surface-2))",
+                fontFamily: "var(--font-cormorant)",
+              }}
+            >
+              DW
+            </div>
             <h2
               className="text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-medium"
               style={{
@@ -137,13 +116,10 @@ export default function About({ initialProfile }: AboutProps) {
                 style={{ background: "var(--accent)", opacity: 0.5 }}
               />
             </div>
-          </motion.div>
+          </div>
 
           {/* KANAN — Paragraf + info singkat */}
-          <motion.div
-            variants={itemVariants}
-            className="lg:col-span-7 space-y-5 lg:pt-2"
-          >
+          <div className="lg:col-span-7 space-y-5 lg:pt-2">
             {/* Paragraf 1 — teks utama */}
             <p
               className="text-base sm:text-lg leading-relaxed"
@@ -227,19 +203,13 @@ export default function About({ initialProfile }: AboutProps) {
                 </p>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* ================= SEDANG DIPELAJARI ================= */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="mt-20 lg:mt-28"
-        >
+        <div className="mt-20 lg:mt-28">
           {/* Header section */}
-          <motion.div variants={itemVariants} className="mb-10">
+          <div className="mb-10">
             <p
               className="text-[11px] tracking-[0.3em] uppercase mb-2"
               style={{ color: "var(--text-muted)" }}
@@ -255,19 +225,16 @@ export default function About({ initialProfile }: AboutProps) {
             >
               Hal-hal yang lagi saya tekuni
             </h3>
-          </motion.div>
+          </div>
 
           {/* Grid 3 kartu */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {learning.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div
+                <div
                   key={item.title}
-                  variants={itemVariants}
-                  whileHover={{ y: -6 }} // naik 6px saat hover
-                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                  className="group relative p-6 rounded-2xl border overflow-hidden"
+                  className="group relative p-6 rounded-2xl border overflow-hidden transition-transform duration-300 hover:-translate-y-1.5"
                   style={{
                     background: "var(--surface)",
                     borderColor: "var(--border)",
@@ -319,11 +286,11 @@ export default function About({ initialProfile }: AboutProps) {
                     className="absolute bottom-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
                     style={{ background: "var(--accent)" }}
                   />
-                </motion.div>
+                </div>
               );
             })}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

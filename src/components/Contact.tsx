@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ArrowUpRight, Send } from "lucide-react";
 import { FaInstagram, FaGithub } from "react-icons/fa";
 
@@ -62,13 +61,7 @@ export default function Contact() {
       <div className="container-custom relative">
         {/* ================= HEADER ================= */}
         {/* Label kecil "Contact" dengan garis */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-12"
-        >
+        <div className="flex items-center gap-3 mb-12">
           <span
             className="w-8 h-[1px]"
             style={{ background: "var(--accent)" }}
@@ -79,14 +72,10 @@ export default function Contact() {
           >
             Contact
           </span>
-        </motion.div>
+        </div>
 
         {/* ================= CARD ================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
+        <div
           className="rounded-3xl border p-8 sm:p-12 lg:p-16 relative overflow-hidden"
           style={{
             background: "var(--surface)",
@@ -286,7 +275,7 @@ export default function Contact() {
               )}
             </form>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

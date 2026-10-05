@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
 import { Code2, Palette, Wrench } from "lucide-react";
 import type { Skill } from "@/lib/skills";
 
@@ -27,25 +26,6 @@ const categoryInfo = [
   },
 ];
 
-const containerVariants: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
 interface SkillsProps {
   initialSkills?: Skill[];
 }
@@ -66,13 +46,7 @@ export default function Skills({ initialSkills }: SkillsProps) {
 
       <div className="container-custom relative">
         {/* HEADER */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-10"
-        >
+        <div className="flex items-center gap-3 mb-10">
           <span className="w-8 h-[1px]" style={{ background: "var(--accent)" }} />
           <span
             className="text-[11px] tracking-[0.3em] uppercase font-medium"
@@ -80,16 +54,10 @@ export default function Skills({ initialSkills }: SkillsProps) {
           >
             My Skills
           </span>
-        </motion.div>
+        </div>
 
         {/* TITLE */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="mb-12 max-w-2xl"
-        >
+        <div className="mb-12 max-w-2xl">
           <h2
             className="text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-medium"
             style={{
@@ -103,27 +71,18 @@ export default function Skills({ initialSkills }: SkillsProps) {
               pakai sehari-hari.
             </span>
           </h2>
-        </motion.div>
+        </div>
 
         {/* KARTU KATEGORI */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-4"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-4">
           {categoryInfo.map((cat, i) => {
             const catSkills = skills.filter((s) => s.category === cat.key);
             const CatIcon = cat.Icon;
 
             return (
-              <motion.article
+              <article
                 key={cat.key}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                className="group relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 overflow-hidden transition-colors duration-300 hover:border-[var(--accent)]"
+                className="group relative rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-[var(--accent)]"
               >
                 {/* Nomor besar sebagai watermark */}
                 <span
@@ -190,10 +149,10 @@ export default function Skills({ initialSkills }: SkillsProps) {
                     Belum ada skill di kategori ini.
                   </p>
                 )}
-              </motion.article>
+              </article>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

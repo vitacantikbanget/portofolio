@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import TypingText from "./hero/TypingText";
 
@@ -64,15 +63,7 @@ export default function Hero({ avatarUrl }: HeroProps) {
               />
 
               {/* ====== FOTO ====== */}
-              <motion.div
-                style={{
-                  // Foto geser dikit ngikutin mouse (desktop only)
-                  x: isDesktop ? mouse.x * 8 : 0,
-                  y: isDesktop ? mouse.y * 8 : 0,
-                }}
-                transition={{ type: "spring", stiffness: 60, damping: 20 }}
-                className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"
-              >
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
                 {avatarUrl && (
                   <Image
                     src={avatarUrl}
@@ -83,7 +74,7 @@ export default function Hero({ avatarUrl }: HeroProps) {
                     sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 320px"
                   />
                 )}
-              </motion.div>
+              </div>
 
               {/* ================= GARIS STATIS ================= */}
               {/* 4 garis tipis di sekeliling foto — diam */}

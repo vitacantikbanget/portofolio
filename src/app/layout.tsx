@@ -6,12 +6,16 @@ import SiteAccent from "@/components/SiteAccent";
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
   variable: "--font-cormorant",
 });
 
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
   variable: "--font-manrope",
 });
 

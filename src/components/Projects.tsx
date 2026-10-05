@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "./ProjectCard";
@@ -19,13 +18,7 @@ export default function Projects({ initialProjects }: ProjectsProps) {
       <div className="container-custom relative">
         {/* ===== LABEL KECIL "SELECTED PROJECTS" ===== */}
         {/* Muncul dengan animasi saat masuk layar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }} // animasi sekali
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-12"
-        >
+        <div className="flex items-center gap-3 mb-12">
           {/* Garis kecil di kiri */}
           <span
             className="w-8 h-[1px]"
@@ -37,17 +30,11 @@ export default function Projects({ initialProjects }: ProjectsProps) {
           >
             Selected Projects
           </span>
-        </motion.div>
+        </div>
 
         {/* ===== JUDUL + TOMBOL "LIHAT SEMUA" ===== */}
         {/* Judul di kiri, tombol di kanan */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="flex items-end justify-between gap-6 mb-12 flex-wrap"
-        >
+        <div className="flex items-end justify-between gap-6 mb-12 flex-wrap">
           <h2
             className="text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-medium max-w-xl"
             style={{
@@ -75,16 +62,15 @@ export default function Projects({ initialProjects }: ProjectsProps) {
               className="transition-transform group-hover:translate-x-1"
             />
           </Link>
-        </motion.div>
+        </div>
 
         {/* ===== GRID PROJECT ===== */}
         {/* 1 kolom (mobile) → 2 (tablet) → 3 (desktop) */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project, i) => (
+          {projects.map((project) => (
             <ProjectCard
               key={project.slug} // key unik tiap card
               project={project}  // data project
-              index={i}          // buat delay animasi
             />
           ))}
         </div>

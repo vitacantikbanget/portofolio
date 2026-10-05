@@ -152,8 +152,8 @@ function ProjectsContent() {
       ) : (
         // Kondisi 3: ada data — tampilkan grid
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
+          {filtered.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
       )}

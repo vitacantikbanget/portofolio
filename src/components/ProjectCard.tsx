@@ -2,26 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
 
 // Props yang diterima: data project + nomor urut
 type Props = {
   project: Project;
-  index: number;
 };
 
-export default function ProjectCard({ project, index }: Props) {
+export default function ProjectCard({ project }: Props) {
   return (
     // Wrapper animasi — muncul dari bawah + blur ke jelas
     // delay index * 0.1 = kartu muncul satu-satu (stagger)
-    <motion.div
-      initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }} // animasi sekali aja
-      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-    >
+    <div>
       {/* Card — naik 4px saat hover */}
       <div
         className="group rounded-2xl border overflow-hidden transition-all hover:-translate-y-1"
@@ -105,6 +98,6 @@ export default function ProjectCard({ project, index }: Props) {
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
