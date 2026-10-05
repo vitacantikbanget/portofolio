@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -30,6 +28,7 @@ export default function ProjectCard({ project }: Props) {
             alt={project.title}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105" // zoom saat hover
+            quality={70}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
           {/* Badge kategori di pojok kiri atas */}

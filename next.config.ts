@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
+    inlineCss: true,
     serverActions: {
       bodySizeLimit: "6mb",
     },
