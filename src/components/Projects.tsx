@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "./ProjectCard";
@@ -11,7 +8,7 @@ interface ProjectsProps {
 }
 
 export default function Projects({ initialProjects }: ProjectsProps) {
-  const [projects] = useState<Project[]>(initialProjects?.slice(0, 3) ?? []);
+  const projects = initialProjects?.slice(0, 3) ?? [];
 
   return (
     <section id="projects" className="section-pad relative overflow-hidden">

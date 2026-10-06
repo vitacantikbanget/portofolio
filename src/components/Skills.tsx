@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Code2, Palette, Wrench } from "lucide-react";
 import type { Skill } from "@/lib/skills";
 
@@ -31,7 +28,7 @@ interface SkillsProps {
 }
 
 export default function Skills({ initialSkills }: SkillsProps) {
-  const [skills] = useState<Skill[]>(initialSkills ?? []);
+  const skills = initialSkills ?? [];
 
   return (
     <section id="skills" className="section-pad relative overflow-hidden">

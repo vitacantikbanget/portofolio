@@ -17,7 +17,7 @@ export default function Hero({ avatarUrl }: HeroProps) {
 
   // Cek ukuran layar — jalan saat pertama kali + saat resize
   useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    const check = () => setIsDesktop(false);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -71,6 +71,7 @@ export default function Hero({ avatarUrl }: HeroProps) {
                     fill
                     className="object-cover"
                     priority // load duluan (biar cepet)
+                    quality={70}
                     sizes="(max-width: 640px) 160px, (max-width: 1024px) 220px, 320px"
                   />
                 )}

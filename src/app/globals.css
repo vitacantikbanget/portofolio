@@ -415,7 +415,7 @@ html.anim-paused body::after {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
-.splash-blink { animation: splash-blink 1.2s ease-in-out var(--sp-text) infinite; }
+.splash-blink { animation: splash-blink 0.25s ease-in-out var(--sp-text) 2; }
 
 /* --- nomor 01 / 02 --- */
 @keyframes splash-num-in {
@@ -457,8 +457,8 @@ html.anim-paused body::after {
 }
 
 @keyframes splash-title-in {
-  from { opacity: 0; filter: blur(8px); }
-  to { opacity: 1; filter: blur(0px); }
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 .splash-title {
   animation: splash-title-in 0.8s ease-out calc(var(--sp-text) + 0.2s) both;
@@ -503,4 +503,33 @@ html.anim-paused body::after {
   .hero-glow {
     filter: blur(30px) !important;
   }
+
+  /* Mask + grid besar memicu paint di perangkat low-end. Visualnya tetap
+     ada sebagai dekorasi statis; loop lain yang hanya opacity tetap jalan. */
+  body::before,
+  body::after,
+  .gb-grid-1,
+  .gb-grid-2 {
+    animation: none;
+  }
+
+  :root {
+    /* Total splash: 0.5 detik. Tetap terasa sebagai intro singkat,
+       lalu seluruh subtree disembunyikan agar tidak terus dianimasikan. */
+    --sp-text: 0.05s;
+    --sp-reveal: 0.25s;
+    --sp-exit: 0.35s;
+    --sp-fade: 0.15s;
+  }
+
+  .splash-line-grow { animation-duration: 0.16s; }
+  .splash-line-y-top,
+  .splash-line-y-bottom { animation-duration: 0.2s; }
+  .splash-badge,
+  .splash-num,
+  .splash-num-right,
+  .splash-center,
+  .splash-title,
+  .splash-deco,
+  .splash-corner { animation-duration: 0.18s; }
 }
