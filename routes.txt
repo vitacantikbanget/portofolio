@@ -1,0 +1,13 @@
+﻿powershell : At line:1 char:83
+At line:1 char:1
++ powershell -Command "$d = Get-ChildItem 'C:\Portofolio\portofolio\src ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (At line:1 char:83:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
++ ... ortofolio\portofolio\src\app' -Recurse -Filter 'page.tsx';  | ForEach ...
++                                                                 ~
+An empty pipe element is not allowed.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : EmptyPipeElement
+ 

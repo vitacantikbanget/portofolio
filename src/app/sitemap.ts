@@ -1,15 +1,29 @@
 import type { MetadataRoute } from "next";
 
+const BASE_URL = "https://desvita-putri.my.id";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://desvita-putri.my.id",
+      url: BASE_URL,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: "https://desvita-putri.my.id/projects",
+      url: `${BASE_URL}/about`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/proyek`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/projects`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
