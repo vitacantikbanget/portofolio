@@ -1,12 +1,12 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/admin/', '/login'],
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/admin/", "/login"],
     },
-    sitemap: 'https://www.desvita-putri.my.id/sitemap.xml',
+    sitemap: "https://desvita-putri.my.id/sitemap.xml",
   };
 }
