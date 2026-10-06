@@ -21,22 +21,22 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.desvita-putri.my.id"),
-  title: "Desvita Putri | Portfolio & Junior Web Developer",
+  title: "Desvita Putri Wulandari | Portfolio Junior Web Developer",
   description:
-    "Portofolio resmi siswi SMK Rekayasa Perangkat Lunak (RPL) & Junior Web Developer. Dibangun dengan Next.js, TypeScript, dan Supabase.",
+    "Portfolio resmi Desvita Putri Wulandari, siswi SMK Rekayasa Perangkat Lunak dan Junior Web Developer yang berfokus pada Web Development, UI/UX Design, dan teknologi.",
   openGraph: {
-    title: "Desvita Putri | Portfolio & Junior Web Developer",
+    title: "Desvita Putri Wulandari | Portfolio Junior Web Developer",
     description:
-      "Portofolio resmi siswi SMKN 1 PASURUAN Rekayasa Perangkat Lunak & Junior Web Developer, membangun dan mendesain website dan aplikasi modern",
+      "Portofolio resmi Desvita Putri Wulandari, siswi SMKN 1 PASURUAN Rekayasa Perangkat Lunak & Junior Web Developer, Membangun dan mendesain website dan aplikasi modern",
     url: "https://www.desvita-putri.my.id",
-    siteName: "Desvita Putri",
+    siteName: "Desvita Putri Wulandari",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     locale: "id_ID",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Desvita Putri | Portfolio & Junior Web Developer",
+    title: "Desvita Putri Wulandari | Portfolio Junior Web Developer",
     description:
       "Portofolio resmi Junior Web Developer dan siswi SMKN 1 PASURUAN (RPL)",
     images: ["/og-image.jpg"],
