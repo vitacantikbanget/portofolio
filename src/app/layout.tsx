@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Desvita Putri Wulandari | Portfolio Junior Web Developer",
     description:
-      "Portofolio resmi Junior Web Developer dan siswi SMKN 1 PASURUAN (RPL)",
+      "Portofolio resmi Junior Web Developer Desvita Putri W siswi SMKN 1 PASURUAN (RPL)",
     images: ["/og-image.jpg"],
   },
 };
