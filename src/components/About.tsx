@@ -75,18 +75,7 @@ export default function About({ initialProfile: _initialProfile }: AboutProps) {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           {/* KIRI — Heading besar */}
           <div className="lg:col-span-5">
-            <div
-              aria-hidden
-              className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-2xl font-medium"
-              style={{
-                borderColor: "var(--accent)",
-                color: "var(--accent)",
-                background: "radial-gradient(circle at 30% 25%, var(--accent-soft), var(--surface-2))",
-                fontFamily: "var(--font-cormorant)",
-              }}
-            >
-              DW
-            </div>
+
             <h2
               className="text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.1] font-medium"
               style={{
