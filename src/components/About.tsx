@@ -166,7 +166,7 @@ export default function About({ initialProfile: _initialProfile }: AboutProps) {
                   Sekarang
                 </p>
                 <p className="text-sm" style={{ color: "var(--text)" }}>
-                  Pelajar RPL
+                  SMKN 1 PASURUAN
                 </p>
               </div>
               <div>
