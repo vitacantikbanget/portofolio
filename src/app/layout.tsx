@@ -23,11 +23,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://desvita-putri.my.id"),
   title: "Desvita Putri Wulandari | Full-stack Developer",
   description:
-    "Portfolio resmi Desvita Putri Wulandari, siswi SMK Rekayasa Perangkat Lunak dan Junior Web Developer yang berfokus pada Web Development, UI/UX Design, dan teknologi.",
+    "Portfolio resmi Desvita Putri Wulandari, siswi SMK Rekayasa Perangkat Lunak dan Full-stack Developer yang berfokus pada Web Development, UI/UX Design, dan teknologi.",
   openGraph: {
     title: "Desvita Putri Wulandari | Full-stack Developer",
     description:
-      "Portofolio resmi Desvita Putri Wulandari, siswi SMKN 1 PASURUAN Rekayasa Perangkat Lunak & Junior Web Developer, Membangun dan mendesain website dan aplikasi modern",
+      "Portofolio resmi Desvita Putri Wulandari, siswi SMKN 1 PASURUAN Rekayasa Perangkat Lunak & Full-stack Developer, Membangun dan mendesain website dan aplikasi modern",
     url: "https://desvita-putri.my.id",
     siteName: "Desvita Putri Wulandari",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Desvita Putri Wulandari | Full-stack Developer",
     description:
-      "Portofolio resmi Junior Web Developer Desvita Putri W siswi SMKN 1 PASURUAN (RPL)",
+      "Portofolio resmi Full-stack Developer Desvita Putri W siswi SMKN 1 PASURUAN (RPL)",
     images: ["/og-image.jpg"],
   },
 };
