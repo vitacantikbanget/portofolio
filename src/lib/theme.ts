@@ -75,8 +75,8 @@ export function hexToHsl(hex: string): HSL | null {
 
 /**
  * Menghasilkan blok CSS lengkap yang menyetel seluruh variabel warna tema:
- * --accent, --accent-soft, --accent-hover, --mauve, --lavender, --grid-color-1, --grid-color-2
- * baik untuk mode terang (:root) maupun mode gelap (.dark, html.dark).
+ * Memastikan kontras teks sangat tajam (jelas dan terbaca 100%) baik di lightmode maupun darkmode,
+ * serta memastikan lightmode memiliki tampilan solid, modern, dan seimbang seperti di darkmode.
  */
 export function generateThemeCss(accentHex: string): string {
   const cleanHex = accentHex.startsWith("#") ? accentHex : `#${accentHex}`;
@@ -90,28 +90,37 @@ export function generateThemeCss(accentHex: string): string {
   const secondaryHue = (h + 35) % 360;
 
   // --- Palet Light Mode ---
-  const lightAccent = cleanHex;
-  const lightAccentSoft = `hsl(${h}, ${Math.min(s, 65)}%, 91%)`;
-  const lightAccentHover = `hsl(${h}, ${s}%, ${Math.max(15, l - 10)}%)`;
-  const lightMauve = `hsl(${secondaryHue}, ${Math.min(s, 40)}%, 42%)`;
-  const lightLavender = `hsl(${secondaryHue}, ${Math.min(s, 35)}%, 74%)`;
-  const lightGrid1 = cleanHex;
+  // Pastikan warna aksen di latar terang memiliki keterbacaan tinggi (lightness <= 38% bila teks)
+  const lightL = l > 42 ? Math.min(38, Math.max(26, l - 14)) : l;
+  const lightAccent = `hsl(${h}, ${Math.min(95, Math.max(50, Math.round(s * 1.05)))}%, ${lightL}%)`;
+  const lightAccentSoft = `hsl(${h}, ${Math.min(s, 60)}%, 92%)`;
+  const lightAccentHover = `hsl(${h}, ${s}%, ${Math.max(15, lightL - 10)}%)`;
+  const lightMauve = `hsl(${secondaryHue}, ${Math.min(s, 40)}%, 38%)`;
+  const lightLavender = `hsl(${secondaryHue}, ${Math.min(s, 35)}%, 72%)`;
+  const lightGrid1 = lightAccent;
   const lightGrid2 = `hsl(${secondaryHue}, ${Math.min(s, 40)}%, 42%)`;
 
   // --- Palet Dark Mode ---
-  // Di mode gelap dengan background #1a1714, teks & aksen membutuhkan kontras tinggi.
-  const darkL = Math.max(68, Math.min(82, l + 16));
-  const darkS = Math.min(95, Math.max(50, Math.round(s * 1.15)));
+  // Di latar gelap (#141210 / #1c1916), aksen dan teks dibuat cerah dan tajam agar bersinar dan mudah dibaca
+  const darkL = Math.max(72, Math.min(84, l + 18));
+  const darkS = Math.min(95, Math.max(55, Math.round(s * 1.15)));
   const darkAccent = `hsl(${h}, ${darkS}%, ${darkL}%)`;
   const darkAccentSoft = `hsl(${h}, ${Math.min(s, 35)}%, 24%)`;
   const darkAccentHover = `hsl(${h}, ${s}%, ${Math.min(90, l + 22)}%)`;
-  const darkMauve = `hsl(${secondaryHue}, ${Math.min(s, 35)}%, 72%)`;
-  const darkLavender = `hsl(${secondaryHue}, ${Math.min(s, 30)}%, 65%)`;
+  const darkMauve = `hsl(${secondaryHue}, ${Math.min(s, 35)}%, 74%)`;
+  const darkLavender = `hsl(${secondaryHue}, ${Math.min(s, 30)}%, 68%)`;
   const darkGrid1 = darkAccent;
-  const darkGrid2 = `hsl(${secondaryHue}, ${Math.min(s, 35)}%, 70%)`;
+  const darkGrid2 = `hsl(${secondaryHue}, ${Math.min(s, 35)}%, 72%)`;
 
   return `
     :root {
+      --bg: #faf7f2 !important;
+      --bg-soft: #f2ece3 !important;
+      --surface: #ffffff !important;
+      --surface-2: #f7f3eb !important;
+      --border: #dcd3c5 !important;
+      --text: #12100e !important;
+      --text-muted: #383028 !important;
       --accent: ${lightAccent} !important;
       --accent-soft: ${lightAccentSoft} !important;
       --accent-hover: ${lightAccentHover} !important;
@@ -119,9 +128,17 @@ export function generateThemeCss(accentHex: string): string {
       --lavender: ${lightLavender} !important;
       --grid-color-1: ${lightGrid1} !important;
       --grid-color-2: ${lightGrid2} !important;
+      --nav-bg: rgba(250, 247, 242, 0.88) !important;
     }
 
     html.dark, .dark {
+      --bg: #141210 !important;
+      --bg-soft: #1c1916 !important;
+      --surface: #221e1a !important;
+      --surface-2: #2a2521 !important;
+      --border: #423932 !important;
+      --text: #ffffff !important;
+      --text-muted: #d4c8b9 !important;
       --accent: ${darkAccent} !important;
       --accent-soft: ${darkAccentSoft} !important;
       --accent-hover: ${darkAccentHover} !important;
@@ -129,6 +146,7 @@ export function generateThemeCss(accentHex: string): string {
       --lavender: ${darkLavender} !important;
       --grid-color-1: ${darkGrid1} !important;
       --grid-color-2: ${darkGrid2} !important;
+      --nav-bg: rgba(20, 18, 16, 0.85) !important;
     }
 
     ::selection {

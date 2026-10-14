@@ -18,6 +18,9 @@ export const metadata = {
   title: "Dashboard â€” Admin Portfolio",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminDashboardPage() {
   const supabase = await requireAdmin();
 
@@ -53,7 +56,7 @@ export default async function AdminDashboardPage() {
       .from("pesan_kontak")
       .select("id, nama, email, pesan, created_at")
       .order("id", { ascending: false })
-      .limit(5),
+      .limit(50),
     supabase
       .from("admin_activity")
       .select("id, action, project_title, created_at")

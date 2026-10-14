@@ -497,15 +497,15 @@ export default function Hero({ avatarUrl }: HeroProps) {
 
             {/* Typing text "I'm a ..." */}
             <div
-              className="mt-5 text-base sm:text-lg lg:text-xl font-light min-h-[1.8em] hero-in-typing"
-              style={{ color: "var(--text-muted)" }}
+              className="mt-5 text-base sm:text-lg lg:text-xl font-medium min-h-[1.8em] hero-in-typing"
+              style={{ color: "var(--text)" }}
             >
-              I'm a <TypingText />
+              I&apos;m a <TypingText />
             </div>
 
             {/* Deskripsi */}
             <p
-              className="mt-5 max-w-lg mx-auto lg:mx-0 text-sm sm:text-[15px] leading-relaxed hero-in-desc"
+              className="mt-5 max-w-lg mx-auto lg:mx-0 text-sm sm:text-[15px] leading-relaxed font-normal hero-in-desc"
               style={{ color: "var(--text-muted)" }}
             >
               Saya adalah pelajar yang tertarik pada web development, UI/UX

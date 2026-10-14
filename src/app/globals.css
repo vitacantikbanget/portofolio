@@ -4,18 +4,18 @@
 
 /* ====== THEME VARIABLES ====== */
 :root {
-  --bg: #f5f0e8;
-  --bg-soft: #ebe4d8;
-  --surface: #fdfaf5;
-  --surface-2: #f0e9de;
-  --border: #c4b8a5;
-  --text: #1a1612;
-  --text-muted: #4a3f34;
+  --bg: #faf7f2;
+  --bg-soft: #f2ece3;
+  --surface: #ffffff;
+  --surface-2: #f7f3eb;
+  --border: #dcd3c5;
+  --text: #12100e;
+  --text-muted: #383028;
   --accent: #8f5a56;
   --accent-soft: #e8d5d2;
   --mauve: #6f5c78;
   --lavender: #b8aec8;
-  --nav-bg: rgba(245, 240, 232, 0.85);
+  --nav-bg: rgba(250, 247, 242, 0.88);
 
   /* Grid lebih halus di mode terang */
   --grid-color-1: #8a5a55;
@@ -27,18 +27,18 @@
 }
 
 .dark {
-  --bg: #1a1714;
-  --bg-soft: #221e1a;
-  --surface: #26211d;
-  --surface-2: #2e2823;
-  --border: #3a322c;
-  --text: #f3ece3;
-  --text-muted: #b8ab9c;
+  --bg: #141210;
+  --bg-soft: #1c1916;
+  --surface: #221e1a;
+  --surface-2: #2a2521;
+  --border: #423932;
+  --text: #ffffff;
+  --text-muted: #d4c8b9;
   --accent: #d4a5a0;
   --accent-soft: #4a3a38;
   --mauve: #b8a6c2;
   --lavender: #a89bbd;
-  --nav-bg: rgba(26, 23, 20, 0.75);
+  --nav-bg: rgba(20, 18, 16, 0.85);
 
   /* Grid */
   --grid-color-1: #d4a5a0;

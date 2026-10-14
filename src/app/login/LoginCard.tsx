@@ -60,18 +60,24 @@ export default function LoginCard() {
         </div>
 
         <LoginForm />
-      </div>
 
-      {/* Kembali ke beranda */}
-      <div className="text-center mt-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs transition-opacity hover:opacity-70"
-          style={{ color: "var(--text-muted)" }}
-        >
-          <ArrowLeft size={13} />
-          Kembali ke beranda
-        </Link>
+        <div className="mt-6 pt-5 border-t text-center" style={{ borderColor: "var(--border)" }}>
+          <p className="text-xs mb-2.5" style={{ color: "var(--text-muted)" }}>
+            Bukan pengelola website atau ingin melihat portofolio?
+          </p>
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-medium border transition-all hover:scale-[1.01]"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--bg-soft)",
+              color: "var(--text)",
+            }}
+          >
+            <ArrowLeft size={14} />
+            Kembali ke Homepage (Beranda)
+          </Link>
+        </div>
       </div>
     </motion.div>
   );
