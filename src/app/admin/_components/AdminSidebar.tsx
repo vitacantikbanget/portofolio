@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -13,6 +15,7 @@ import {
   LogOut,
   X,
   ShieldCheck,
+  Loader2,
 } from "lucide-react";
 import { signOut } from "@/app/admin/actions";
 
@@ -44,6 +47,8 @@ type NavGroup = {
 
 export default function AdminSidebar({ user, isOpen, onClose }: Props) {
   const pathname = usePathname();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const isLinkActive = (href: string) => {
     if (href === "/admin") {
@@ -54,7 +59,7 @@ export default function AdminSidebar({ user, isOpen, onClose }: Props) {
 
   const navGroups: NavGroup[] = [
     {
-      group: "CONTENT",
+      group: "KONTEN",
       items: [
         {
           label: "Dashboard",
@@ -309,26 +314,25 @@ export default function AdminSidebar({ user, isOpen, onClose }: Props) {
           </div>
         </div>
 
-        <form action={signOut}>
-          <button
-            type="submit"
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-all hover:scale-[1.01]"
-            style={{
-              borderColor: "var(--border)",
-              background: "var(--bg-soft)",
-              color: "var(--text)",
-            }}
-          >
-            <LogOut size={13} />
-            Keluar dari Admin
-          </button>
-        </form>
+        <button
+          type="button"
+          onClick={() => setShowLogoutModal(true)}
+          className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:scale-[1.01]"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--bg-soft)",
+            color: "var(--text)",
+          }}
+        >
+          <LogOut size={13} />
+          Keluar dari Admin
+        </button>
 
         <p
           className="text-[10px] text-center italic tracking-wider opacity-60 pt-1"
           style={{ color: "var(--text-muted)" }}
         >
-          Crafted with passion & precision
+          Dibuat dengan dedikasi &amp; ketelitian
         </p>
       </div>
     </div>
@@ -353,6 +357,113 @@ export default function AdminSidebar({ user, isOpen, onClose }: Props) {
           </div>
         </div>
       )}
+
+      {/* Modal Konfirmasi Logout */}
+      <AnimatePresence>
+        {showLogoutModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                if (!isLoggingOut) setShowLogoutModal(false);
+              }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+            />
+
+            {/* Kotak Dialog */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 12 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-sm rounded-3xl border p-6 sm:p-7 shadow-2xl z-10 space-y-5"
+              style={{
+                background: "var(--surface)",
+                borderColor: "var(--border)",
+              }}
+            >
+              <div className="flex items-center gap-3.5">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border"
+                  style={{
+                    background: "var(--accent-soft)",
+                    borderColor: "var(--accent)",
+                    color: "var(--accent)",
+                  }}
+                >
+                  <LogOut size={22} />
+                </div>
+                <div>
+                  <h3
+                    className="text-base font-semibold leading-tight"
+                    style={{ color: "var(--text)" }}
+                  >
+                    Konfirmasi Keluar
+                  </h3>
+                  <p
+                    className="text-xs mt-1"
+                    style={{ color: "var(--text-muted)" }}
+                  >
+                    Keluar dari Dashboard Admin
+                  </p>
+                </div>
+              </div>
+
+              <p
+                className="text-xs leading-relaxed"
+                style={{ color: "var(--text-muted)" }}
+              >
+                Apakah Anda yakin ingin keluar dari sesi admin? Anda harus masuk kembali jika ingin mengelola proyek atau konten portofolio.
+              </p>
+
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  type="button"
+                  disabled={isLoggingOut}
+                  onClick={() => setShowLogoutModal(false)}
+                  className="flex-1 px-4 py-2.5 rounded-xl border text-xs font-medium transition-all hover:scale-[1.02] disabled:opacity-50"
+                  style={{
+                    borderColor: "var(--border)",
+                    background: "var(--bg-soft)",
+                    color: "var(--text)",
+                  }}
+                >
+                  Batal
+                </button>
+
+                <form
+                  action={async () => {
+                    setIsLoggingOut(true);
+                    await signOut();
+                  }}
+                  className="flex-1"
+                >
+                  <button
+                    type="submit"
+                    disabled={isLoggingOut}
+                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium text-white transition-all hover:scale-[1.02] disabled:opacity-50 shadow-xs"
+                    style={{
+                      background: "var(--accent)",
+                    }}
+                  >
+                    {isLoggingOut ? (
+                      <>
+                        <Loader2 size={13} className="animate-spin" />
+                        <span>Keluar...</span>
+                      </>
+                    ) : (
+                      <span>Lanjutkan</span>
+                    )}
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
