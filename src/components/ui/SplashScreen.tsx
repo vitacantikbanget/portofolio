@@ -109,7 +109,7 @@ export default function SplashScreen() {
           className="text-[9px] tracking-[0.4em] uppercase font-mono"
           style={{ color: "var(--text-muted)" }}
         >
-          Loading
+          Memuat
         </span>
         <span
           className="splash-blink w-1.5 h-1.5 rounded-full"
@@ -162,7 +162,7 @@ export default function SplashScreen() {
           className="splash-portfolio text-[10px] tracking-[0.5em] uppercase mb-5"
           style={{ color: "var(--text-muted)" }}
         >
-          Portfolio
+          Portofolio
         </p>
 
         {/* Nama — efek blur reveal */}

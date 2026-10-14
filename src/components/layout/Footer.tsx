@@ -33,7 +33,7 @@ export default function Footer() {
               className="text-xs"
               style={{ color: "var(--text-muted)" }}
             >
-              Designed & developed with curiosity.
+              Dirancang &amp; dikembangkan dengan dedikasi.
             </p>
           </div>
 
@@ -70,8 +70,8 @@ export default function Footer() {
             color: "var(--text-muted)",
           }}
         >
-          <p>© 2026 Desvita Putri. All rights reserved.</p>
-          <p>Made in Pasuruan, Indonesia.</p>
+          <p>© 2026 Desvita Putri. Hak cipta dilindungi.</p>
+          <p>Dibuat di Pasuruan, Indonesia.</p>
         </div>
       </div>
     </footer>

@@ -2,7 +2,7 @@ import { requireAdmin } from "../_lib/admin-guard";
 import SettingsForm from "./SettingsForm";
 
 export const metadata = {
-  title: "Pengaturan Website Ã¢â‚¬â€ Admin Portfolio",
+  title: "Pengaturan Website — Admin Portofolio",
 };
 
 export default async function SettingsPage() {
@@ -19,10 +19,10 @@ export default async function SettingsPage() {
 
   const initialData = {
     accent_color: profil?.accent_color ?? "#a96f6b",
-    site_title: profil?.site_title ?? "Desvita Putri Ã¢â‚¬â€ Personal Portfolio",
+    site_title: profil?.site_title ?? "Desvita Putri — Portofolio",
     site_description:
       profil?.site_description ??
-      "Portfolio pribadi Desvita Putri Wulandari Ã¢â‚¬â€ Frontend Developer & UI/UX Designer.",
+      "Portofolio pribadi Desvita Putri Wulandari — Frontend Developer & UI/UX Designer.",
   };
 
   return (

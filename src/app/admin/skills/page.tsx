@@ -3,7 +3,7 @@ import SkillTable from "./SkillTable";
 import type { Skill } from "@/lib/skills";
 
 export const metadata = {
-  title: "Kelola Skills Ã¢â‚¬â€ Admin Portfolio",
+  title: "Kelola Keahlian — Admin Portofolio",
 };
 
 export default async function SkillsPage() {

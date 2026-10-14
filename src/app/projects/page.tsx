@@ -13,7 +13,7 @@ import { getProjects, type Project } from "@/lib/projects";
 
 // Daftar kategori buat filter
 const categories = [
-  { value: "all", label: "All" },
+  { value: "all", label: "Semua" },
   { value: "web", label: "Web" },
   { value: "uiux", label: "UI/UX" },
 ];
@@ -86,7 +86,7 @@ function ProjectsContent() {
           className="text-[11px] tracking-[0.3em] uppercase mb-3"
           style={{ color: "var(--text-muted)" }}
         >
-          All Projects
+          Semua Proyek
         </p>
         <h1
           className="text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight"

@@ -66,7 +66,7 @@ export default function About({ initialProfile: _initialProfile }: AboutProps) {
             className="text-[11px] tracking-[0.3em] uppercase font-medium"
             style={{ color: "var(--text-muted)" }}
           >
-            About Me
+            Tentang Saya
           </span>
         </div>
 
@@ -83,10 +83,10 @@ export default function About({ initialProfile: _initialProfile }: AboutProps) {
                 color: "var(--text)",
               }}
             >
-              Still learning,
+              Terus belajar,
               <br />
               <span className="italic" style={{ color: "var(--accent)" }}>
-                always building.
+                selalu berkarya.
               </span>
             </h2>
 
@@ -188,7 +188,7 @@ export default function About({ initialProfile: _initialProfile }: AboutProps) {
                   Bahasa
                 </p>
                 <p className="text-sm" style={{ color: "var(--text)" }}>
-                  Indonesia & English
+                  Indonesia &amp; Inggris
                 </p>
               </div>
             </div>

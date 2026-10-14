@@ -45,7 +45,7 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        aria-label="Toggle theme"
+        aria-label="Ganti tema"
         className="w-10 h-10 rounded-full border flex items-center justify-center"
         style={{
           borderColor: "var(--border)",
@@ -58,7 +58,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      aria-label={isDark ? "Aktifkan light mode" : "Aktifkan dark mode"}
+      aria-label={isDark ? "Aktifkan mode terang" : "Aktifkan mode gelap"}
       className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-110"
       style={{
         borderColor: "var(--border)",

@@ -2,7 +2,7 @@ import { requireAdmin } from "../_lib/admin-guard";
 import AboutForm from "./AboutForm";
 
 export const metadata = {
-  title: "Kelola About Ã¢â‚¬â€ Admin Portfolio",
+  title: "Kelola Tentang Saya — Admin Portofolio",
 };
 
 export default async function AboutPage() {
@@ -53,7 +53,7 @@ export default async function AboutPage() {
         >
           Kelola{" "}
           <span className="italic" style={{ color: "var(--accent)" }}>
-            About
+            Tentang Saya
           </span>
         </h1>
 
@@ -61,7 +61,7 @@ export default async function AboutPage() {
           className="text-xs sm:text-sm mt-1.5"
           style={{ color: "var(--text-muted)" }}
         >
-          Sesuaikan teks pengantar, headline, dan biografi Anda untuk bagian About di beranda.
+          Sesuaikan teks pengantar, peran utama, dan biografi Anda untuk bagian Tentang di beranda.
         </p>
       </div>
 

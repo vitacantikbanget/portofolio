@@ -11,14 +11,14 @@ const categoryInfo = [
   },
   {
     key: "design",
-    title: "Design & UI/UX",
+    title: "Desain & UI/UX",
     subtitle: "Desain antarmuka yang enak dilihat & dipakai.",
     Icon: Palette,
   },
   {
     key: "tools",
-    title: "Tools & Backend",
-    subtitle: "Tools pendukung dan dasar kerja backend.",
+    title: "Alat & Backend",
+    subtitle: "Alat pendukung dan dasar kerja backend.",
     Icon: Wrench,
   },
 ];
@@ -49,7 +49,7 @@ export default function Skills({ initialSkills }: SkillsProps) {
             className="text-[11px] tracking-[0.3em] uppercase font-medium"
             style={{ color: "var(--text-muted)" }}
           >
-            My Skills
+            Keahlian Saya
           </span>
         </div>
 
@@ -62,7 +62,7 @@ export default function Skills({ initialSkills }: SkillsProps) {
               color: "var(--text)",
             }}
           >
-            Tools yang saya
+            Alat &amp; teknologi yang saya
             <br />
             <span className="italic" style={{ color: "var(--accent)" }}>
               pakai sehari-hari.

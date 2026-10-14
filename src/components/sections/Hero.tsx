@@ -479,7 +479,7 @@ export default function Hero({ avatarUrl }: HeroProps) {
                 className="w-1.5 h-1.5 rounded-full"
                 style={{ background: "var(--accent)" }}
               />
-              Available for work
+              Terbuka untuk Peluang Kerja
             </div>
 
             {/* Nama — besar */}
@@ -500,7 +500,7 @@ export default function Hero({ avatarUrl }: HeroProps) {
               className="mt-5 text-base sm:text-lg lg:text-xl font-medium min-h-[1.8em] hero-in-typing"
               style={{ color: "var(--text)" }}
             >
-              I&apos;m a <TypingText />
+              Seorang <TypingText />
             </div>
 
             {/* Deskripsi */}

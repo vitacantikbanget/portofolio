@@ -75,7 +75,7 @@ export default async function ProjectDetailPage({ params }: Params) {
             size={16}
             className="transition-transform group-hover:-translate-x-1"
           />
-          Kembali ke Projects
+          Kembali ke Proyek
         </Link>
 
         {/* ===== KATEGORI KECIL ===== */}
@@ -125,7 +125,7 @@ export default async function ProjectDetailPage({ params }: Params) {
               className="text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
               style={{ color: "var(--text-muted)" }}
             >
-              About The Project
+              Tentang Proyek
             </p>
 
             <h2
@@ -135,7 +135,7 @@ export default async function ProjectDetailPage({ params }: Params) {
                 color: "var(--text)",
               }}
             >
-              Background & Solution
+              Latar Belakang &amp; Solusi
             </h2>
 
             {/* Garis accent di bawah judul */}
@@ -161,7 +161,7 @@ export default async function ProjectDetailPage({ params }: Params) {
                 className="text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
                 style={{ color: "var(--text-muted)" }}
               >
-                Tools
+                Teknologi &amp; Alat
               </p>
               <div
                 className="w-16 h-[2px] mb-6"
@@ -191,7 +191,7 @@ export default async function ProjectDetailPage({ params }: Params) {
                 className="text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
                 style={{ color: "var(--text-muted)" }}
               >
-                Category
+                Kategori
               </p>
               <div
                 className="w-16 h-[2px] mb-6"

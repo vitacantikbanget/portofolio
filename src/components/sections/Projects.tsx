@@ -25,7 +25,7 @@ export default function Projects({ initialProjects }: ProjectsProps) {
             className="text-[11px] tracking-[0.3em] uppercase font-medium"
             style={{ color: "var(--text-muted)" }}
           >
-            Selected Projects
+            Proyek Pilihan
           </span>
         </div>
 

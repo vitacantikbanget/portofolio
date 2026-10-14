@@ -63,19 +63,19 @@ export default function AdminSidebar({ user, isOpen, onClose }: Props) {
           enabled: true,
         },
         {
-          label: "Projects",
+          label: "Proyek",
           href: "/admin/proyek",
           icon: FolderKanban,
           enabled: true,
         },
         {
-          label: "Skills",
+          label: "Keahlian",
           href: "/admin/skills",
           icon: Code2,
           enabled: true,
         },
         {
-          label: "About",
+          label: "Tentang Saya",
           href: "/admin/about",
           icon: UserCheck,
           enabled: true,
@@ -83,7 +83,7 @@ export default function AdminSidebar({ user, isOpen, onClose }: Props) {
       ],
     },
     {
-      group: "COMMUNICATION",
+      group: "KOMUNIKASI",
       items: [
         {
           label: "Pesan Kontak",
@@ -95,10 +95,10 @@ export default function AdminSidebar({ user, isOpen, onClose }: Props) {
       ],
     },
     {
-      group: "SYSTEM",
+      group: "SISTEM",
       items: [
         {
-          label: "Settings",
+          label: "Pengaturan",
           href: "/admin/settings",
           icon: Settings,
           enabled: true,

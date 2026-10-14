@@ -88,7 +88,7 @@ export default function ProjectCard({ project }: Props) {
             className="group/link inline-flex items-center gap-2 text-sm font-medium transition-all hover:gap-3"
             style={{ color: "var(--accent)" }}
           >
-            View Project
+            Lihat Proyek
             {/* Arrow naik + geser kanan saat hover */}
             <ArrowUpRight
               size={16}

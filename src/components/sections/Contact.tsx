@@ -70,7 +70,7 @@ export default function Contact() {
             className="text-[11px] tracking-[0.3em] uppercase font-medium"
             style={{ color: "var(--text-muted)" }}
           >
-            Contact
+            Kontak
           </span>
         </div>
 
@@ -103,10 +103,10 @@ export default function Contact() {
                   color: "var(--text)",
                 }}
               >
-                Let's build
+                Mari bangun sesuatu
                 <br />
                 <span className="italic" style={{ color: "var(--accent)" }}>
-                  something together.
+                  bersama-sama.
                 </span>
               </h2>
 
@@ -114,8 +114,8 @@ export default function Contact() {
                 className="text-sm sm:text-base leading-relaxed mb-8 max-w-md"
                 style={{ color: "var(--text-muted)" }}
               >
-                Kalau kamu punya ide, project, atau cuma mau ngobrol soal web
-                development & design — feel free to reach out.
+                Kalau kamu punya ide, proyek, atau mau berdiskusi soal web
+                development &amp; desain — silakan hubungi saya kapan saja.
               </p>
 
               {/* Sosial media */}
