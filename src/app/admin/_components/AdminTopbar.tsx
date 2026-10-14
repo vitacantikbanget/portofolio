@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu, User } from "lucide-react";
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 type UserInfo = {
   username: string;

@@ -71,7 +71,9 @@ export async function updateSettings(
     user_id: userId,
   });
 
+  revalidatePath("/", "layout");
   revalidatePath("/");
+  revalidatePath("/projects");
   revalidatePath("/admin");
   revalidatePath("/admin/settings");
 

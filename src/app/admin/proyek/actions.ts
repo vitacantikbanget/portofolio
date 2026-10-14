@@ -135,6 +135,7 @@ export async function createProject(
 
   await catatAktivitas(supabase, "create", hasil.data.title);
 
+  revalidatePath("/");
   revalidatePath("/admin");
   revalidatePath("/admin/proyek");
   revalidatePath("/admin/proyek", "page");
@@ -207,6 +208,7 @@ export async function updateProject(
 
   await catatAktivitas(supabase, "update", hasil.data.title);
 
+  revalidatePath("/");
   revalidatePath("/admin");
   revalidatePath("/admin/proyek");
   revalidatePath("/admin/proyek", "page");
@@ -247,6 +249,7 @@ export async function deleteProject(formData: FormData) {
 
   await catatAktivitas(supabase, "delete", baris.title);
 
+  revalidatePath("/");
   revalidatePath("/admin");
   revalidatePath("/admin/proyek");
   revalidatePath("/admin/proyek", "page");

@@ -245,7 +245,6 @@ export default function ParticlesBackground() {
             x: [0, 40, 0],
             y: [0, 30, 0],
             scale: [1, 1.1, 1],
-            backgroundColor: ["#8f5a56", "#d4a5a0", "#8f5a56"],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -265,7 +264,6 @@ export default function ParticlesBackground() {
             x: [0, -30, 0],
             y: [0, -40, 0],
             scale: [1, 1.15, 1],
-            backgroundColor: ["#6f5c78", "#b8a6c2", "#6f5c78"],
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -284,7 +282,6 @@ export default function ParticlesBackground() {
           animate={{
             x: [0, -20, 0],
             y: [0, 30, 0],
-            backgroundColor: ["#b8aec8", "#d4a5a0", "#b8aec8"],
           }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -303,7 +300,6 @@ export default function ParticlesBackground() {
           animate={{
             x: [0, 30, 0],
             y: [0, -20, 0],
-            backgroundColor: ["#e8d5d2", "#b8aec8", "#e8d5d2"],
           }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         />

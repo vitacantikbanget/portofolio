@@ -18,7 +18,7 @@ export async function getProjects(): Promise<Project[]> {
   const { data, error } = await supabase
     .from("projects")        // pilih tabel "projects"
     .select("*")             // ambil semua kolom
-    .order("id", { ascending: true }); // urutkan dari ID terkecil
+    .order("id", { ascending: false }); // urutkan data terbaru di paling atas (seperti di database)
 
   // Kalau ada error → return array kosong
   if (error) {

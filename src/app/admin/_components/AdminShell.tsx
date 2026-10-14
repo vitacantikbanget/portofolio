@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import GlobalBackground from "@/components/GlobalBackground";
+import GlobalBackground from "@/components/ui/GlobalBackground";
 import AdminSidebar from "./AdminSidebar";
 import AdminTopbar from "./AdminTopbar";
 

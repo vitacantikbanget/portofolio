@@ -1,4 +1,4 @@
-import ParticlesBackground from "@/components/ParticlesBackground";
+import ParticlesBackground from "@/components/ui/ParticlesBackground";
 import LoginCard from "./LoginCard";
 
 export const metadata = {

@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import GlobalBackground from "@/components/GlobalBackground";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import ProjectCard from "@/components/ProjectCard";
+import GlobalBackground from "@/components/ui/GlobalBackground";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import ProjectCard from "@/components/ui/ProjectCard";
 import { getProjects, type Project } from "@/lib/projects";
 
 // Daftar kategori buat filter

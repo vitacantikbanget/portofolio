@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getProjectBySlug } from "@/lib/projects";
-import GlobalBackground from "@/components/GlobalBackground";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import GlobalBackground from "@/components/ui/GlobalBackground";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 // Tipe params — Next.js 15+ pakai Promise
 type Params = {

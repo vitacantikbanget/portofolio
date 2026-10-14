@@ -12,7 +12,7 @@ export default async function SkillsPage() {
   const { data: skills, error } = await supabase
     .from("skills")
     .select("id, name, category")
-    .order("id", { ascending: true });
+    .order("id", { ascending: false });
 
   if (error) {
     console.error("Gagal memuat skills:", error.message);

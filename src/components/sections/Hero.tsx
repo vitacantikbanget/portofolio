@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowRight, Mail } from "lucide-react";
-import TypingText from "./hero/TypingText";
+import TypingText from "@/components/sections/hero/TypingText";
 
 interface HeroProps {
   avatarUrl?: string | null;
